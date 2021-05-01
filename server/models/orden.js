@@ -16,9 +16,11 @@ let ordenSchema = new Schema({
     default: 1,
   },
   _legajo: {
-    type: Schema.ObjectId,
-    ref: 'afiliado',
-    required: [true, 'El afiliado que solicita la orden es requerida'],
+    type: Number,
+    required: [
+      true,
+      'El legajo del afiliado que solicita la orden es requerida',
+    ],
   },
   _proveedor: {
     type: Schema.ObjectId,
