@@ -3,9 +3,23 @@ const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
 
-const Afiliado = require('../../models/afiliado')
-
 router.get('/', function(req, res) {
+  let legajo = req.query.legajo
+  controller
+    .getAfiliado(legajo)
+    .then((user) => {
+      res.json({
+        ok: true,
+        afiliado: user,
+      })
+    })
+    .catch((err) => {
+      res.status(400).json({
+        ok: false,
+        err,
+      })
+    })
+
   /*let afiliado = new Afiliado({
     nombre: 'Gustavo',
     apellido: 'Tiseira',
