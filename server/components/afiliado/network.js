@@ -3,12 +3,6 @@ const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
 
-/* 
-========================================
-                Leer Afiliado
-========================================
-*/
-
 router.get('/', function(req, res) {
   let legajo = req.query.legajo
   controller
