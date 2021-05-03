@@ -16,6 +16,26 @@ const getAfiliadoDB = (legajo) => {
   })
 }
 
+const postAfiliadoDB = (body) => {
+  return new Promise((resolve, reject) => {
+    let afiliado = new Afiliado({
+      nombre: body.nombre,
+      apellido: body.apellido,
+      dni: body.dni,
+      legajo: body.legajo,
+      saldoAsignado: body.saldoAsignado,
+      estado: body.estado,
+    })
+    afiliado.save((err, newAfiliadoDB) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(newAfiliadoDB)
+    })
+  })
+}
+
 module.exports = {
   getAfiliadoDB,
+  postAfiliadoDB,
 }

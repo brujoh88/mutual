@@ -8,6 +8,16 @@ const getAfiliado = (legajo) => {
       .catch((err) => reject(err))
   })
 }
+
+const postAfiliado = (body) => {
+  return new Promise((resolve, reject) => {
+    store
+      .postAfiliadoDB(body)
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err))
+  })
+}
 module.exports = {
   getAfiliado,
+  postAfiliado,
 }
