@@ -1,4 +1,5 @@
 const Afiliado = require('../../models/afiliado')
+const _ = require('underscore')
 
 const getAfiliadoDB = (legajo) => {
   return new Promise((resolve, reject) => {
@@ -33,7 +34,31 @@ const postAfiliadoDB = (body) => {
   })
 }
 
+const putAfiliadoDB = (legajo, datos) => {
+  return new Promise((resolve, reject) => {
+    let body = _.pick(datos, [
+      'nombre',
+      'apellido',
+      'dni',
+      'legajo',
+      'saldoAsignado',
+      'estado',
+    ])
+    Afiliado.findOneAndUpdate(
+      { legajo: legajo },
+      body,
+      { new: true },
+      (err, doc) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(doc)
+      }
+    )
+  })
+}
 module.exports = {
   getAfiliadoDB,
   postAfiliadoDB,
+  putAfiliadoDB,
 }

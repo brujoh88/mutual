@@ -17,9 +17,21 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   let body = req.body
-  console.log(body)
   controller
     .postAfiliado(body)
+    .then((resp) => {
+      response.success(req, res, resp, 201)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
+router.put('/', function(req, res) {
+  let legajo = req.query.legajo
+  let act = req.body
+  controller
+    .putAfiliado(legajo, act)
     .then((resp) => {
       response.success(req, res, resp, 201)
     })

@@ -17,7 +17,17 @@ const postAfiliado = (body) => {
       .catch((err) => reject(err))
   })
 }
+
+const putAfiliado = (legajo, datos) => {
+  return new Promise((resolve, reject) => {
+    store
+      .putAfiliadoDB(legajo, datos)
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err))
+  })
+}
 module.exports = {
   getAfiliado,
   postAfiliado,
+  putAfiliado,
 }
