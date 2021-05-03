@@ -2,9 +2,10 @@ const store = require('./store')
 
 const getAfiliado = (legajo) => {
   return new Promise((resolve, reject) => {
-    const user = store.getAfiliadoDB(legajo)
-    console.log(user)
-    resolve(user)
+    store
+      .getAfiliadoDB(legajo)
+      .then((user) => resolve(user))
+      .catch((err) => reject(err))
   })
 }
 module.exports = {

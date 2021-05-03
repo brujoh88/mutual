@@ -8,16 +8,10 @@ router.get('/', function(req, res) {
   controller
     .getAfiliado(legajo)
     .then((user) => {
-      res.json({
-        ok: true,
-        afiliado: user,
-      })
+      response.success(req, res, user, 200)
     })
     .catch((err) => {
-      res.status(400).json({
-        ok: false,
-        err,
-      })
+      response.error(req, res, err, 500)
     })
 
   /*let afiliado = new Afiliado({
