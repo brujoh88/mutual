@@ -1,4 +1,5 @@
 const Proovedor = require('../../models/proovedor')
+const _ = require('underscore')
 
 const getProovedorDB = (idProovedor) => {
   return new Promise((resolve, reject) => {
@@ -25,7 +26,20 @@ const postProovedorDB = (body) => {
   })
 }
 
+const putProovedorDB = (id, datos) => {
+  return new Promise((resolve, reject) => {
+    let body = _.pick(datos, ['nombre'])
+    Proovedor.findByIdAndUpdate(id, body, { new: true }, (err, proovedorDB) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(proovedorDB)
+    })
+  })
+}
+
 module.exports = {
   getProovedorDB,
   postProovedorDB,
+  putProovedorDB,
 }

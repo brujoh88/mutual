@@ -28,4 +28,17 @@ router.post('/', function(req, res) {
     })
 })
 
+router.put('/:id', function(req, res) {
+  let idProovedor = req.params.id
+  let act = req.body
+  controller
+    .putProovedor(idProovedor, act)
+    .then((resp) => {
+      response.success(req, res, resp, 201)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 module.exports = router
