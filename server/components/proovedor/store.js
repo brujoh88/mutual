@@ -11,6 +11,21 @@ const getProovedorDB = (idProovedor) => {
   })
 }
 
+const postProovedorDB = (body) => {
+  return new Promise((resolve, reject) => {
+    let proovedor = new Proovedor({
+      nombre: body.nombre,
+    })
+    proovedor.save((err, newProovedorDB) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(newProovedorDB)
+    })
+  })
+}
+
 module.exports = {
   getProovedorDB,
+  postProovedorDB,
 }

@@ -9,6 +9,16 @@ const getProovedor = (idProovedor) => {
   })
 }
 
+const postProovedor = (body) => {
+  return new Promise((resolve, reject) => {
+    store
+      .postProovedorDB(body)
+      .then((resp) => resolve(resp))
+      .catch((err) => reject(err))
+  })
+}
+
 module.exports = {
   getProovedor,
+  postProovedor,
 }

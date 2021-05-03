@@ -16,4 +16,16 @@ router.get('/:id', function(req, res) {
     })
 })
 
+router.post('/', function(req, res) {
+  let body = req.body
+  controller
+    .postProovedor(body)
+    .then((resp) => {
+      response.success(req, res, resp, 201)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 module.exports = router
