@@ -1,4 +1,4 @@
-const express = require('express')
+//const express = require('express')
 const componenteModelo = require('../components/componenteModelo/network')
 const otroComponente = require('../components/otroComponente/network')
 const afiliado = require('../components/afiliado/network')
