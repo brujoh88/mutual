@@ -11,10 +11,13 @@ router.get('/', function(req, res) {
       response.success(req, res, user, 200)
     })
     .catch((err) => {
-      response.error(req, res, err, 500)
+      response.error(req, res, 'Unexpected error', 500, err)
     })
+})
 
-  /*let afiliado = new Afiliado({
+module.exports = router
+
+/*let afiliado = new Afiliado({
     nombre: 'Gustavo',
     apellido: 'Tiseira',
     dni: 33722424,
@@ -34,14 +37,3 @@ router.get('/', function(req, res) {
       afiliado: afiliadoDB,
     })
   }) */
-  /* const filterMessage = req.query.user || null
-  controller.getMessage(filterMessage)
-    .then((messageList) => {
-      response.success(req, res, messageList, 200)
-    })
-    .catch(e => {
-      response.error(req, res, 'Unexpected error', 500, e)
-    }) */
-})
-
-module.exports = router
