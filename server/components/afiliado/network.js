@@ -40,4 +40,35 @@ router.put('/', function(req, res) {
     })
 })
 
+router.delete('/', function(req, res) {
+  let legajo = req.query.legajo,
+    cambioEstado = {
+      estado: false,
+    }
+  controller
+    .getAfiliado(legajo)
+    .then((user) => {
+      if (user === null || user[0].estado === false) {
+        response.error(
+          req,
+          res,
+          'Peticion incorrecta',
+          500,
+          'No existe ese afiliado'
+        )
+      }
+      controller
+        .putAfiliado(legajo, cambioEstado)
+        .then((resp) => {
+          response.success(req, res, resp, 201)
+        })
+        .catch((err) => {
+          response.error(req, res, 'Unexpected error', 500, err)
+        })
+    })
+    .catch((err) => {
+      response.error(req, res, 'Peticion incorrecta', 500, err)
+    })
+})
+
 module.exports = router
