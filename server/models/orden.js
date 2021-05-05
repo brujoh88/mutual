@@ -16,7 +16,8 @@ let ordenSchema = new Schema({
     default: 1,
   },
   _idAfiliado: {
-    type: Number,
+    type: Schema.ObjectId,
+    ref: 'afiliado',
     required: [true, 'El id del afiliado que solicita la orden es requerida'],
   },
   _idProveedor: {
