@@ -5,18 +5,17 @@ const controller = require('./controller')
 
 router.get('/', function(req, res) {
   controller
-    .getAfiliados()
-    .then((proovedor) => {
-      response.success(req, res, proovedor, 200)
+    .getOrdenes()
+    .then((ordenes) => {
+      response.success(req, res, ordenes, 200)
     })
     .catch((err) => {
       response.error(req, res, 'Unexpected error', 500, err)
     })
 })
 
-router.get('/:id', function(req, res) {
+/* router.get('/:id', function(req, res) {
   let id = req.params.id
-
   controller
     .getAfiliado(id)
     .then((user) => {
@@ -82,6 +81,6 @@ router.delete('/:id', function(req, res) {
     .catch((err) => {
       response.error(req, res, 'Peticion incorrecta', 500, err)
     })
-})
+}) */
 
 module.exports = router

@@ -1,21 +1,21 @@
-const Afiliado = require('../../models/afiliado')
+const Orden = require('../../models/orden')
 const _ = require('underscore')
 
-const getAfiliadosDB = () => {
+const getOrdenesDB = () => {
   return new Promise((resolve, reject) => {
-    Afiliado.find({}).exec((err, afiliadosDB) => {
+    Orden.find({}).exec((err, ordenesDB) => {
       if (err) {
         reject(err)
       }
-      if (afiliadosDB.length != 0) {
-        resolve(afiliadosDB)
+      if (ordenesDB.length != 0) {
+        resolve(ordenesDB)
       }
       resolve(null)
     })
   })
 }
 
-const getAfiliadoDB = (id) => {
+/* const getAfiliadoDB = (id) => {
   return new Promise((resolve, reject) => {
     Afiliado.findById(id, (err, user) => {
       if (err) {
@@ -62,10 +62,10 @@ const putAfiliadoDB = (id, datos) => {
       resolve(doc)
     })
   })
-}
+} */
 module.exports = {
-  getAfiliadosDB,
-  getAfiliadoDB,
+  getOrdenesDB,
+  /*   getAfiliadoDB,
   postAfiliadoDB,
-  putAfiliadoDB,
+  putAfiliadoDB, */
 }
