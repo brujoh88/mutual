@@ -4,7 +4,7 @@ const getAfiliados = () => {
   return new Promise((resolve, reject) => {
     store
       .getAfiliadosDB()
-      .then((user) => resolve(user))
+      .then((users) => resolve(users))
       .catch((err) => reject(err))
   })
 }

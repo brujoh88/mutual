@@ -1,5 +1,14 @@
 const store = require('./store')
 
+const getProovedors = () => {
+  return new Promise((resolve, reject) => {
+    store
+      .getProovedorsDB()
+      .then((proovedors) => resolve(proovedors))
+      .catch((err) => reject(err))
+  })
+}
+
 const getProovedor = (idProovedor) => {
   return new Promise((resolve, reject) => {
     store
@@ -28,6 +37,7 @@ const putProovedor = (id, datos) => {
 }
 
 module.exports = {
+  getProovedors,
   getProovedor,
   postProovedor,
   putProovedor,

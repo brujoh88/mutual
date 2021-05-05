@@ -1,6 +1,20 @@
 const Proovedor = require('../../models/proovedor')
 const _ = require('underscore')
 
+const getProovedorsDB = () => {
+  return new Promise((resolve, reject) => {
+    Proovedor.find({}).exec((err, proovedorsDB) => {
+      if (err) {
+        reject(err)
+      }
+      if (proovedorsDB.length != 0) {
+        resolve(proovedorsDB)
+      }
+      resolve(null)
+    })
+  })
+}
+
 const getProovedorDB = (idProovedor) => {
   return new Promise((resolve, reject) => {
     Proovedor.findById(idProovedor, (err, proovedor) => {
@@ -39,6 +53,7 @@ const putProovedorDB = (id, datos) => {
 }
 
 module.exports = {
+  getProovedorsDB,
   getProovedorDB,
   postProovedorDB,
   putProovedorDB,
