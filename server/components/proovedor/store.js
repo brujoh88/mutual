@@ -42,7 +42,7 @@ const postProovedorDB = (body) => {
 
 const putProovedorDB = (id, datos) => {
   return new Promise((resolve, reject) => {
-    let body = _.pick(datos, ['nombre'])
+    let body = _.pick(datos, ['nombre', 'estado'])
     Proovedor.findByIdAndUpdate(id, body, { new: true }, (err, proovedorDB) => {
       if (err) {
         reject(err)

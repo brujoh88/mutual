@@ -51,4 +51,36 @@ router.put('/:id', function(req, res) {
     })
 })
 
+router.delete('/:id', function(req, res) {
+  let id = req.params.id,
+    cambioEstado = {
+      estado: false,
+    }
+
+  controller
+    .getProovedor(id)
+    .then((proovedor) => {
+      if (proovedor === null || proovedor.estado === false) {
+        response.error(
+          req,
+          res,
+          'Peticion incorrecta',
+          500,
+          'No existe ese proovedor'
+        )
+      }
+      controller
+        .putProovedor(id, cambioEstado)
+        .then((resp) => {
+          response.success(req, res, resp, 201)
+        })
+        .catch((err) => {
+          response.error(req, res, 'Unexpected error', 500, err)
+        })
+    })
+    .catch((err) => {
+      response.error(req, res, 'Peticion incorrecta', 500, err)
+    })
+})
+
 module.exports = router
