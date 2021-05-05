@@ -17,14 +17,11 @@ const getAfiliadosDB = () => {
 
 const getAfiliadoDB = (legajo) => {
   return new Promise((resolve, reject) => {
-    Afiliado.find({ legajo: legajo }).exec((err, afiliadoDB) => {
+    Afiliado.findById(legajo, (err, user) => {
       if (err) {
         reject(err)
       }
-      if (afiliadoDB.length != 0) {
-        resolve(afiliadoDB)
-      }
-      resolve(null)
+      resolve(user)
     })
   })
 }

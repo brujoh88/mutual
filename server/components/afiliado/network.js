@@ -3,27 +3,17 @@ const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
 
-router.get('/', function(req, res) {
-  let legajo = req.query.legajo
-  if (legajo === undefined) {
-    controller
-      .getAfiliados()
-      .then((user) => {
-        response.success(req, res, user, 200)
-      })
-      .catch((err) => {
-        response.error(req, res, 'Unexpected error', 500, err)
-      })
-  } else {
-    controller
-      .getAfiliado(legajo)
-      .then((user) => {
-        response.success(req, res, user, 200)
-      })
-      .catch((err) => {
-        response.error(req, res, 'Unexpected error', 500, err)
-      })
-  }
+router.get('/:id', function(req, res) {
+  let legajo = req.params.id
+
+  controller
+    .getAfiliado(legajo)
+    .then((user) => {
+      response.success(req, res, user, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
 })
 
 router.post('/', function(req, res) {
