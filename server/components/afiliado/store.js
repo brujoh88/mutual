@@ -15,9 +15,9 @@ const getAfiliadosDB = () => {
   })
 }
 
-const getAfiliadoDB = (legajo) => {
+const getAfiliadoDB = (id) => {
   return new Promise((resolve, reject) => {
-    Afiliado.findById(legajo, (err, user) => {
+    Afiliado.findById(id, (err, user) => {
       if (err) {
         reject(err)
       }
@@ -45,7 +45,7 @@ const postAfiliadoDB = (body) => {
   })
 }
 
-const putAfiliadoDB = (legajo, datos) => {
+const putAfiliadoDB = (id, datos) => {
   return new Promise((resolve, reject) => {
     let body = _.pick(datos, [
       'nombre',
@@ -55,17 +55,12 @@ const putAfiliadoDB = (legajo, datos) => {
       'saldoAsignado',
       'estado',
     ])
-    Afiliado.findOneAndUpdate(
-      { legajo: legajo },
-      body,
-      { new: true },
-      (err, doc) => {
-        if (err) {
-          reject(err)
-        }
-        resolve(doc)
+    Afiliado.findByIdAndUpdate(id, body, { new: true }, (err, doc) => {
+      if (err) {
+        reject(err)
       }
-    )
+      resolve(doc)
+    })
   })
 }
 module.exports = {

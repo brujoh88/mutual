@@ -9,10 +9,10 @@ const getAfiliados = () => {
   })
 }
 
-const getAfiliado = (legajo) => {
+const getAfiliado = (id) => {
   return new Promise((resolve, reject) => {
     store
-      .getAfiliadoDB(legajo)
+      .getAfiliadoDB(id)
       .then((user) => resolve(user))
       .catch((err) => reject(err))
   })
@@ -27,10 +27,10 @@ const postAfiliado = (body) => {
   })
 }
 
-const putAfiliado = (legajo, datos) => {
+const putAfiliado = (id, datos) => {
   return new Promise((resolve, reject) => {
     store
-      .putAfiliadoDB(legajo, datos)
+      .putAfiliadoDB(id, datos)
       .then((resp) => resolve(resp))
       .catch((err) => reject(err))
   })

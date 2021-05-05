@@ -3,11 +3,22 @@ const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
 
+router.get('/', function(req, res) {
+  controller
+    .getAfiliados()
+    .then((proovedor) => {
+      response.success(req, res, proovedor, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 router.get('/:id', function(req, res) {
-  let legajo = req.params.id
+  let id = req.params.id
 
   controller
-    .getAfiliado(legajo)
+    .getAfiliado(id)
     .then((user) => {
       response.success(req, res, user, 200)
     })
@@ -28,11 +39,11 @@ router.post('/', function(req, res) {
     })
 })
 
-router.put('/', function(req, res) {
-  let legajo = req.query.legajo
+router.put('/:id', function(req, res) {
+  let id = req.params.id
   let act = req.body
   controller
-    .putAfiliado(legajo, act)
+    .putAfiliado(id, act)
     .then((resp) => {
       response.success(req, res, resp, 201)
     })
@@ -41,15 +52,16 @@ router.put('/', function(req, res) {
     })
 })
 
-router.delete('/', function(req, res) {
-  let legajo = req.query.legajo,
+router.delete('/:id', function(req, res) {
+  let id = req.params.id,
     cambioEstado = {
       estado: false,
     }
+
   controller
-    .getAfiliado(legajo)
+    .getAfiliado(id)
     .then((user) => {
-      if (user === null || user[0].estado === false) {
+      if (user === null || user.estado === false) {
         response.error(
           req,
           res,
@@ -59,7 +71,7 @@ router.delete('/', function(req, res) {
         )
       }
       controller
-        .putAfiliado(legajo, cambioEstado)
+        .putAfiliado(id, cambioEstado)
         .then((resp) => {
           response.success(req, res, resp, 201)
         })
