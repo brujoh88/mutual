@@ -15,17 +15,14 @@ let ordenSchema = new Schema({
     type: Number,
     default: 1,
   },
-  _legajo: {
+  _idAfiliado: {
     type: Number,
-    required: [
-      true,
-      'El legajo del afiliado que solicita la orden es requerida',
-    ],
+    required: [true, 'El id del afiliado que solicita la orden es requerida'],
   },
-  _proveedor: {
+  _idProveedor: {
     type: Schema.ObjectId,
     ref: 'proveedor',
-    required: [true, 'Se requiere el proveedor destino de la orden'],
+    required: [true, 'Se requiere el id del proveedor destino de la orden'],
   },
   estado: {
     type: Boolean,
