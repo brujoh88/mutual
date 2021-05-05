@@ -1,5 +1,14 @@
 const store = require('./store')
 
+const getAfiliados = () => {
+  return new Promise((resolve, reject) => {
+    store
+      .getAfiliadosDB()
+      .then((user) => resolve(user))
+      .catch((err) => reject(err))
+  })
+}
+
 const getAfiliado = (legajo) => {
   return new Promise((resolve, reject) => {
     store
@@ -27,6 +36,7 @@ const putAfiliado = (legajo, datos) => {
   })
 }
 module.exports = {
+  getAfiliados,
   getAfiliado,
   postAfiliado,
   putAfiliado,
