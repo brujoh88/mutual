@@ -15,18 +15,18 @@ const getOrdenesDB = () => {
   })
 }
 
-/* const getAfiliadoDB = (id) => {
+const getOrdenDB = (id) => {
   return new Promise((resolve, reject) => {
-    Afiliado.findById(id, (err, user) => {
+    Orden.findById(id, (err, orden) => {
       if (err) {
         reject(err)
       }
-      resolve(user)
+      resolve(orden)
     })
   })
 }
 
-const postAfiliadoDB = (body) => {
+/*const postAfiliadoDB = (body) => {
   return new Promise((resolve, reject) => {
     let afiliado = new Afiliado({
       nombre: body.nombre,
@@ -65,7 +65,7 @@ const putAfiliadoDB = (id, datos) => {
 } */
 module.exports = {
   getOrdenesDB,
-  /*   getAfiliadoDB,
-  postAfiliadoDB,
+  getOrdenDB,
+  /*   postAfiliadoDB,
   putAfiliadoDB, */
 }

@@ -9,16 +9,16 @@ const getOrdenes = () => {
   })
 }
 
-/* const getAfiliado = (id) => {
+const getOrden = (id) => {
   return new Promise((resolve, reject) => {
     store
-      .getAfiliadoDB(id)
-      .then((user) => resolve(user))
+      .getOrdenDB(id)
+      .then((orden) => resolve(orden))
       .catch((err) => reject(err))
   })
 }
 
-const postAfiliado = (body) => {
+/*const postAfiliado = (body) => {
   return new Promise((resolve, reject) => {
     store
       .postAfiliadoDB(body)
@@ -37,7 +37,7 @@ const putAfiliado = (id, datos) => {
 } */
 module.exports = {
   getOrdenes,
-  /*   getAfiliado,
-  postAfiliado,
+  getOrden,
+  /*   postAfiliado,
   putAfiliado, */
 }

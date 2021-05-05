@@ -14,10 +14,10 @@ router.get('/', function(req, res) {
     })
 })
 
-/* router.get('/:id', function(req, res) {
+router.get('/:id', function(req, res) {
   let id = req.params.id
   controller
-    .getAfiliado(id)
+    .getOrden(id)
     .then((user) => {
       response.success(req, res, user, 200)
     })
@@ -26,7 +26,7 @@ router.get('/', function(req, res) {
     })
 })
 
-router.post('/', function(req, res) {
+/*router.post('/', function(req, res) {
   let body = req.body
   controller
     .postAfiliado(body)
