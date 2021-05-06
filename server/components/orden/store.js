@@ -26,26 +26,25 @@ const getOrdenDB = (id) => {
   })
 }
 
-/*const postAfiliadoDB = (body) => {
+const postOrdenDB = (body) => {
   return new Promise((resolve, reject) => {
-    let afiliado = new Afiliado({
-      nombre: body.nombre,
-      apellido: body.apellido,
-      dni: body.dni,
-      legajo: body.legajo,
-      saldoAsignado: body.saldoAsignado,
-      estado: body.estado,
+    console.log(body._idProveedor)
+    let orden = new Orden({
+      _idAfiliado: body._idAfiliado,
+      _idProovedor: body._idProovedor,
+      montoTotal: body.montoTotal,
+      cantidadCouta: body.cantidadCouta,
     })
-    afiliado.save((err, newAfiliadoDB) => {
+    orden.save((err, newOrdenDB) => {
       if (err) {
         reject(err)
       }
-      resolve(newAfiliadoDB)
+      resolve(newOrdenDB)
     })
   })
 }
 
-const putAfiliadoDB = (id, datos) => {
+/*const putAfiliadoDB = (id, datos) => {
   return new Promise((resolve, reject) => {
     let body = _.pick(datos, [
       'nombre',
@@ -66,6 +65,6 @@ const putAfiliadoDB = (id, datos) => {
 module.exports = {
   getOrdenesDB,
   getOrdenDB,
-  /*   postAfiliadoDB,
-  putAfiliadoDB, */
+  postOrdenDB,
+  /*   putAfiliadoDB, */
 }

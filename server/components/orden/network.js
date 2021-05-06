@@ -26,10 +26,10 @@ router.get('/:id', function(req, res) {
     })
 })
 
-/*router.post('/', function(req, res) {
+router.post('/', function(req, res) {
   let body = req.body
   controller
-    .postAfiliado(body)
+    .postOrden(body)
     .then((resp) => {
       response.success(req, res, resp, 201)
     })
@@ -38,7 +38,7 @@ router.get('/:id', function(req, res) {
     })
 })
 
-router.put('/:id', function(req, res) {
+/*router.put('/:id', function(req, res) {
   let id = req.params.id
   let act = req.body
   controller
