@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 let Schema = mongoose.Schema
 
-let coutaSchema = new Schema({
+let cuotaSchema = new Schema({
   _idOrden: {
     type: Schema.ObjectId,
     ref: 'orden',
@@ -22,8 +22,8 @@ let coutaSchema = new Schema({
   },
 })
 
-coutaSchema.plugin(uniqueValidator, {
+cuotaSchema.plugin(uniqueValidator, {
   message: '{PATH} debe de ser unico',
 })
 
-module.exports = mongoose.model('couta', coutaSchema)
+module.exports = mongoose.model('cuota', cuotaSchema)

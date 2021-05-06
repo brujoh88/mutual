@@ -1,10 +1,10 @@
 const store = require('./store')
 
-const getOrdenes = () => {
+const getCuotas = () => {
   return new Promise((resolve, reject) => {
     store
-      .getOrdenesDB()
-      .then((ordenes) => resolve(ordenes))
+      .getCuotasDB()
+      .then((cuotas) => resolve(cuotas))
       .catch((err) => reject(err))
   })
 }
@@ -36,7 +36,7 @@ const postOrden = (body) => {
   })
 } */
 module.exports = {
-  getOrdenes,
+  getCuotas,
   getOrden,
   postOrden,
   /*   putAfiliado, */

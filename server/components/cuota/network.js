@@ -5,9 +5,9 @@ const controller = require('./controller')
 
 router.get('/', function(req, res) {
   controller
-    .getOrdenes()
-    .then((ordenes) => {
-      response.success(req, res, ordenes, 200)
+    .getCuotas()
+    .then((cuotas) => {
+      response.success(req, res, cuotas, 200)
     })
     .catch((err) => {
       response.error(req, res, 'Unexpected error', 500, err)

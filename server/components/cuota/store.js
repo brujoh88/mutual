@@ -1,14 +1,14 @@
-const Orden = require('../../models/orden')
+const Cuota = require('../../models/cuota')
 const _ = require('underscore')
 
-const getOrdenesDB = () => {
+const getCuotasDB = () => {
   return new Promise((resolve, reject) => {
-    Orden.find({}).exec((err, ordenesDB) => {
+    Cuota.find({}).exec((err, cuotasDB) => {
       if (err) {
         reject(err)
       }
-      if (ordenesDB.length != 0) {
-        resolve(ordenesDB)
+      if (cuotasDB.length != 0) {
+        resolve(cuotasDB)
       }
       resolve(null)
     })
@@ -17,7 +17,7 @@ const getOrdenesDB = () => {
 
 const getOrdenDB = (id) => {
   return new Promise((resolve, reject) => {
-    Orden.findById(id, (err, orden) => {
+    Cuota.findById(id, (err, orden) => {
       if (err) {
         reject(err)
       }
@@ -62,7 +62,7 @@ const postOrdenDB = (body) => {
   })
 } */
 module.exports = {
-  getOrdenesDB,
+  getCuotasDB,
   getOrdenDB,
   postOrdenDB,
   /*   putAfiliadoDB, */
