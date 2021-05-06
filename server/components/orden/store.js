@@ -28,7 +28,6 @@ const getOrdenDB = (id) => {
 
 const postOrdenDB = (body) => {
   return new Promise((resolve, reject) => {
-    console.log(body._idProveedor)
     let orden = new Orden({
       _idAfiliado: body._idAfiliado,
       _idProovedor: body._idProovedor,
