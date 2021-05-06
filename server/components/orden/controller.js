@@ -27,17 +27,8 @@ const postOrden = (body) => {
   })
 }
 
-/*const putAfiliado = (id, datos) => {
-  return new Promise((resolve, reject) => {
-    store
-      .putAfiliadoDB(id, datos)
-      .then((resp) => resolve(resp))
-      .catch((err) => reject(err))
-  })
-} */
 module.exports = {
   getOrdenes,
   getOrden,
   postOrden,
-  /*   putAfiliado, */
 }

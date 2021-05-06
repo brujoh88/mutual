@@ -26,44 +26,24 @@ const getCuotaDB = (id) => {
   })
 }
 
-const postOrdenDB = (body) => {
+const postCuotaDB = (body) => {
   return new Promise((resolve, reject) => {
-    let orden = new Orden({
-      _idAfiliado: body._idAfiliado,
-      _idProovedor: body._idProovedor,
-      montoTotal: body.montoTotal,
-      cantidadCouta: body.cantidadCouta,
+    let cuota = new Cuota({
+      _idOrden: body._idOrden,
+      monto: body.monto,
+      periodo: body.periodo,
     })
-    orden.save((err, newOrdenDB) => {
+    cuota.save((err, newCuotaDB) => {
       if (err) {
         reject(err)
       }
-      resolve(newOrdenDB)
+      resolve(newCuotaDB)
     })
   })
 }
 
-/*const putAfiliadoDB = (id, datos) => {
-  return new Promise((resolve, reject) => {
-    let body = _.pick(datos, [
-      'nombre',
-      'apellido',
-      'dni',
-      'legajo',
-      'saldoAsignado',
-      'estado',
-    ])
-    Afiliado.findByIdAndUpdate(id, body, { new: true }, (err, doc) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(doc)
-    })
-  })
-} */
 module.exports = {
   getCuotasDB,
   getCuotaDB,
-  postOrdenDB,
-  /*   putAfiliadoDB, */
+  postCuotaDB,
 }

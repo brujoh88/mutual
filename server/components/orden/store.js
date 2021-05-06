@@ -43,27 +43,8 @@ const postOrdenDB = (body) => {
   })
 }
 
-/*const putAfiliadoDB = (id, datos) => {
-  return new Promise((resolve, reject) => {
-    let body = _.pick(datos, [
-      'nombre',
-      'apellido',
-      'dni',
-      'legajo',
-      'saldoAsignado',
-      'estado',
-    ])
-    Afiliado.findByIdAndUpdate(id, body, { new: true }, (err, doc) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(doc)
-    })
-  })
-} */
 module.exports = {
   getOrdenesDB,
   getOrdenDB,
   postOrdenDB,
-  /*   putAfiliadoDB, */
 }

@@ -38,49 +38,4 @@ router.post('/', function(req, res) {
     })
 })
 
-/*router.put('/:id', function(req, res) {
-  let id = req.params.id
-  let act = req.body
-  controller
-    .putAfiliado(id, act)
-    .then((resp) => {
-      response.success(req, res, resp, 201)
-    })
-    .catch((err) => {
-      response.error(req, res, 'Unexpected error', 500, err)
-    })
-})
-
-router.delete('/:id', function(req, res) {
-  let id = req.params.id,
-    cambioEstado = {
-      estado: false,
-    }
-
-  controller
-    .getAfiliado(id)
-    .then((user) => {
-      if (user === null || user.estado === false) {
-        response.error(
-          req,
-          res,
-          'Peticion incorrecta',
-          500,
-          'No existe ese afiliado'
-        )
-      }
-      controller
-        .putAfiliado(id, cambioEstado)
-        .then((resp) => {
-          response.success(req, res, resp, 201)
-        })
-        .catch((err) => {
-          response.error(req, res, 'Unexpected error', 500, err)
-        })
-    })
-    .catch((err) => {
-      response.error(req, res, 'Peticion incorrecta', 500, err)
-    })
-}) */
-
 module.exports = router

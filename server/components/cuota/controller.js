@@ -18,26 +18,17 @@ const getCuota = (id) => {
   })
 }
 
-const postOrden = (body) => {
+const postCuota = (body) => {
   return new Promise((resolve, reject) => {
     store
-      .postOrdenDB(body)
+      .postCuotaDB(body)
       .then((resp) => resolve(resp))
       .catch((err) => reject(err))
   })
 }
 
-/*const putAfiliado = (id, datos) => {
-  return new Promise((resolve, reject) => {
-    store
-      .putAfiliadoDB(id, datos)
-      .then((resp) => resolve(resp))
-      .catch((err) => reject(err))
-  })
-} */
 module.exports = {
   getCuotas,
   getCuota,
-  postOrden,
-  /*   putAfiliado, */
+  postCuota,
 }
