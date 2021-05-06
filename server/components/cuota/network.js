@@ -17,9 +17,9 @@ router.get('/', function(req, res) {
 router.get('/:id', function(req, res) {
   let id = req.params.id
   controller
-    .getOrden(id)
-    .then((user) => {
-      response.success(req, res, user, 200)
+    .getCuota(id)
+    .then((cuota) => {
+      response.success(req, res, cuota, 200)
     })
     .catch((err) => {
       response.error(req, res, 'Unexpected error', 500, err)

@@ -15,13 +15,13 @@ const getCuotasDB = () => {
   })
 }
 
-const getOrdenDB = (id) => {
+const getCuotaDB = (id) => {
   return new Promise((resolve, reject) => {
-    Cuota.findById(id, (err, orden) => {
+    Cuota.findById(id, (err, cuota) => {
       if (err) {
         reject(err)
       }
-      resolve(orden)
+      resolve(cuota)
     })
   })
 }
@@ -63,7 +63,7 @@ const postOrdenDB = (body) => {
 } */
 module.exports = {
   getCuotasDB,
-  getOrdenDB,
+  getCuotaDB,
   postOrdenDB,
   /*   putAfiliadoDB, */
 }

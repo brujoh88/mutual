@@ -9,11 +9,11 @@ const getCuotas = () => {
   })
 }
 
-const getOrden = (id) => {
+const getCuota = (id) => {
   return new Promise((resolve, reject) => {
     store
-      .getOrdenDB(id)
-      .then((orden) => resolve(orden))
+      .getCuotaDB(id)
+      .then((cuota) => resolve(cuota))
       .catch((err) => reject(err))
   })
 }
@@ -37,7 +37,7 @@ const postOrden = (body) => {
 } */
 module.exports = {
   getCuotas,
-  getOrden,
+  getCuota,
   postOrden,
   /*   putAfiliado, */
 }
