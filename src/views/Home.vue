@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import TableAfiliado from '@/components/PxTableAfiliados.vue'
+import TableAfiliado from '@/components/PxTableAfiliado.vue'
 export default {
   name: 'Home',
   components: {
