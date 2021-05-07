@@ -32,7 +32,7 @@ const postOrdenDB = (body) => {
       _idAfiliado: body._idAfiliado,
       _idProovedor: body._idProovedor,
       montoTotal: body.montoTotal,
-      cantidadCuota: body.cantidadCouta,
+      cantidadCuota: body.cantidadCuota,
     })
     orden.save((err, newOrdenDB) => {
       if (err) {
