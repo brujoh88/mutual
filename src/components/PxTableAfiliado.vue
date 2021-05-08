@@ -17,7 +17,7 @@
           </div>
         </template>
         <template #cell(button)="row">
-          <router-link :to="{ path: 'about', query: { id: row.item._id } }">
+          <router-link :to="{ path: 'afiliado', query: { id: row.item._id } }">
             <b-button size="sm" class="mr-2" variant="success">
               Ingresar
             </b-button>
@@ -72,9 +72,6 @@ export default {
       } else {
         return 'table-warning'
       }
-    },
-    detalle(id) {
-      console.log(id)
     },
   },
 }

@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is a details page</h1>
+    <h1>This is an Afiliado page</h1>
   </div>
 </template>
