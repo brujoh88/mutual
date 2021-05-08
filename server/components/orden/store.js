@@ -17,7 +17,7 @@ const getOrdenesDB = () => {
 
 const getOrdenDB = (id) => {
   return new Promise((resolve, reject) => {
-    Orden.findById(id, (err, orden) => {
+    Orden.find({ _idAfiliado: id }, (err, orden) => {
       if (err) {
         reject(err)
       }
