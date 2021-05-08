@@ -101,7 +101,21 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      alert(JSON.stringify(this.form))
+      fetch('http://localhost:3000/afiliado', {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'POST',
+        body: JSON.stringify({
+          legajo: this.form.legajo,
+          nombre: this.form.nombre,
+          apellido: this.form.apellido,
+          dni: this.form.dni,
+          saldoAsignado: this.form.saldoAsignado,
+        }),
+      })
+        .then((response) => response.json())
+        .then((element) => {
+          console.log(element)
+        })
     },
     onReset(event) {
       event.preventDefault()
