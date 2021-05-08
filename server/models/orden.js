@@ -22,7 +22,7 @@ let ordenSchema = new Schema({
   },
   _proovedor: {
     type: Schema.ObjectId,
-    ref: 'Proveedor',
+    ref: 'Proovedor',
     required: [true, 'Se requiere el id del proveedor destino de la orden'],
   },
   estado: {

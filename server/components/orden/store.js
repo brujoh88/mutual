@@ -16,10 +16,15 @@ const getOrdenesDB = () => {
 }
 
 const getOrdenDB = (id) => {
-  let populate = { path: '_afiliado', select: 'nombre apellido legajo' }
+  let populateAfiliado = { path: '_afiliado', select: 'nombre apellido legajo' }
+  let populateProovedor = {
+    path: '_proovedor',
+    select: 'nombre',
+  }
   return new Promise((resolve, reject) => {
     Orden.find({ _afiliado: id })
-      .populate(populate)
+      .populate(populateAfiliado)
+      .populate(populateProovedor)
       .exec(function(err, orden) {
         if (err) {
           reject(err)
