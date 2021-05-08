@@ -16,21 +16,24 @@ const getOrdenesDB = () => {
 }
 
 const getOrdenDB = (id) => {
+  let populate = { path: '_afiliado', select: 'nombre apellido legajo' }
   return new Promise((resolve, reject) => {
-    Orden.find({ _idAfiliado: id }, (err, orden) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(orden)
-    })
+    Orden.find({ _afiliado: id })
+      .populate(populate)
+      .exec(function(err, orden) {
+        if (err) {
+          reject(err)
+        }
+        resolve(orden)
+      })
   })
 }
 
 const postOrdenDB = (body) => {
   return new Promise((resolve, reject) => {
     let orden = new Orden({
-      _idAfiliado: body._idAfiliado,
-      _idProovedor: body._idProovedor,
+      _afiliado: body._afiliado,
+      _proovedor: body._proovedor,
       montoTotal: body.montoTotal,
       cantidadCuota: body.cantidadCuota,
     })
