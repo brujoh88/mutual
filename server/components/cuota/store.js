@@ -17,7 +17,7 @@ const getCuotasDB = () => {
 
 const getCuotaDB = (id) => {
   return new Promise((resolve, reject) => {
-    Cuota.findById(id, (err, cuota) => {
+    Cuota.find({ _idOrden: id }, (err, cuota) => {
       if (err) {
         reject(err)
       }
