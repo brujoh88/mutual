@@ -16,20 +16,23 @@ const getCuotasDB = () => {
 }
 
 const getCuotaDB = (id) => {
+  let populateOrden = { path: '_orden', select: 'cantidadCuota' }
   return new Promise((resolve, reject) => {
-    Cuota.find({ _idOrden: id }, (err, cuota) => {
-      if (err) {
-        reject(err)
-      }
-      resolve(cuota)
-    })
+    Cuota.find({ _orden: id })
+      .populate(populateOrden)
+      .exec(function(err, cuota) {
+        if (err) {
+          reject(err)
+        }
+        resolve(cuota)
+      })
   })
 }
 
 const postCuotaDB = (body) => {
   return new Promise((resolve, reject) => {
     let cuota = new Cuota({
-      _idOrden: body._idOrden,
+      _orden: body._orden,
       monto: body.monto,
       periodo: body.periodo,
     })

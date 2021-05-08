@@ -3,7 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 let Schema = mongoose.Schema
 
 let cuotaSchema = new Schema({
-  _idOrden: {
+  _orden: {
     type: Schema.ObjectId,
     ref: 'Orden',
     required: [true, 'La couta debe estar relacionada a una orden'],
