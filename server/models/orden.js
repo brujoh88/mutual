@@ -15,12 +15,12 @@ let ordenSchema = new Schema({
     type: Number,
     default: 1,
   },
-  _idAfiliado: {
+  _afiliado: {
     type: Schema.ObjectId,
     ref: 'Afiliado',
     required: [true, 'El id del afiliado que solicita la orden es requerida'],
   },
-  _idProovedor: {
+  _proovedor: {
     type: Schema.ObjectId,
     ref: 'Proveedor',
     required: [true, 'Se requiere el id del proveedor destino de la orden'],
