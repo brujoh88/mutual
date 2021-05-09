@@ -8,7 +8,7 @@
     <!-- The modal -->
     <b-modal id="my-modal" centered title="Nuevo Afiliado" v-model="show"
       ><div>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="showForm">
+        <b-form @submit="onSubmit" @reset="onReset">
           <b-form-group id="input-group-0" label="Legajo:" label-for="input-0">
             <b-form-input
               id="input-0"
@@ -65,6 +65,13 @@
             >Guardar</b-button
           >
           <b-button type="reset" variant="warning">Resetear</b-button>
+          <b-progress
+            :value="value"
+            :max="max"
+            show-progress
+            animated
+            class="mt-2"
+          ></b-progress>
         </b-form>
       </div>
       <template #modal-footer>
@@ -94,8 +101,9 @@ export default {
         dni: '',
         saldoAsignado: '',
       },
-      showForm: true,
       show: false,
+      value: 0,
+      max: 100,
     }
   },
   methods: {
@@ -114,11 +122,21 @@ export default {
       })
         .then((response) => response.json())
         .then((element) => {
-          console.log(element)
+          if (element.error == '') {
+            this.value = 100
+            this.onReset()
+            setTimeout(this.closeFrom, 1500)
+          }
         })
     },
+    closeFrom() {
+      this.show = false
+      this.value = 0
+    },
     onReset(event) {
-      event.preventDefault()
+      if (event != undefined) {
+        event.preventDefault()
+      }
       // Reset our form values
       this.form.legajo = ''
       this.form.nombre = ''
@@ -126,10 +144,6 @@ export default {
       this.form.dni = ''
       this.form.saldoAsignado = ''
       // Trick to reset/clear native browser form validation state
-      this.showForm = false
-      this.$nextTick(() => {
-        this.showForm = true
-      })
     },
   },
 }
