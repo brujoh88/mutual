@@ -14,8 +14,15 @@
               id="input-0"
               v-model="form.legajo"
               placeholder="Ingrese el legajo aqui"
+              :state="validationLegajo"
               required
             ></b-form-input>
+            <b-form-invalid-feedback :state="validationLegajo">
+              Ingrese solo numeros (debe ser unico)
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationLegajo">
+              Muy bien!
+            </b-form-valid-feedback>
           </b-form-group>
           <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
             <b-form-input
@@ -30,6 +37,7 @@
             id="input-group-2"
             label="Apellido:"
             label-for="input-2"
+            required
           >
             <b-form-input
               id="input-2"
@@ -44,8 +52,15 @@
               id="input-3"
               v-model="form.dni"
               placeholder="Ingrese el DNI aqui"
+              :state="validationDni"
               required
             ></b-form-input>
+            <b-form-invalid-feedback :state="validationDni">
+              Ingrese solo numeros (debe ser unico)
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationDni">
+              Muy bien!
+            </b-form-valid-feedback>
           </b-form-group>
 
           <b-form-group
@@ -61,7 +76,11 @@
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="success" class="mr-3"
+          <b-button
+            type="submit"
+            variant="success"
+            class="mr-3"
+            :disabled="habilitarGuardar"
             >Guardar</b-button
           >
           <b-button type="reset" variant="warning">Resetear</b-button>
@@ -105,6 +124,23 @@ export default {
       value: 0,
       max: 100,
     }
+  },
+  computed: {
+    validationLegajo() {
+      return /^[0-9]+$/.test(this.form.legajo)
+    },
+    validationDni() {
+      return /^[0-9]+$/.test(this.form.dni)
+    },
+    habilitarGuardar() {
+      return !(
+        /^[0-9]+$/.test(this.form.legajo) &&
+        /^[0-9]+$/.test(this.form.dni) &&
+        /^[A-Za-z]+$/.test(this.form.nombre) &&
+        /^[A-Za-z]+$/.test(this.form.apellido) &&
+        /^[0-9]+$/.test(this.form.saldoAsignado)
+      )
+    },
   },
   methods: {
     onSubmit(event) {
