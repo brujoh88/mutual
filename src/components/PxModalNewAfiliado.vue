@@ -90,7 +90,7 @@
               required
             ></b-form-input>
             <b-form-invalid-feedback :state="validationSaldo">
-              Ingrese solo numeros (debe ser unico)
+              Ingrese solo numeros
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationSaldo">
               Muy bien!
