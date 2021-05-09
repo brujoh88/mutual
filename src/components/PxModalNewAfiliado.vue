@@ -132,6 +132,7 @@ export default {
     closeFrom() {
       this.show = false
       this.value = 0
+      this.$emit('isPost')
     },
     onReset(event) {
       if (event != undefined) {

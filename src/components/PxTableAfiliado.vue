@@ -1,7 +1,6 @@
 <template>
   <b-container>
     <div>
-      <p>HOLAAA FUNCIONA Y puedo decir desde el padre {{ msg }}</p>
       <b-table
         striped
         hover
@@ -47,9 +46,6 @@ export default {
       items: null,
       isBusy: true,
     }
-  },
-  props: {
-    msg: String,
   },
   mounted() {
     fetch('http://localhost:3000/afiliado/')

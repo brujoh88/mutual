@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <ModalNewAfiliado />
-    <TableAfiliado msg="Soy el padre(Home.vue)" />
+    <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
+    <TableAfiliado :key="key1" />
   </div>
 </template>
 
@@ -15,6 +15,16 @@ export default {
   components: {
     TableAfiliado,
     ModalNewAfiliado,
+  },
+  data() {
+    return {
+      key1: 0,
+    }
+  },
+  methods: {
+    forceRender() {
+      this.key1 += 1
+    },
   },
 }
 </script>
