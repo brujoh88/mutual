@@ -29,8 +29,15 @@
               id="input-1"
               v-model="form.nombre"
               placeholder="Ingrese el nombre aqui"
+              :state="validationNombre"
               required
             ></b-form-input>
+            <b-form-invalid-feedback :state="validationNombre">
+              Solo texto
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationNombre">
+              Muy bien!
+            </b-form-valid-feedback>
           </b-form-group>
 
           <b-form-group
@@ -43,8 +50,15 @@
               id="input-2"
               v-model="form.apellido"
               placeholder="Ingrese el apellido aqui"
+              :state="validationApellido"
               required
             ></b-form-input>
+            <b-form-invalid-feedback :state="validationApellido">
+              Solo texto
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationApellido">
+              Muy bien!
+            </b-form-valid-feedback>
           </b-form-group>
 
           <b-form-group id="input-group-3" label="DNI:" label-for="input-3">
@@ -72,8 +86,15 @@
               id="input-4"
               v-model="form.saldoAsignado"
               placeholder="Ingrese el salgo a asignar"
+              :state="validationSaldo"
               required
             ></b-form-input>
+            <b-form-invalid-feedback :state="validationSaldo">
+              Ingrese solo numeros (debe ser unico)
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationSaldo">
+              Muy bien!
+            </b-form-valid-feedback>
           </b-form-group>
 
           <b-button
@@ -131,6 +152,15 @@ export default {
     },
     validationDni() {
       return /^[0-9]+$/.test(this.form.dni)
+    },
+    validationApellido() {
+      return /^[A-Za-z]+$/.test(this.form.apellido)
+    },
+    validationNombre() {
+      return /^[A-Za-z]+$/.test(this.form.nombre)
+    },
+    validationSaldo() {
+      return /^[0-9]+$/.test(this.form.saldoAsignado)
     },
     habilitarGuardar() {
       return !(
