@@ -112,6 +112,9 @@
             animated
             class="mt-2"
           ></b-progress>
+          <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+            Recuerde que debe ser legajo y dni unico para cada afiliado.
+          </b-alert>
         </b-form>
       </div>
       <template #modal-footer>
@@ -144,6 +147,7 @@ export default {
       show: false,
       value: 0,
       max: 100,
+      showDismissibleAlert: false,
     }
   },
   computed: {
@@ -192,6 +196,8 @@ export default {
             this.value = 100
             this.onReset()
             setTimeout(this.closeFrom, 1500)
+          } else {
+            this.showDismissibleAlert = true
           }
         })
     },
