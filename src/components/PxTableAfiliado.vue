@@ -17,7 +17,10 @@
             ></b-form-input>
 
             <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''" variant="info"
+              <b-button
+                :disabled="!filter"
+                @click="filter = ''"
+                variant="primary"
                 >Limpiar</b-button
               >
             </b-input-group-append>
