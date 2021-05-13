@@ -6,8 +6,8 @@ const controller = require('./controller')
 router.get('/', function(req, res) {
   controller
     .getAfiliados()
-    .then((afiliadios) => {
-      response.success(req, res, afiliadios, 200)
+    .then((afiliados) => {
+      response.success(req, res, afiliados, 200)
     })
     .catch((err) => {
       response.error(req, res, 'Unexpected error', 500, err)
