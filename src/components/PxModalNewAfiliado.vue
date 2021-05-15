@@ -135,6 +135,7 @@
 
 <script>
 export default {
+  name: 'ModalNewAfiliado',
   data() {
     return {
       form: {
