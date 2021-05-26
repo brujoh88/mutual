@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    {{ dia }}
+    {{ fechaApertura }} - {{ fechaCierre }}
     <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
     <TableAfiliado :key="key1" />
   </div>
@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       key1: 0,
-      dia: '',
+      fechaApertura: '',
+      fechaCierre: '',
     }
   },
   methods: {
@@ -35,8 +36,14 @@ export default {
         return response.json()
       })
       .then((datos) => {
-        let fechaCierrePeriodo = new Date(datos.fecha_cierre)
-        this.dia = fechaCierrePeriodo
+        console.log(datos)
+        let fechaAperturaPeriodo = new Date(datos.fechaApertura)
+        let fechaCierrePeriodo = new Date(datos.fechaCierre)
+
+        this.fechaApertura = `${fechaAperturaPeriodo.getDate()}/${fechaAperturaPeriodo.getMonth() +
+          1}/${fechaAperturaPeriodo.getFullYear()}`
+        this.fechaCierre = `${fechaCierrePeriodo.getDate()}/${fechaCierrePeriodo.getMonth() +
+          1}/${fechaCierrePeriodo.getFullYear()}`
       })
       .catch((error) => {
         console.log(error)
