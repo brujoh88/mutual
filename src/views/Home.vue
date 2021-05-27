@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    {{ fechaApertura }} - {{ fechaCierre }}
+    {{ new Date() }}
+    Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]
     <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
     <TableAfiliado :key="key1" />
   </div>
