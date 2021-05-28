@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    {{ new Date() }}
+    {{ new Date().getDate() }}/{{ new Date().getMonth() + 1 }}/{{
+      new Date().getFullYear()
+    }}
+    <br />
     Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]
     <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
     <TableAfiliado :key="key1" />
@@ -38,8 +41,8 @@ export default {
       })
       .then((datos) => {
         console.log(datos)
-        let fechaAperturaPeriodo = new Date(datos.fechaApertura)
-        let fechaCierrePeriodo = new Date(datos.fechaCierre)
+        let fechaAperturaPeriodo = new Date(datos.body.fechaApertura)
+        let fechaCierrePeriodo = new Date(datos.body.fechaCierre)
 
         this.fechaApertura = `${fechaAperturaPeriodo.getDate()}/${fechaAperturaPeriodo.getMonth() +
           1}/${fechaAperturaPeriodo.getFullYear()}`
