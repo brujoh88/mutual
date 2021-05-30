@@ -11,7 +11,7 @@
         >
           <b-card-text>Credito Disponible: </b-card-text>
 
-          <b-button href="#" variant="primary">Go somewhere</b-button>
+          <Orden />
         </b-card>
       </b-card-group>
     </div>
@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import Orden from '@/components/PxModalOrden.vue'
+
 export default {
   name: 'Afiliado',
+  components: {
+    Orden,
+  },
   data() {
     return {
       afiliado: {
@@ -73,6 +78,20 @@ export default {
             console.log(error)
           })
           .finally(() => console.log('peticion finalizada'))
+
+        let fecha = new Date()
+        fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
+          .then((response) => {
+            return response.json()
+          })
+          .then((datos) => {
+            let fechaCierrePeriodo = new Date(datos.body.fechaCierre)
+            console.log(fechaCierrePeriodo)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+          .finally(() => console.log('genial termino'))
       },
     },
   },
