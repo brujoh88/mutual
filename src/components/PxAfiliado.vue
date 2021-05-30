@@ -5,13 +5,13 @@
         <b-card
           :header="`Legajo N° ${afiliado.legajo}`"
           header-tag="header"
-          :footer="`Saldo Asignado - $ ${afiliado.saldoAsignado}`"
+          :footer="`Credito Asignado - $ ${afiliado.saldoAsignado}`"
           footer-tag="footer"
           :title="`${afiliado.nombre} ${afiliado.apellido}`"
         >
-          <b-card-text>Credito Disponible: </b-card-text>
+          <b-card-text>Credito Disponible: {{ saldoAfavor }}</b-card-text>
 
-          <Orden />
+          <Orden :saldoDisponible="this.saldoAfavor" />
         </b-card>
       </b-card-group>
     </div>
@@ -38,6 +38,7 @@ export default {
         dni: '',
         saldoAsignado: '',
       },
+      saldoAfavor: 5000,
     }
   },
   watch: {

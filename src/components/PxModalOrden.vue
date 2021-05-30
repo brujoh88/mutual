@@ -9,54 +9,45 @@
     <b-modal id="my-modal" centered title="Nuevo Orden" v-model="show"
       ><div>
         <b-form @submit="onSubmit" @reset="onReset">
-          <b-form-group id="input-group-0" label="Legajo:" label-for="input-0">
+          <b-form-group id="input-group-0" label="Fecha:" label-for="input-0">
             <b-form-input
               id="input-0"
-              v-model="form.legajo"
-              placeholder="Ingrese el legajo aqui"
-              :state="validationLegajo"
-              required
+              v-model="form.fecha"
+              readonly
             ></b-form-input>
-            <b-form-invalid-feedback :state="validationLegajo">
-              Ingrese solo numeros (debe ser unico)
-            </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationLegajo">
-              Muy bien!
-            </b-form-valid-feedback>
           </b-form-group>
-          <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
+          <b-form-group id="input-group-1" label="Monto:" label-for="input-1">
             <b-form-input
               id="input-1"
-              v-model="form.nombre"
-              placeholder="Ingrese el nombre aqui"
-              :state="validationNombre"
+              v-model="form.monto"
+              :placeholder="`Disponible ${saldoDisponible}`"
+              :state="validationMonto"
               required
             ></b-form-input>
-            <b-form-invalid-feedback :state="validationNombre">
-              Solo texto
+            <b-form-invalid-feedback :state="validationMonto">
+              Solo numeros y un monto no superior a {{ saldoDisponible }}
             </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationNombre">
+            <b-form-valid-feedback :state="validationMonto">
               Muy bien!
             </b-form-valid-feedback>
           </b-form-group>
 
           <b-form-group
-            id="input-group-2"
-            label="Apellido:"
-            label-for="input-2"
-            required
+            id="input-group-list"
+            label="Cuota/s:"
+            label-for="input-list"
           >
-            <b-form-input
-              id="input-2"
-              v-model="form.apellido"
-              placeholder="Ingrese el apellido aqui"
-              :state="validationApellido"
+            <b-form-select
+              id="input-list"
+              v-model="form.cuota"
+              :options="cuotas"
+              :state="validationCuota"
               required
-            ></b-form-input>
-            <b-form-invalid-feedback :state="validationApellido">
-              Solo texto
+            ></b-form-select>
+            <b-form-invalid-feedback :state="validationCuota">
+              Eliga una opcion
             </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationApellido">
+            <b-form-valid-feedback :state="validationCuota">
               Muy bien!
             </b-form-valid-feedback>
           </b-form-group>
@@ -113,7 +104,7 @@
             class="mt-2"
           ></b-progress>
           <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-            Recuerde que debe ser legajo y dni unico para cada afiliado.
+            Recuerde que debe ser fecha y dni unico para cada afiliado.
           </b-alert>
         </b-form>
       </div>
@@ -134,17 +125,36 @@
 </template>
 
 <script>
+let fechaCompleta = new Date(),
+  dia = fechaCompleta.getDate(),
+  mes = fechaCompleta.getMonth() + 1,
+  anio = fechaCompleta.getFullYear()
 export default {
   name: 'ModalNewOrden',
+  props: {
+    saldoDisponible: {
+      type: Number,
+    },
+  },
   data() {
     return {
       form: {
-        legajo: '',
-        nombre: '',
-        apellido: '',
+        fecha: `${dia}/${mes}/${anio}`,
+        monto: '',
+        cuota: null,
         dni: '',
         saldoAsignado: '',
       },
+      cuotas: [
+        { text: 'Eliga la cantidad de cuotas', value: null },
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+      ],
+
       show: false,
       value: 0,
       max: 100,
@@ -152,27 +162,24 @@ export default {
     }
   },
   computed: {
-    validationLegajo() {
-      return /^[0-9]+$/.test(this.form.legajo)
-    },
     validationDni() {
       return /^[0-9]+$/.test(this.form.dni)
     },
-    validationApellido() {
-      return /^[A-Za-z]+$/.test(this.form.apellido)
+    validationCuota() {
+      return this.form.cuota != null
     },
-    validationNombre() {
-      return /^[A-Za-z]+$/.test(this.form.nombre)
+    validationMonto() {
+      return this.saldoDisponible > this.form.monto && this.form.monto != 0
     },
     validationSaldo() {
       return /^[0-9]+$/.test(this.form.saldoAsignado)
     },
     habilitarGuardar() {
       return !(
-        /^[0-9]+$/.test(this.form.legajo) &&
+        /^[0-9]+$/.test(this.form.fecha) &&
         /^[0-9]+$/.test(this.form.dni) &&
-        /^[A-Za-z]+$/.test(this.form.nombre) &&
-        /^[A-Za-z]+$/.test(this.form.apellido) &&
+        /^[A-Za-z]+$/.test(this.form.monto) &&
+        /^[A-Za-z]+$/.test(this.form.cuota) &&
         /^[0-9]+$/.test(this.form.saldoAsignado)
       )
     },
@@ -184,9 +191,9 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
         body: JSON.stringify({
-          legajo: this.form.legajo,
-          nombre: this.form.nombre,
-          apellido: this.form.apellido,
+          fecha: this.form.fecha,
+          monto: this.form.monto,
+          cuota: this.form.cuota,
           dni: this.form.dni,
           saldoAsignado: this.form.saldoAsignado,
         }),
@@ -212,9 +219,8 @@ export default {
         event.preventDefault()
       }
       // Reset our form values
-      this.form.legajo = ''
-      this.form.nombre = ''
-      this.form.apellido = ''
+      this.form.monto = ''
+      this.form.cuota = null
       this.form.dni = ''
       this.form.saldoAsignado = ''
       // Trick to reset/clear native browser form validation state
