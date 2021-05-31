@@ -211,6 +211,8 @@ export default {
         .then((value) => {
           if (value) {
             this.onSubmit()
+          } else {
+            this.onReset()
           }
         })
         .catch((err) => {
