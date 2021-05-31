@@ -11,7 +11,10 @@
         >
           <b-card-text>Credito Disponible: {{ saldoAfavor }}</b-card-text>
 
-          <Orden :saldoDisponible="this.saldoAfavor" />
+          <Orden
+            :saldoDisponible="this.saldoAfavor"
+            :idAfiliado="this.afiliado.id"
+          />
         </b-card>
       </b-card-group>
     </div>
@@ -32,6 +35,7 @@ export default {
   data() {
     return {
       afiliado: {
+        id: '',
         legajo: '',
         nombre: '',
         apellido: '',
@@ -50,6 +54,7 @@ export default {
             return response.json()
           })
           .then((datos) => {
+            this.afiliado.id = datos.body._id
             this.afiliado.legajo = datos.body.legajo
             this.afiliado.nombre = datos.body.nombre
             this.afiliado.apellido = datos.body.apellido

@@ -13,8 +13,12 @@
             <b-form-input
               id="input-0"
               v-model="form.fecha"
+              :state="validationFecha"
               readonly
             ></b-form-input>
+            <b-form-valid-feedback :state="validationFecha">
+              La fecha de la orden.
+            </b-form-valid-feedback>
           </b-form-group>
           <b-form-group id="input-group-1" label="Monto:" label-for="input-1">
             <b-form-input
@@ -52,38 +56,22 @@
             </b-form-valid-feedback>
           </b-form-group>
 
-          <b-form-group id="input-group-3" label="DNI:" label-for="input-3">
-            <b-form-input
-              id="input-3"
-              v-model="form.dni"
-              placeholder="Ingrese el DNI aqui"
-              :state="validationDni"
-              required
-            ></b-form-input>
-            <b-form-invalid-feedback :state="validationDni">
-              Ingrese solo numeros (debe ser unico)
-            </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationDni">
-              Muy bien!
-            </b-form-valid-feedback>
-          </b-form-group>
-
           <b-form-group
-            id="input-group-4"
-            label="Saldo Asignado:"
-            label-for="input-4"
+            id="input-group-list-proovedores"
+            label="Proveedor:"
+            label-for="input-list-proovedores"
           >
-            <b-form-input
-              id="input-4"
-              v-model="form.saldoAsignado"
-              placeholder="Ingrese el salgo a asignar"
-              :state="validationSaldo"
+            <b-form-select
+              id="input-list-proovedores"
+              v-model="form.proovedor"
+              :options="proovedores"
+              :state="validationProovedor"
               required
-            ></b-form-input>
-            <b-form-invalid-feedback :state="validationSaldo">
-              Ingrese solo numeros
+            ></b-form-select>
+            <b-form-invalid-feedback :state="validationProovedor">
+              Eliga el proovedor
             </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationSaldo">
+            <b-form-valid-feedback :state="validationProovedor">
               Muy bien!
             </b-form-valid-feedback>
           </b-form-group>
@@ -104,7 +92,7 @@
             class="mt-2"
           ></b-progress>
           <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-            Recuerde que debe ser fecha y dni unico para cada afiliado.
+            Error al cargar la orden.
           </b-alert>
         </b-form>
       </div>
@@ -135,6 +123,9 @@ export default {
     saldoDisponible: {
       type: Number,
     },
+    idAfiliado: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -142,8 +133,7 @@ export default {
         fecha: `${dia}/${mes}/${anio}`,
         monto: '',
         cuota: null,
-        dni: '',
-        saldoAsignado: '',
+        proovedor: null,
       },
       cuotas: [
         { text: 'Eliga la cantidad de cuotas', value: null },
@@ -154,7 +144,8 @@ export default {
         5,
         6,
       ],
-
+      proovedores: [{ text: 'Seleccione uno', value: null }],
+      idProovedores: [],
       show: false,
       value: 0,
       max: 100,
@@ -162,8 +153,11 @@ export default {
     }
   },
   computed: {
-    validationDni() {
-      return /^[0-9]+$/.test(this.form.dni)
+    validationFecha() {
+      return true
+    },
+    validationProovedor() {
+      return this.form.proovedor != null
     },
     validationCuota() {
       return this.form.cuota != null
@@ -171,31 +165,43 @@ export default {
     validationMonto() {
       return this.saldoDisponible > this.form.monto && this.form.monto != 0
     },
-    validationSaldo() {
-      return /^[0-9]+$/.test(this.form.saldoAsignado)
-    },
     habilitarGuardar() {
       return !(
-        /^[0-9]+$/.test(this.form.fecha) &&
-        /^[0-9]+$/.test(this.form.dni) &&
-        /^[A-Za-z]+$/.test(this.form.monto) &&
-        /^[A-Za-z]+$/.test(this.form.cuota) &&
-        /^[0-9]+$/.test(this.form.saldoAsignado)
+        this.form.proovedor != null &&
+        this.form.cuota != null &&
+        this.saldoDisponible > this.form.monto &&
+        this.form.monto != 0
       )
     },
   },
+  mounted() {
+    fetch('http://localhost:3000/proovedor/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        for (let i = 0; i < datos.body.length; i++) {
+          this.proovedores.push(datos.body[i].nombre)
+          this.idProovedores.push(datos.body[i]._id)
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+      .finally(() => (this.isBusy = false))
+  },
   methods: {
     onSubmit(event) {
+      let index = this.proovedores.indexOf(this.form.proovedor) - 1
       event.preventDefault()
-      fetch('http://localhost:3000/afiliado', {
+      fetch('http://localhost:3000/orden', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
         body: JSON.stringify({
-          fecha: this.form.fecha,
-          monto: this.form.monto,
-          cuota: this.form.cuota,
-          dni: this.form.dni,
-          saldoAsignado: this.form.saldoAsignado,
+          _afiliado: this.idAfiliado,
+          _proovedor: this.idProovedores[index],
+          montoTotal: this.form.monto,
+          cantidadCuota: this.form.cuota,
         }),
       })
         .then((response) => response.json())
@@ -221,7 +227,7 @@ export default {
       // Reset our form values
       this.form.monto = ''
       this.form.cuota = null
-      this.form.dni = ''
+      this.form.proovedor = null
       this.form.saldoAsignado = ''
       // Trick to reset/clear native browser form validation state
     },
