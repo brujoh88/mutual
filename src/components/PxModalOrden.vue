@@ -77,12 +77,13 @@
           </b-form-group>
 
           <b-button
-            type="submit"
+            @click="estoySeguro"
             variant="success"
             class="mr-3"
             :disabled="habilitarGuardar"
             >Guardar</b-button
           >
+
           <b-button type="reset" variant="warning">Resetear</b-button>
           <b-progress
             :value="value"
@@ -191,9 +192,34 @@ export default {
       .finally(() => (this.isBusy = false))
   },
   methods: {
-    onSubmit(event) {
+    estoySeguro() {
+      this.$bvModal
+        .msgBoxConfirm(
+          `Orden de compra por $${this.form.monto} pesos en ${this.form.cuota} cuota/s para ${this.form.proovedor}. ¿Esta seguro?`,
+          {
+            title: 'Confirmacion de orden',
+            size: 'sm',
+            buttonSize: 'sm',
+            okVariant: 'danger',
+            okTitle: 'SI',
+            cancelTitle: 'NO',
+            footerClass: 'p-2',
+            hideHeaderClose: false,
+            centered: true,
+          }
+        )
+        .then((value) => {
+          if (value) {
+            this.onSubmit()
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    onSubmit() {
       let index = this.proovedores.indexOf(this.form.proovedor) - 1
-      event.preventDefault()
+
       fetch('http://localhost:3000/orden', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
