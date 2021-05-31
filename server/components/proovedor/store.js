@@ -3,15 +3,17 @@ const _ = require('underscore')
 
 const getProovedorsDB = () => {
   return new Promise((resolve, reject) => {
-    Proovedor.find({}).exec((err, proovedorsDB) => {
-      if (err) {
-        reject(err)
-      }
-      if (proovedorsDB.length != 0) {
-        resolve(proovedorsDB)
-      }
-      resolve(null)
-    })
+    Proovedor.find({})
+      .sort({ nombre: 1 })
+      .exec((err, proovedorsDB) => {
+        if (err) {
+          reject(err)
+        }
+        if (proovedorsDB.length != 0) {
+          resolve(proovedorsDB)
+        }
+        resolve(null)
+      })
   })
 }
 
