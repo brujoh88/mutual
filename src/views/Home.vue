@@ -6,7 +6,7 @@
     <br />
     Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]
     <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
-    <TableAfiliado :key="key1" />
+    <TableAfiliado :key="key1" :cierre="cierre" />
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
       key1: 0,
       fechaApertura: '',
       fechaCierre: '',
+      cierre: '',
     }
   },
   methods: {
@@ -40,7 +41,8 @@ export default {
         return response.json()
       })
       .then((datos) => {
-        console.log(datos)
+        this.cierre = datos.body.fechaCierre
+
         let fechaAperturaPeriodo = new Date(datos.body.fechaApertura)
         let fechaCierrePeriodo = new Date(datos.body.fechaCierre)
 
