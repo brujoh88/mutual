@@ -43,7 +43,15 @@
           </div>
         </template>
         <template #cell(button)="row">
-          <router-link :to="{ path: 'afiliado', query: { id: row.item._id } }">
+          <router-link
+            :to="{
+              path: 'afiliado',
+              query: {
+                id: row.item._id,
+                fecha: cierre,
+              },
+            }"
+          >
             <b-button size="sm" class="mr-2" variant="success">
               Ingresar
             </b-button>
@@ -74,6 +82,11 @@ export default {
       isBusy: true,
       filter: null,
     }
+  },
+  props: {
+    cierre: {
+      type: String,
+    },
   },
   mounted() {
     fetch('http://localhost:3000/afiliado/')
