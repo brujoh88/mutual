@@ -42,7 +42,9 @@ export default {
         dni: '',
         saldoAsignado: '',
       },
-      saldoAfavor: 5000,
+      cierre: '',
+      saldoAfavor: null,
+      ordenes: {},
     }
   },
   watch: {
@@ -70,34 +72,20 @@ export default {
             return response.json()
           })
           .then((datos) => {
-            /* for (let i = 0; i < datos.body.length; i++) {
-              let date = datos.body[0].date
-              date = new Date(date).getMonth()
-              let hoy = new Date()
-              if (date == hoy.getMonth()) {
-                console.log('datos')
-              }
-            } */
-            console.log(datos)
+            this.ordenes = datos
           })
           .catch((error) => {
             console.log(error)
           })
           .finally(() => console.log('peticion finalizada'))
+      },
+    },
+    '$route.query.fecha': {
+      immediate: true,
+      handler(fecha) {
+        this.cierre = fecha
 
-        let fecha = new Date()
-        fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
-          .then((response) => {
-            return response.json()
-          })
-          .then((datos) => {
-            let fechaCierrePeriodo = new Date(datos.body.fechaCierre)
-            console.log(fechaCierrePeriodo)
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-          .finally(() => console.log('genial termino'))
+        this.saldoAfavor = 6000
       },
     },
   },
