@@ -14,6 +14,7 @@
           <Orden
             :saldoDisponible="this.saldoAfavor"
             :idAfiliado="this.afiliado.id"
+            :fechaCierre="this.cierre"
           />
         </b-card>
       </b-card-group>
