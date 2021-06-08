@@ -127,6 +127,9 @@ export default {
     idAfiliado: {
       type: String,
     },
+    fechaCierre: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -237,6 +240,29 @@ export default {
           if (element.error == '') {
             this.value = 100
             this.onReset()
+            let periodo = new Date(this.fechaCierre)
+            let mesPeriodo = periodo.getMonth()
+            let anio = periodo.getFullYear()
+            for (let i = 1; i <= element.body.cantidadCuota; i++) {
+              fetch('http://localhost:3000/cuota', {
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+                body: JSON.stringify({
+                  _orden: element.body._id,
+                  monto: element.body.montoTotal / element.body.cantidadCuota,
+                  periodo: new Date(anio, mesPeriodo + i),
+                }),
+              })
+                .then((response) => response.json())
+                .then((element) => {
+                  if (element.error == '') {
+                    console.log('Se guardo las cuotas')
+                  } else {
+                    console.log('Error')
+                  }
+                })
+            }
+
             setTimeout(this.closeFrom, 1500)
           } else {
             this.showDismissibleAlert = true
