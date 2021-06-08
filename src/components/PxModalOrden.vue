@@ -170,7 +170,7 @@ export default {
       return !(
         this.form.proovedor != null &&
         this.form.cuota != null &&
-        this.saldoDisponible > this.form.monto &&
+        this.saldoDisponible >= this.form.monto &&
         this.form.monto != 0
       )
     },
