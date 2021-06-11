@@ -73,6 +73,35 @@ export default {
             return response.json()
           })
           .then((datos) => {
+            let idOrden = ''
+            for (let i = 0; i < datos.body.length; i++) {
+              idOrden = datos.body[i]._id
+              fetch(`http://localhost:3000/cuota/${idOrden}`)
+                .then((response) => {
+                  return response.json()
+                })
+                .then((datos) => {
+                  console.log(datos)
+                  for (let i = 0; i < datos.body.length; i++) {
+                    let periodo = new Date(datos.body[i].periodo).getMonth()
+                    let anioPeriodo = new Date(
+                      datos.body[i].periodo
+                    ).getFullYear()
+                    let mesActual = new Date().getMonth()
+                    let anioActual = new Date().getFullYear()
+                    if (mesActual < periodo && anioPeriodo == anioActual) {
+                      this.saldoAfavor += datos.body[i].monto
+                    }
+                  }
+                  this.saldoAfavor =
+                    this.afiliado.saldoAsignado - this.saldoAfavor
+                })
+                .catch((e) => console.log(e))
+                .finally(console.log('finalizo'))
+            }
+            if (datos.body.length === 0) {
+              this.saldoAfavor = this.afiliado.saldoAsignado
+            }
             this.ordenes = datos
           })
           .catch((error) => {
@@ -85,8 +114,6 @@ export default {
       immediate: true,
       handler(fecha) {
         this.cierre = fecha
-
-        this.saldoAfavor = 6000
       },
     },
   },
