@@ -45,6 +45,7 @@ export default {
       },
       cierre: '',
       saldoAfavor: null,
+      acumulador: null,
       ordenes: {},
     }
   },
@@ -90,11 +91,11 @@ export default {
                     let mesActual = new Date().getMonth()
                     let anioActual = new Date().getFullYear()
                     if (mesActual < periodo && anioPeriodo == anioActual) {
-                      this.saldoAfavor += datos.body[i].monto
+                      this.acumulador += datos.body[i].monto
                     }
                   }
                   this.saldoAfavor =
-                    this.afiliado.saldoAsignado - this.saldoAfavor
+                    this.afiliado.saldoAsignado - this.acumulador
                 })
                 .catch((e) => console.log(e))
                 .finally(console.log('finalizo'))
