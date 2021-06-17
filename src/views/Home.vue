@@ -5,8 +5,10 @@
     }}
     <br />
     Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]
-    <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
-    <TableAfiliado :key="key1" :cierre="cierre" />
+
+    <TableAfiliado :key="key1" :cierre="cierre">
+      <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
+    </TableAfiliado>
   </div>
 </template>
 

@@ -1,32 +1,36 @@
 <template>
   <b-container>
     <div>
-      <b-col lg="6" class="my-2">
-        <b-form-group
-          label="Buscar"
-          label-for="filter-input"
-          label-cols-sm="3"
-          label-align-sm="right"
-          class="mb-0"
-        >
-          <b-input-group>
-            <b-form-input
-              id="filter-input"
-              v-model="filter"
-              type="search"
-            ></b-form-input>
+      <div class="d-flex justify-content-center">
+        <b-col lg="6" class="my-2">
+          <b-form-group
+            label="Buscar"
+            label-for="filter-input"
+            label-cols-sm="3"
+            label-align-sm="right"
+            class="mb-0"
+          >
+            <b-input-group>
+              <b-form-input
+                id="filter-input"
+                v-model="filter"
+                type="search"
+              ></b-form-input>
 
-            <b-input-group-append>
-              <b-button
-                :disabled="!filter"
-                @click="filter = ''"
-                variant="primary"
-                >Limpiar</b-button
-              >
-            </b-input-group-append>
-          </b-input-group>
-        </b-form-group>
-      </b-col>
+              <b-input-group-append>
+                <b-button
+                  :disabled="!filter"
+                  @click="filter = ''"
+                  variant="primary"
+                  >Limpiar</b-button
+                >
+              </b-input-group-append>
+            </b-input-group>
+          </b-form-group>
+        </b-col>
+        <b-col lg="6" class="my-2"><slot></slot></b-col>
+      </div>
+
       <b-table
         striped
         hover
