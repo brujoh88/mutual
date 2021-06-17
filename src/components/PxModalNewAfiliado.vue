@@ -98,7 +98,7 @@
           </b-form-group>
 
           <b-button
-            type="submit"
+            @click="estoySeguro"
             variant="success"
             class="mr-3"
             :disabled="habilitarGuardar"
@@ -178,8 +178,34 @@ export default {
     },
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault()
+    estoySeguro() {
+      this.$bvModal
+        .msgBoxConfirm(
+          `Se va agregar al afiliado ${this.form.nombre} ${this.form.apellido} con numero de legajo N°${this.form.legajo} y DNI ${this.form.dni}. Asignandole un monto de credito de $${this.form.saldoAsignado}. ¿Esta seguro?`,
+          {
+            title: 'Confirmacion de orden',
+            size: 'sm',
+            buttonSize: 'sm',
+            okVariant: 'danger',
+            okTitle: 'SI',
+            cancelTitle: 'NO',
+            footerClass: 'p-2',
+            hideHeaderClose: false,
+            centered: true,
+          }
+        )
+        .then((value) => {
+          if (value) {
+            this.onSubmit()
+          } else {
+            this.onReset()
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    onSubmit() {
       fetch('http://localhost:3000/afiliado', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
