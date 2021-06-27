@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Lista Afiliados</router-link> |
-      <router-link to="/proveedor">Proveedores</router-link>
+      <router-link to="/proveedor">Lista Proveedores</router-link>
     </div>
     <router-view />
   </div>
