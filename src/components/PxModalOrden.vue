@@ -272,7 +272,7 @@ export default {
     closeFrom() {
       this.show = false
       this.value = 0
-      this.$emit('isPost')
+      this.$emit('newOrden')
     },
     onReset(event) {
       if (event != undefined) {
