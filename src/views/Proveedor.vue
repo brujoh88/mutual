@@ -1,5 +1,20 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <table-proveedor />
   </div>
 </template>
+<script>
+import TableProveedor from '@/components/PxTableProveedor.vue'
+
+export default {
+  name: 'ViewProveedor',
+  components: {
+    TableProveedor,
+  },
+  data() {
+    return {}
+  },
+  methods: {},
+  mounted() {},
+}
+</script>
