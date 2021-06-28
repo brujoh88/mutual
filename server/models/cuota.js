@@ -8,6 +8,11 @@ let cuotaSchema = new Schema({
     ref: 'Orden',
     required: [true, 'La couta debe estar relacionada a una orden'],
   },
+  _afiliado: {
+    type: Schema.ObjectId,
+    ref: 'Afiliado',
+    required: [true, 'El id del afiliado que solicita la orden es requerida'],
+  },
   monto: {
     type: Number,
     required: [true, 'El monto de la couta es requerido'],

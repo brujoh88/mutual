@@ -41,6 +41,7 @@ const postCuotaDB = (body) => {
   return new Promise((resolve, reject) => {
     let cuota = new Cuota({
       _orden: body._orden,
+      _afiliado: body._afiliado,
       monto: body.monto,
       periodo: body.periodo,
     })
