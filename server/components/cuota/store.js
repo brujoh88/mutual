@@ -3,15 +3,23 @@ const _ = require('underscore')
 
 const getCuotasDB = () => {
   return new Promise((resolve, reject) => {
-    Cuota.find({}).exec((err, cuotasDB) => {
-      if (err) {
-        reject(err)
-      }
-      if (cuotasDB.length != 0) {
-        resolve(cuotasDB)
-      }
-      resolve(null)
-    })
+    Cuota.find({})
+      .populate('_orden', {
+        cantidadCouta: 1,
+        _afiliado: 1,
+        _proovedor: 1,
+        date: 1,
+        estado: 1,
+      })
+      .exec((err, cuotasDB) => {
+        if (err) {
+          reject(err)
+        }
+        if (cuotasDB.length != 0) {
+          resolve(cuotasDB)
+        }
+        resolve(null)
+      })
   })
 }
 
