@@ -1,11 +1,37 @@
 <template>
   <Afiliado :afiliado="afiliado" :saldoAfavor="saldoAfavor" :key="key2">
     <Orden
+      class="mb-3"
       v-on:newOrden="forceRender"
       :saldoDisponible="this.saldoAfavor"
       :idAfiliado="this.afiliado.id"
       :fechaCierre="this.cierre"
     />
+    <b-container>
+      <b-table striped hover :items="items" :fields="fields" :busy="isBusy">
+        <template #table-busy>
+          <div class="text-center text-danger my-2">
+            <b-spinner class="align-middle"></b-spinner>
+            <strong>Loading...</strong>
+          </div>
+        </template>
+        <template #cell(button)="row">
+          <router-link
+            :to="{
+              path: 'afiliado',
+              query: {
+                id: row.item._orden,
+                fecha: cierre,
+              },
+            }"
+          >
+            <b-button size="sm" class="mr-2" variant="success">
+              Detalle
+            </b-button>
+          </router-link>
+        </template>
+      </b-table>
+    </b-container>
   </Afiliado>
 </template>
 
@@ -33,6 +59,17 @@ export default {
       saldoAfavor: null,
       acumulador: 0,
       key2: 0,
+      fields: [
+        {
+          key: 'periodo',
+          sortable: true,
+        },
+        { key: 'Proveedor', sortable: true },
+        { key: 'monto', sortable: true },
+        { key: 'button', label: 'Detalle', sortable: false },
+      ],
+      items: null,
+      isBusy: true,
     }
   },
   methods: {
@@ -49,6 +86,7 @@ export default {
           return response.json()
         })
         .then((datos) => {
+          this.items = datos.body
           if (datos.body.length != 0) {
             for (let i = 0; i < datos.body.length; i++) {
               this.acumulador = this.acumulador + datos.body[i].monto
@@ -61,7 +99,7 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-        .finally(() => console.log('Finalizo'))
+        .finally(() => (this.isBusy = false))
     },
   },
   watch: {
