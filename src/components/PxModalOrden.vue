@@ -248,6 +248,7 @@ export default {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
                 body: JSON.stringify({
+                  _afiliado: this.idAfiliado,
                   _orden: element.body._id,
                   monto: element.body.montoTotal / element.body.cantidadCuota,
                   periodo: new Date(anio, mesPeriodo + i),
