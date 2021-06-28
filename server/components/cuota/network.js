@@ -26,6 +26,18 @@ router.get('/:id', function(req, res) {
     })
 })
 
+router.get('/deuda/:id', function(req, res) {
+  let id = req.params.id
+  controller
+    .getCuotasByUser(id)
+    .then((cuota) => {
+      response.success(req, res, cuota, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 router.post('/', function(req, res) {
   let body = req.body
   controller

@@ -9,6 +9,15 @@ const getCuotas = () => {
   })
 }
 
+const getCuotasByUser = (id) => {
+  return new Promise((resolve, reject) => {
+    store
+      .getCuotasByUserDB(id)
+      .then((cuotas) => resolve(cuotas))
+      .catch((err) => reject(err))
+  })
+}
+
 const getCuota = (id) => {
   return new Promise((resolve, reject) => {
     store
@@ -31,4 +40,5 @@ module.exports = {
   getCuotas,
   getCuota,
   postCuota,
+  getCuotasByUser,
 }

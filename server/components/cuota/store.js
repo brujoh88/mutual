@@ -6,7 +6,6 @@ const getCuotasDB = () => {
     Cuota.find({})
       .populate('_orden', {
         cantidadCouta: 1,
-        _afiliado: 1,
         _proovedor: 1,
         date: 1,
         estado: 1,
@@ -37,6 +36,26 @@ const getCuotaDB = (id) => {
   })
 }
 
+const getCuotasByUserDB = (id) => {
+  return new Promise((resolve, reject) => {
+    let dia = new Date()
+    anioActual = dia.getFullYear()
+    mesActual = dia.getMonth()
+
+    Cuota.find({
+      _afiliado: id,
+      periodo: { $gt: new Date(anioActual, mesActual) },
+    })
+      .sort({ periodo: 1 })
+      .exec(function(err, cuota) {
+        if (err) {
+          reject(err)
+        }
+        resolve(cuota)
+      })
+  })
+}
+
 const postCuotaDB = (body) => {
   return new Promise((resolve, reject) => {
     let cuota = new Cuota({
@@ -57,5 +76,6 @@ const postCuotaDB = (body) => {
 module.exports = {
   getCuotasDB,
   getCuotaDB,
+  getCuotasByUserDB,
   postCuotaDB,
 }
