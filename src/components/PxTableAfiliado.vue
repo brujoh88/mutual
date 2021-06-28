@@ -106,13 +106,14 @@ export default {
       .finally(() => (this.isBusy = false))
   },
   methods: {
-    rowClass(item, type) {
-      if (!item || type !== 'row') return
+    rowClass() {
+      /*rowClass(item, type) {
+       if (!item || type !== 'row') return
       if (item.saldoAsignado > 10_000) {
         return 'table-success'
       } else {
         return 'table-warning'
-      }
+      } */
     },
   },
 }
