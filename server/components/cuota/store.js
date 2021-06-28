@@ -46,6 +46,7 @@ const getCuotasByUserDB = (id) => {
       _afiliado: id,
       periodo: { $gt: new Date(anioActual, mesActual) },
     })
+      .populate('_orden')
       .sort({ periodo: 1 })
       .exec(function(err, cuota) {
         if (err) {
