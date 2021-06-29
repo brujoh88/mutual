@@ -55,6 +55,7 @@ export default {
         dni: '',
         saldoAsignado: '',
       },
+      proveedor: {},
       cierre: '',
       saldoAfavor: null,
       acumulador: 0,
@@ -64,7 +65,7 @@ export default {
           key: 'periodo',
           sortable: true,
         },
-        { key: 'Proveedor', sortable: true },
+        { key: 'proveedor', sortable: true },
         { key: 'monto', sortable: true },
         { key: 'button', label: 'Detalle', sortable: false },
       ],
@@ -87,6 +88,13 @@ export default {
         })
         .then((datos) => {
           this.items = datos.body
+          for (let i = 0; i < this.items.length; i++) {
+            this.items[i].proveedor = this.proveedor[
+              this.items[i]._orden._proovedor
+            ]
+            let fecha = new Date(this.items[i].periodo)
+            this.items[i].periodo = `${fecha.getMonth()}/${fecha.getFullYear()}`
+          }
           if (datos.body.length != 0) {
             for (let i = 0; i < datos.body.length; i++) {
               this.acumulador = this.acumulador + datos.body[i].monto
@@ -106,6 +114,21 @@ export default {
     '$route.query.id': {
       immediate: true,
       handler(id) {
+        fetch('http://localhost:3000/proovedor/')
+          .then((response) => {
+            return response.json()
+          })
+          .then((datos) => {
+            let obj = {}
+            for (let i = 0; i < datos.body.length; i++) {
+              obj[`${datos.body[i]._id}`] = datos.body[i].nombre
+            }
+            this.proveedor = obj
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+
         /* this.acumulador = 0 */
         fetch(`http://localhost:3000/afiliado/${id}`)
           .then((response) => {
