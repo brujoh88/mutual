@@ -63,6 +63,7 @@ const postCuotaDB = (body) => {
       _orden: body._orden,
       _afiliado: body._afiliado,
       monto: body.monto,
+      detalle: body.detalle,
       periodo: body.periodo,
     })
     cuota.save((err, newCuotaDB) => {

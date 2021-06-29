@@ -21,6 +21,10 @@ let cuotaSchema = new Schema({
     type: Date,
     required: [true, 'El periodo de vencimiento es requerido'],
   },
+  detalle: {
+    type: String,
+    required: [true, 'El detalle de la cuota es requerido'],
+  },
   estado: {
     type: Boolean,
     default: true,

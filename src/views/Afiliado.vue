@@ -106,6 +106,11 @@ export default {
           sortable: true,
         },
         {
+          key: 'detalle',
+          label: 'Cuota',
+          sortable: true,
+        },
+        {
           key: 'periodo',
           sortable: true,
         },

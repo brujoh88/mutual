@@ -252,6 +252,7 @@ export default {
                   _orden: element.body._id,
                   monto: element.body.montoTotal / element.body.cantidadCuota,
                   periodo: new Date(anio, mesPeriodo + i),
+                  detalle: `${i} de ${element.body.cantidadCuota}`,
                 }),
               })
                 .then((response) => response.json())
