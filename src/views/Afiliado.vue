@@ -1,16 +1,21 @@
 <template>
   <Afiliado :afiliado="afiliado" :saldoAfavor="saldoAfavor" :key="key1">
-    <Orden
-      class="mb-3"
-      v-on:newOrden="forceRender"
-      :saldoDisponible="this.saldoAfavor"
-      :idAfiliado="this.afiliado.id"
-      :fechaCierre="this.cierre"
-    />
-    <px-up-date-afiliado
-      :afiliado="this.afiliado"
-      v-on:isUpDate="forceRenderUpDate"
-    />
+    <b-container class="bv-example-row">
+      <b-row class="justify-content-md-center">
+        <Orden
+          class="mb-3"
+          v-on:newOrden="forceRender"
+          :saldoDisponible="this.saldoAfavor"
+          :idAfiliado="this.afiliado.id"
+          :fechaCierre="this.cierre"
+        />
+        <px-up-date-afiliado
+          class="ml-3"
+          :afiliado="this.afiliado"
+          v-on:isUpDate="forceRenderUpDate"
+        />
+      </b-row>
+    </b-container>
 
     <b-container>
       <div>
