@@ -69,6 +69,7 @@
             </router-link>
           </template>
         </b-table>
+        <h4>Subtotal {{ acumulador }}</h4>
       </div>
     </b-container>
   </Afiliado>
@@ -129,6 +130,7 @@ export default {
       this.key1 += 1
     },
     calcularSaldo(id) {
+      this.acumulador = 0
       if (id === undefined) {
         id = this.afiliado.id
       }
