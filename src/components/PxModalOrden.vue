@@ -167,7 +167,11 @@ export default {
       return this.form.cuota != null
     },
     validationMonto() {
-      return this.saldoDisponible >= this.form.monto && this.form.monto != 0
+      return (
+        this.saldoDisponible >= this.form.monto &&
+        this.form.monto != 0 &&
+        this.form.monto > 0
+      )
     },
     habilitarGuardar() {
       return !(
