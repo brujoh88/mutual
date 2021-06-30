@@ -147,6 +147,7 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+        .finally(() => this.calcularSaldo(this.afiliado.id))
     },
     forceRender() {
       this.calcularSaldo()
