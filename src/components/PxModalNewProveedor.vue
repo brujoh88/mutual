@@ -86,7 +86,7 @@ export default {
     estoySeguro() {
       this.$bvModal
         .msgBoxConfirm(
-          `Se va agregar al afiliado el proveedor ${this.form.nombre}. ¿Esta seguro?`,
+          `Se va agregar al el proveedor ${this.form.nombre}. ¿Esta seguro?`,
           {
             title: 'Confirmacion de proveedor',
             size: 'sm',
