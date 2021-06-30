@@ -1,5 +1,5 @@
 <template>
-  <Afiliado :afiliado="afiliado" :saldoAfavor="saldoAfavor" :key="key2">
+  <Afiliado :afiliado="afiliado" :saldoAfavor="saldoAfavor" :key="key1">
     <Orden
       class="mb-3"
       v-on:newOrden="forceRender"
@@ -7,6 +7,11 @@
       :idAfiliado="this.afiliado.id"
       :fechaCierre="this.cierre"
     />
+    <px-up-date-afiliado
+      :afiliado="this.afiliado"
+      v-on:isUpDate="forceRenderUpDate"
+    />
+
     <b-container>
       <div>
         <div class="d-flex justify-content-center">
@@ -78,12 +83,14 @@
 <script>
 import Afiliado from '@/components/PxAfiliado.vue'
 import Orden from '@/components/PxModalOrden.vue'
+import PxUpDateAfiliado from '../components/PxUpDateAfiliado.vue'
 
 export default {
   name: 'PlanillaAfiliado',
   components: {
     Afiliado,
     Orden,
+    PxUpDateAfiliado,
   },
   data() {
     return {
@@ -99,7 +106,7 @@ export default {
       cierre: '',
       saldoAfavor: null,
       acumulador: 0,
-      key2: 0,
+      key1: 0,
       fields: [
         {
           key: 'id',
@@ -125,6 +132,22 @@ export default {
     }
   },
   methods: {
+    forceRenderUpDate() {
+      fetch(`http://localhost:3000/afiliado/${this.afiliado.id}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((datos) => {
+          this.afiliado.legajo = datos.body.legajo
+          this.afiliado.nombre = datos.body.nombre
+          this.afiliado.apellido = datos.body.apellido
+          this.afiliado.dni = datos.body.dni
+          this.afiliado.saldoAsignado = datos.body.saldoAsignado
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     forceRender() {
       this.calcularSaldo()
       this.key1 += 1
