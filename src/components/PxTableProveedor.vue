@@ -116,6 +116,7 @@ export default {
       value: 0,
       max: 100,
       id: '',
+      nombreRam: '',
     }
   },
   mounted() {
@@ -136,11 +137,12 @@ export default {
       this.show = !this.show
       this.id = id
       this.form.nombre = proveedorName
+      this.nombreRam = proveedorName
     },
     estoySeguro() {
       this.$bvModal
         .msgBoxConfirm(
-          `Cambiara el nombre del proveedor a ${this.form.nombre}. ¿Esta seguro?`,
+          `Cambiara el nombre del proveedor ${this.nombreRam} a ${this.form.nombre}. ¿Esta seguro?`,
           {
             title: 'Confirmacion de orden',
             size: 'sm',
