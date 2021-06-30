@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <table-proveedor :key="key1">
+    <table-proveedor :key="key1" v-on:isPost="forceRender">
       <modal-new-proveedor v-on:isPost="forceRender" class="mb-3" />
     </table-proveedor>
   </div>

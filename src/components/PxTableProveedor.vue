@@ -32,6 +32,7 @@
       </div>
 
       <b-table
+        v-if="show"
         striped
         hover
         :filter="filter"
@@ -50,7 +51,7 @@
           <div>
             <!-- Using value -->
             <b-button
-              @click="cambiarNombre(row.item.nombre)"
+              @click="cambiarNombre(row.item._id, row.item.nombre)"
               size="sm"
               class="mr-2"
               variant="success"
@@ -59,6 +60,35 @@
           </div>
         </template>
       </b-table>
+
+      <b-form @submit="onSubmit" @reset="onReset" v-if="!show">
+        <b-form-group
+          id="input-group-1"
+          label="Nombre:"
+          label-for="input-1"
+          description="Cambie el nombre por el cual desea actualizar su nombre anterior."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.nombre"
+            required
+          ></b-form-input>
+        </b-form-group>
+        <b-button @click="estoySeguro" variant="success" class="mr-3"
+          >Actualizar</b-button
+        >
+        <b-button type="reset" variant="danger">Cancelar</b-button>
+        <b-progress
+          :value="value"
+          :max="max"
+          show-progress
+          animated
+          class="mt-2"
+        ></b-progress>
+      </b-form>
+      <router-link to="/">
+        <b-button class="mt-2" variant="primary">Volver</b-button>
+      </router-link>
     </div>
   </b-container>
 </template>
@@ -79,6 +109,13 @@ export default {
       items: null,
       isBusy: true,
       filter: null,
+      form: {
+        nombre: '',
+      },
+      show: true,
+      value: 0,
+      max: 100,
+      id: '',
     }
   },
   mounted() {
@@ -95,18 +132,15 @@ export default {
       .finally(() => (this.isBusy = false))
   },
   methods: {
-    cambiarNombre(proveedorName) {
-      let nombreNuevo = prompt('Edite el nombre', proveedorName)
-      if (nombreNuevo == null || nombreNuevo == '') {
-        console.log('Todo mal')
-      } else {
-        this.estoySeguro(proveedorName, nombreNuevo)
-      }
+    cambiarNombre(id, proveedorName) {
+      this.show = !this.show
+      this.id = id
+      this.form.nombre = proveedorName
     },
-    estoySeguro(proveedorName, nombreNuevo) {
+    estoySeguro() {
       this.$bvModal
         .msgBoxConfirm(
-          `Cambiara el nombre del proveedor de ${proveedorName} a ${nombreNuevo}. ¿Esta seguro?`,
+          `Cambiara el nombre del proveedor a ${this.form.nombre}. ¿Esta seguro?`,
           {
             title: 'Confirmacion de orden',
             size: 'sm',
@@ -129,6 +163,33 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    onSubmit() {
+      fetch(`http://localhost:3000/proovedor/${this.id}`, {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'PUT',
+        body: JSON.stringify({
+          nombre: this.form.nombre,
+        }),
+      })
+        .then((response) => response.json())
+        .then((element) => {
+          if (element.error == '') {
+            this.value = 100
+            setTimeout(this.closeFrom, 1500)
+          } else {
+            this.showDismissibleAlert = true
+          }
+        })
+    },
+
+    closeFrom() {
+      this.show = !this.show
+      this.value = 0
+      this.$emit('isPost')
+    },
+    onReset() {
+      this.show = !this.show
     },
   },
   computed: {},
