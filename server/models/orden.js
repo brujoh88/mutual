@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 let Schema = mongoose.Schema
+let autoIncrement = require('mongoose-auto-increment')
 
 let ordenSchema = new Schema({
   date: {
@@ -33,6 +34,14 @@ let ordenSchema = new Schema({
 
 ordenSchema.plugin(uniqueValidator, {
   message: '{PATH} debe de ser unico',
+})
+autoIncrement.initialize(mongoose.connection)
+
+ordenSchema.plugin(autoIncrement.plugin, {
+  model: 'Orden',
+  field: '_id',
+  startAt: 1,
+  incrementBy: 1,
 })
 
 module.exports = mongoose.model('Orden', ordenSchema)

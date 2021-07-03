@@ -4,7 +4,7 @@ let Schema = mongoose.Schema
 
 let cuotaSchema = new Schema({
   _orden: {
-    type: Schema.ObjectId,
+    type: Number,
     ref: 'Orden',
     required: [true, 'La couta debe estar relacionada a una orden'],
   },
