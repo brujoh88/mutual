@@ -123,24 +123,44 @@ export default {
         })
     },
     onSubmit() {
-      fetch('http://localhost:3000/proovedor', {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'POST',
-        body: JSON.stringify({
-          nombre: this.form.nombre,
-          descripcion: this.form.descripcion,
-        }),
-      })
-        .then((response) => response.json())
-        .then((element) => {
-          if (element.error == '') {
-            this.value = 100
-            this.onReset()
-            setTimeout(this.closeFrom, 1500)
-          } else {
-            this.showDismissibleAlert = true
-          }
+      if (this.form.descripcion != '') {
+        fetch('http://localhost:3000/proovedor', {
+          headers: { 'Content-Type': 'application/json' },
+          method: 'POST',
+          body: JSON.stringify({
+            nombre: this.form.nombre,
+            descripcion: this.form.descripcion,
+          }),
         })
+          .then((response) => response.json())
+          .then((element) => {
+            if (element.error == '') {
+              this.value = 100
+              this.onReset()
+              setTimeout(this.closeFrom, 1500)
+            } else {
+              this.showDismissibleAlert = true
+            }
+          })
+      } else {
+        fetch('http://localhost:3000/proovedor', {
+          headers: { 'Content-Type': 'application/json' },
+          method: 'POST',
+          body: JSON.stringify({
+            nombre: this.form.nombre,
+          }),
+        })
+          .then((response) => response.json())
+          .then((element) => {
+            if (element.error == '') {
+              this.value = 100
+              this.onReset()
+              setTimeout(this.closeFrom, 1500)
+            } else {
+              this.showDismissibleAlert = true
+            }
+          })
+      }
     },
     closeFrom() {
       this.show = false

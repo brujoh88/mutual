@@ -51,7 +51,13 @@
           <div>
             <!-- Using value -->
             <b-button
-              @click="cambiarNombre(row.item._id, row.item.nombre)"
+              @click="
+                cambiarNombre(
+                  row.item._id,
+                  row.item.nombre,
+                  row.item.descripcion
+                )
+              "
               size="sm"
               class="mr-2"
               variant="success"
@@ -157,10 +163,11 @@ export default {
       .finally(() => (this.isBusy = false))
   },
   methods: {
-    cambiarNombre(id, proveedorName) {
+    cambiarNombre(id, proveedorName, detalleProveedor) {
       this.show = !this.show
       this.id = id
       this.form.nombre = proveedorName
+      this.form.descripcion = detalleProveedor
       this.nombreRam = proveedorName
     },
     estoySeguro() {
@@ -191,23 +198,43 @@ export default {
         })
     },
     onSubmit() {
-      fetch(`http://localhost:3000/proovedor/${this.id}`, {
-        headers: { 'Content-Type': 'application/json' },
-        method: 'PUT',
-        body: JSON.stringify({
-          nombre: this.form.nombre,
-          descripcion: this.form.descripcion,
-        }),
-      })
-        .then((response) => response.json())
-        .then((element) => {
-          if (element.error == '') {
-            this.value = 100
-            setTimeout(this.closeFrom, 1500)
-          } else {
-            this.showDismissibleAlert = true
-          }
+      if (this.form.descripcion != '') {
+        fetch(`http://localhost:3000/proovedor/${this.id}`, {
+          headers: { 'Content-Type': 'application/json' },
+          method: 'PUT',
+          body: JSON.stringify({
+            nombre: this.form.nombre,
+            descripcion: this.form.descripcion,
+          }),
         })
+          .then((response) => response.json())
+          .then((element) => {
+            if (element.error == '') {
+              this.value = 100
+              setTimeout(this.closeFrom, 1500)
+            } else {
+              this.showDismissibleAlert = true
+            }
+          })
+      } else {
+        fetch(`http://localhost:3000/proovedor/${this.id}`, {
+          headers: { 'Content-Type': 'application/json' },
+          method: 'PUT',
+          body: JSON.stringify({
+            nombre: this.form.nombre,
+            descripcion: 'Sin descripcion',
+          }),
+        })
+          .then((response) => response.json())
+          .then((element) => {
+            if (element.error == '') {
+              this.value = 100
+              setTimeout(this.closeFrom, 1500)
+            } else {
+              this.showDismissibleAlert = true
+            }
+          })
+      }
     },
 
     closeFrom() {
