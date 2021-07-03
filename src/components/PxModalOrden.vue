@@ -254,7 +254,9 @@ export default {
                 body: JSON.stringify({
                   _afiliado: this.idAfiliado,
                   _orden: element.body._id,
-                  monto: element.body.montoTotal / element.body.cantidadCuota,
+                  monto: (
+                    element.body.montoTotal / element.body.cantidadCuota
+                  ).toFixed(2),
                   periodo: new Date(anio, mesPeriodo + i),
                   detalle: `${i} de ${element.body.cantidadCuota}`,
                 }),
