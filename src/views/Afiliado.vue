@@ -174,7 +174,8 @@ export default {
               this.items[i]._orden._proovedor
             ]
             let fecha = new Date(this.items[i].periodo)
-            this.items[i].periodo = `${fecha.getMonth()}/${fecha.getFullYear()}`
+            this.items[i].periodo = `${fecha.getMonth() +
+              1}/${fecha.getFullYear()}`
             this.items[i].id = this.items[i]._orden._id
           }
           if (datos.body.length != 0) {
