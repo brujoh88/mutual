@@ -188,9 +188,12 @@ export default {
         return response.json()
       })
       .then((datos) => {
+        console.log(datos)
         for (let i = 0; i < datos.body.length; i++) {
-          this.proovedores.push(datos.body[i].nombre)
-          this.idProovedores.push(datos.body[i]._id)
+          this.proovedores.push(
+            `${datos.body[i].nombre} - ${datos.body[i].descripcion}`
+          )
+          this.idProovedores.push(datos.body[i]._id)          
         }
       })
       .catch((error) => {
