@@ -6,7 +6,10 @@ let proovedordorSchema = new Schema({
   nombre: {
     type: String,
     required: [true, 'El nombre es requerido'],
-    unique: true,
+  },
+  descripcion: {
+    type: String,
+    default: 'Sin descripcion',
   },
   estado: {
     type: Boolean,

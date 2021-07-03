@@ -69,12 +69,31 @@
           description="Cambie el nombre por el cual desea actualizar su nombre anterior."
         >
           <b-form-input
+            :state="validationNombre"
             id="input-1"
             v-model="form.nombre"
             required
           ></b-form-input>
+          <b-form-invalid-feedback :state="validationNombre">
+            Es el mismo nombre
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationNombre">
+            Muy bien, ahora solo actualice!
+          </b-form-valid-feedback>
         </b-form-group>
-        <b-button @click="estoySeguro" variant="success" class="mr-3"
+        <b-form-group
+          id="input-group-2"
+          label="Descripcion:"
+          label-for="input-2"
+          description="Puede colocar alguna descripcion si lo desea"
+        >
+          <b-form-input id="input-2" v-model="form.descripcion"></b-form-input>
+        </b-form-group>
+        <b-button
+          @click="estoySeguro"
+          variant="success"
+          class="mr-3"
+          :disabled="habilitarGuardar"
           >Actualizar</b-button
         >
         <b-button type="reset" variant="danger">Cancelar</b-button>
@@ -103,6 +122,10 @@ export default {
           key: 'nombre',
           sortable: true,
         },
+        {
+          key: 'descripcion',
+          sortable: true,
+        },
         { key: 'button', label: 'Editar', sortable: false },
       ],
 
@@ -111,6 +134,7 @@ export default {
       filter: null,
       form: {
         nombre: '',
+        descripcion: '',
       },
       show: true,
       value: 0,
@@ -172,6 +196,7 @@ export default {
         method: 'PUT',
         body: JSON.stringify({
           nombre: this.form.nombre,
+          descripcion: this.form.descripcion,
         }),
       })
         .then((response) => response.json())
@@ -194,7 +219,20 @@ export default {
       this.show = !this.show
     },
   },
-  computed: {},
+  computed: {
+    validationNombre() {
+      return (
+        /^[0-9A-Za-z\s]+$/.test(this.form.nombre) &&
+        this.nombreRam != this.form.nombre
+      )
+    },
+    habilitarGuardar() {
+      return !(
+        /^[0-9A-Za-z\s]+$/.test(this.form.nombre) &&
+        this.nombreRam != this.form.nombre
+      )
+    },
+  },
 }
 </script>
 

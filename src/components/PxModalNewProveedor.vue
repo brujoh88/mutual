@@ -18,11 +18,22 @@
               required
             ></b-form-input>
             <b-form-invalid-feedback :state="validationNombre">
-              (debe ser unico)
+              No puede estar vacio
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationNombre">
               Muy bien!
             </b-form-valid-feedback>
+          </b-form-group>
+          <b-form-group
+            id="input-group-1"
+            label="Descripcion:"
+            label-for="input-1"
+          >
+            <b-form-input
+              id="input-1"
+              v-model="form.descripcion"
+              placeholder="Descripcion de local"
+            ></b-form-input>
           </b-form-group>
           <b-button
             @click="estoySeguro"
@@ -67,6 +78,7 @@ export default {
     return {
       form: {
         nombre: '',
+        descripcion: '',
       },
       show: false,
       value: 0,
@@ -116,6 +128,7 @@ export default {
         method: 'POST',
         body: JSON.stringify({
           nombre: this.form.nombre,
+          descripcion: this.form.descripcion,
         }),
       })
         .then((response) => response.json())
