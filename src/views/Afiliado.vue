@@ -183,7 +183,10 @@ export default {
               this.acumulador = this.acumulador + datos.body[i].monto
             }
             this.acumulador = this.acumulador.toFixed(2)
-            this.saldoAfavor = this.afiliado.saldoAsignado - this.acumulador
+            let saldoAfavor = (
+              this.afiliado.saldoAsignado - this.acumulador
+            ).toFixed(2)
+            this.saldoAfavor = Number(saldoAfavor)
           } else {
             this.saldoAfavor = this.afiliado.saldoAsignado
           }
