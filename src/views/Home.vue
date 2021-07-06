@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    {{ new Date().getDate() }}/{{ new Date().getMonth() + 1 }}/{{
-      new Date().getFullYear()
-    }}
-    <br />
-    Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]
+    <h5>
+      {{ diaActual }}
+    </h5>
+    <h5>Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]</h5>
+
+    <h3>Lista Afiliados</h3>
 
     <TableAfiliado :key="key1" :cierre="cierre">
       <ModalNewAfiliado v-on:isPost="forceRender" class="mb-3" />
@@ -29,6 +30,7 @@ export default {
       fechaApertura: '',
       fechaCierre: '',
       cierre: '',
+      diaActual: '',
     }
   },
   methods: {
@@ -38,6 +40,8 @@ export default {
   },
   mounted() {
     let fecha = new Date()
+    this.diaActual = `${new Date().getDate()}/${new Date().getMonth() +
+      1}/${new Date().getFullYear()}`
     fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
       .then((response) => {
         return response.json()

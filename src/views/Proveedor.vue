@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <h3>Lista Proveedores</h3>
     <table-proveedor :key="key1" v-on:isPost="forceRender">
       <modal-new-proveedor v-on:isPost="forceRender" class="mb-3" />
     </table-proveedor>

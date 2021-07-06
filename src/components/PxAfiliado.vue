@@ -1,3 +1,4 @@
+import Afiliado from '@/components/PxAfiliado.vue';
 <template>
   <div class="about">
     <div>
@@ -5,11 +6,14 @@
         <b-card
           :header="`Legajo N° ${afiliado.legajo}`"
           header-tag="header"
-          :footer="`Credito Asignado - $ ${afiliado.saldoAsignado}`"
           footer-tag="footer"
           :title="`${afiliado.nombre} ${afiliado.apellido}`"
         >
-          <b-card-text>Credito Disponible: {{ saldoAfavor }}</b-card-text>
+          <b-card-text>DNI: {{ afiliado.dni }}</b-card-text>
+          <b-card-text
+            >Credito Asignado - ${{ afiliado.saldoAsignado }}</b-card-text
+          >
+          <b-card-text>Credito Disponible: ${{ saldoAfavor }}</b-card-text>
 
           <slot></slot>
         </b-card>

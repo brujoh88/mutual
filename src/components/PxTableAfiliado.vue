@@ -13,6 +13,7 @@
             <b-input-group>
               <b-form-input
                 id="filter-input"
+                placeholder="Ingrese el dato que desea encontrar"
                 v-model="filter"
                 type="search"
               ></b-form-input>

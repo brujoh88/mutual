@@ -17,6 +17,8 @@
       </b-row>
     </b-container>
 
+    <h3>Cuotas pendientes</h3>
+
     <b-container>
       <div>
         <div class="d-flex justify-content-center">
@@ -32,6 +34,7 @@
                 <b-form-input
                   id="filter-input"
                   v-model="filter"
+                  placeholder="Ingrese el dato que desea encontrar"
                   type="search"
                 ></b-form-input>
 
@@ -79,7 +82,7 @@
             </router-link>
           </template>
         </b-table>
-        <h4>Subtotal {{ acumulador }}</h4>
+        <h5>Subtotal ${{ acumulador }}</h5>
       </div>
     </b-container>
   </Afiliado>
