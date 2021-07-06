@@ -159,10 +159,10 @@ export default {
       return /^[0-9]+$/.test(this.form.dni)
     },
     validationApellido() {
-      return /^[A-Za-z]+$/.test(this.form.apellido)
+      return /^[A-Za-z\s]+$/.test(this.form.apellido)
     },
     validationNombre() {
-      return /^[A-Za-z]+$/.test(this.form.nombre)
+      return /^[A-Za-z\s]+$/.test(this.form.nombre)
     },
     validationSaldo() {
       return /^[0-9]+$/.test(this.form.saldoAsignado)
@@ -171,8 +171,8 @@ export default {
       return !(
         /^[0-9]+$/.test(this.form.legajo) &&
         /^[0-9]+$/.test(this.form.dni) &&
-        /^[A-Za-z]+$/.test(this.form.nombre) &&
-        /^[A-Za-z]+$/.test(this.form.apellido) &&
+        /^[A-Za-z\s]+$/.test(this.form.nombre) &&
+        /^[A-Za-z\s]+$/.test(this.form.apellido) &&
         /^[0-9]+$/.test(this.form.saldoAsignado)
       )
     },
