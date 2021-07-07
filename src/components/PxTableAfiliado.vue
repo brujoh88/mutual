@@ -74,6 +74,10 @@ export default {
     return {
       fields: [
         {
+          key: 'codigo',
+          sortable: true,
+        },
+        {
           key: 'legajo',
           sortable: true,
         },

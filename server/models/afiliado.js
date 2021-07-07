@@ -21,6 +21,11 @@ let afiliadoSchema = new Schema({
     required: [true, 'El legajo es requerido'],
     unique: true,
   },
+  codigo: {
+    type: Number,
+    required: [true, 'Este codigo del afiliado es requerido'],
+    enum: [640, 650],
+  },
   saldoAsignado: {
     type: Number,
     required: [true, 'Se requiere asignarle un saldo'],

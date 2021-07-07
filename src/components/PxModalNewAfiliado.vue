@@ -8,7 +8,29 @@
     <!-- The modal -->
     <b-modal id="my-modal" centered title="Nuevo Afiliado" v-model="show"
       ><div>
+        <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+          Recuerde que debe ser legajo y dni unico para cada afiliado.
+        </b-alert>
         <b-form @submit="onSubmit" @reset="onReset">
+          <b-form-group
+            id="input-group-list"
+            label="Codigo:"
+            label-for="input-list"
+          >
+            <b-form-select
+              id="input-list"
+              v-model="form.codigo"
+              :options="codigo"
+              :state="validationCodigo"
+              required
+            ></b-form-select>
+            <b-form-invalid-feedback :state="validationCodigo">
+              Eliga una opcion
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationCodigo">
+              Muy bien!
+            </b-form-valid-feedback>
+          </b-form-group>
           <b-form-group id="input-group-0" label="Legajo:" label-for="input-0">
             <b-form-input
               id="input-0"
@@ -112,9 +134,6 @@
             animated
             class="mt-2"
           ></b-progress>
-          <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-            Recuerde que debe ser legajo y dni unico para cada afiliado.
-          </b-alert>
         </b-form>
       </div>
       <template #modal-footer>
@@ -139,12 +158,18 @@ export default {
   data() {
     return {
       form: {
+        codigo: null,
         legajo: '',
         nombre: '',
         apellido: '',
         dni: '',
         saldoAsignado: '',
       },
+      codigo: [
+        { text: 'Eliga el codigo correspondiente al afiliado', value: null },
+        640,
+        650,
+      ],
       show: false,
       value: 0,
       max: 100,
@@ -152,6 +177,9 @@ export default {
     }
   },
   computed: {
+    validationCodigo() {
+      return this.form.codigo != null
+    },
     validationLegajo() {
       return /^[0-9]+$/.test(this.form.legajo)
     },
@@ -169,6 +197,7 @@ export default {
     },
     habilitarGuardar() {
       return !(
+        this.form.codigo != null &&
         /^[0-9]+$/.test(this.form.legajo) &&
         /^[0-9]+$/.test(this.form.dni) &&
         /^[A-Za-z\s]+$/.test(this.form.nombre) &&
@@ -210,6 +239,7 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
         body: JSON.stringify({
+          codigo: this.form.codigo,
           legajo: this.form.legajo,
           nombre: this.form.nombre,
           apellido: this.form.apellido,
@@ -238,6 +268,7 @@ export default {
         event.preventDefault()
       }
       // Reset our form values
+      this.form.codigo = null
       this.form.legajo = ''
       this.form.nombre = ''
       this.form.apellido = ''
