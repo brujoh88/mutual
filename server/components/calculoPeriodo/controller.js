@@ -24,8 +24,8 @@ const MESES_DEL_ANIO = {
 
 const MOVIMIENTO_SEGUN_DIA_SEMANA = {
   Domingo: -2,
-  Lunes: -3,
-  Martes: -4,
+  Lunes: 4,
+  Martes: 3,
   Miercoles: 2,
   Jueves: 1,
   Viernes: 0,
