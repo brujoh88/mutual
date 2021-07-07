@@ -11,7 +11,7 @@ import Afiliado from '@/components/PxAfiliado.vue';
         >
           <b-card-text>DNI: {{ afiliado.dni }}</b-card-text>
           <b-card-text
-            >Credito Asignado - ${{ afiliado.saldoAsignado }}</b-card-text
+            >Credito Asignado: ${{ afiliado.saldoAsignado }}</b-card-text
           >
           <b-card-text>Credito Disponible: ${{ saldoAfavor }}</b-card-text>
 
