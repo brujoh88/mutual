@@ -3,13 +3,9 @@ const uniqueValidator = require('mongoose-unique-validator')
 let Schema = mongoose.Schema
 
 let afiliadoSchema = new Schema({
-  nombre: {
+  apellido_nombre: {
     type: String,
-    required: [true, 'El nombre es requerido'],
-  },
-  apellido: {
-    type: String,
-    required: [true, 'El apellido es requerido'],
+    required: [true, 'El apellido y nombre es requerido'],
   },
   dni: {
     type: Number,
@@ -29,6 +25,9 @@ let afiliadoSchema = new Schema({
   saldoAsignado: {
     type: Number,
     required: [true, 'Se requiere asignarle un saldo'],
+  },
+  detalle: {
+    type: String,
   },
   estado: {
     type: Boolean,

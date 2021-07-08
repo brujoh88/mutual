@@ -29,12 +29,12 @@ const getAfiliadoDB = (id) => {
 const postAfiliadoDB = (body) => {
   return new Promise((resolve, reject) => {
     let afiliado = new Afiliado({
-      nombre: body.nombre,
-      apellido: body.apellido,
+      apellido_nombre: body.apellido_nombre,
       dni: body.dni,
       legajo: body.legajo,
       codigo: body.codigo,
       saldoAsignado: body.saldoAsignado,
+      detalle: body.detalle,
       estado: body.estado,
     })
     afiliado.save((err, newAfiliadoDB) => {
@@ -49,12 +49,12 @@ const postAfiliadoDB = (body) => {
 const putAfiliadoDB = (id, datos) => {
   return new Promise((resolve, reject) => {
     let body = _.pick(datos, [
-      'nombre',
-      'apellido',
+      'apellido_nombre',
       'dni',
       'legajo',
       'codigo',
       'saldoAsignado',
+      'detalle',
       'estado',
     ])
     Afiliado.findByIdAndUpdate(id, body, { new: true }, (err, doc) => {
