@@ -46,39 +46,22 @@
               Muy bien!
             </b-form-valid-feedback>
           </b-form-group>
-          <b-form-group id="input-group-1" label="Nombre:" label-for="input-1">
-            <b-form-input
-              id="input-1"
-              v-model="form.nombre"
-              placeholder="Ingrese el nombre aqui"
-              :state="validationNombre"
-              required
-            ></b-form-input>
-            <b-form-invalid-feedback :state="validationNombre">
-              Solo texto
-            </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationNombre">
-              Muy bien!
-            </b-form-valid-feedback>
-          </b-form-group>
-
           <b-form-group
-            id="input-group-2"
-            label="Apellido:"
-            label-for="input-2"
-            required
+            id="input-group-1"
+            label="Nombre y Apellido:"
+            label-for="input-1"
           >
             <b-form-input
-              id="input-2"
-              v-model="form.apellido"
-              placeholder="Ingrese el apellido aqui"
-              :state="validationApellido"
+              id="input-1"
+              v-model="form.apellido_nombre"
+              placeholder="Ingrese el apellido y nombre aqui"
+              :state="validationApellidoNombre"
               required
             ></b-form-input>
-            <b-form-invalid-feedback :state="validationApellido">
+            <b-form-invalid-feedback :state="validationApellidoNombre">
               Solo texto
             </b-form-invalid-feedback>
-            <b-form-valid-feedback :state="validationApellido">
+            <b-form-valid-feedback :state="validationApellidoNombre">
               Muy bien!
             </b-form-valid-feedback>
           </b-form-group>
@@ -117,6 +100,19 @@
             <b-form-valid-feedback :state="validationSaldo">
               Muy bien!
             </b-form-valid-feedback>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-2"
+            label="Detalle:"
+            label-for="input-2"
+            required
+          >
+            <b-form-input
+              id="input-2"
+              v-model="form.detalle"
+              placeholder="Dato de interes (no requerido)"
+            ></b-form-input>
           </b-form-group>
 
           <b-button
@@ -160,10 +156,10 @@ export default {
       form: {
         codigo: null,
         legajo: '',
-        nombre: '',
-        apellido: '',
+        apellido_nombre: '',
         dni: '',
         saldoAsignado: '',
+        detalle: '',
       },
       codigo: [
         { text: 'Eliga el codigo correspondiente al afiliado', value: null },
@@ -186,11 +182,8 @@ export default {
     validationDni() {
       return /^[0-9]+$/.test(this.form.dni)
     },
-    validationApellido() {
-      return /^[A-Za-z\s]+$/.test(this.form.apellido)
-    },
-    validationNombre() {
-      return /^[A-Za-z\s]+$/.test(this.form.nombre)
+    validationApellidoNombre() {
+      return /^[A-Za-z\s]+$/.test(this.form.apellido_nombre)
     },
     validationSaldo() {
       return /^[0-9]+$/.test(this.form.saldoAsignado)
@@ -200,8 +193,7 @@ export default {
         this.form.codigo != null &&
         /^[0-9]+$/.test(this.form.legajo) &&
         /^[0-9]+$/.test(this.form.dni) &&
-        /^[A-Za-z\s]+$/.test(this.form.nombre) &&
-        /^[A-Za-z\s]+$/.test(this.form.apellido) &&
+        /^[A-Za-z\s]+$/.test(this.form.apellido_nombre) &&
         /^[0-9]+$/.test(this.form.saldoAsignado)
       )
     },
@@ -210,7 +202,14 @@ export default {
     estoySeguro() {
       this.$bvModal
         .msgBoxConfirm(
-          `Se va agregar al afiliado ${this.form.nombre} ${this.form.apellido} con numero de legajo N°${this.form.legajo} y DNI ${this.form.dni}. Asignandole un monto de credito de $${this.form.saldoAsignado}. ¿Esta seguro?`,
+          `Se va agregar al afiliado ${
+            this.form.apellido_nombre
+          } con numero de legajo ${this.form.legajo} - DNI ${
+            this.form.dni
+          }, codigo: ${this.form.codigo}. Asignandole un monto de credito de $${
+            this.form.saldoAsignado
+          }. Detalle: ${this.form.detalle ||
+            '(sin detalle)'}. ¿Esta usted seguro?`,
           {
             title: 'Confirmacion de orden',
             size: 'sm',
@@ -241,9 +240,9 @@ export default {
         body: JSON.stringify({
           codigo: this.form.codigo,
           legajo: this.form.legajo,
-          nombre: this.form.nombre,
-          apellido: this.form.apellido,
+          apellido_nombre: this.form.apellido_nombre,
           dni: this.form.dni,
+          detalle: this.form.detalle,
           saldoAsignado: this.form.saldoAsignado,
         }),
       })
@@ -270,10 +269,11 @@ export default {
       // Reset our form values
       this.form.codigo = null
       this.form.legajo = ''
-      this.form.nombre = ''
-      this.form.apellido = ''
+      this.form.apellido_nombre = ''
       this.form.dni = ''
       this.form.saldoAsignado = ''
+      this.form.detalle = ''
+
       // Trick to reset/clear native browser form validation state
     },
   },

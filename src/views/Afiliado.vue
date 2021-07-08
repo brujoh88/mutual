@@ -105,10 +105,11 @@ export default {
       afiliado: {
         id: '',
         legajo: '',
-        nombre: '',
-        apellido: '',
+        apellido_nombre: '',
+        codigo: '',
         dni: '',
         saldoAsignado: '',
+        detalle: '',
       },
       proveedor: {},
       cierre: '',
@@ -146,9 +147,11 @@ export default {
           return response.json()
         })
         .then((datos) => {
+          this.afiliado.id = datos.body._id
+          this.afiliado.codigo = datos.body.codigo
           this.afiliado.legajo = datos.body.legajo
-          this.afiliado.nombre = datos.body.nombre
-          this.afiliado.apellido = datos.body.apellido
+          this.afiliado.apellido_nombre = datos.body.apellido_nombre
+          this.afiliado.detalle = datos.body.detalle
           this.afiliado.dni = datos.body.dni
           this.afiliado.saldoAsignado = datos.body.saldoAsignado
         })
@@ -226,9 +229,10 @@ export default {
           })
           .then((datos) => {
             this.afiliado.id = datos.body._id
+            this.afiliado.codigo = datos.body.codigo
             this.afiliado.legajo = datos.body.legajo
-            this.afiliado.nombre = datos.body.nombre
-            this.afiliado.apellido = datos.body.apellido
+            this.afiliado.apellido_nombre = datos.body.apellido_nombre
+            this.afiliado.detalle = datos.body.detalle
             this.afiliado.dni = datos.body.dni
             this.afiliado.saldoAsignado = datos.body.saldoAsignado
           })
