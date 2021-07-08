@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Afiliado from '../views/Afiliado.vue'
+import Configuracion from '../views/Configuracion.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     path: '/afiliado',
     name: 'Afiliado',
     component: Afiliado,
+  },
+  {
+    path: '/config',
+    name: 'configuracion',
+    component: Configuracion,
   },
 ]
 

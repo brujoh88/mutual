@@ -60,7 +60,7 @@ export default {
       .catch((error) => {
         console.log(error)
       })
-      .finally(() => console.log('genial termino'))
+    //.finally(() => console.log('genial termino'))
   },
 }
 </script>
