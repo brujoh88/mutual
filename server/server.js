@@ -26,7 +26,7 @@ const route = require('./network/routes')
 const port = process.env.PORT
 const cors = require('cors')
 
-app.use(express.static(__dirname + '/dist'))
+//app.use(express.static(__dirname + '/dist'))
 app.use(cors())
 
 route(app)
