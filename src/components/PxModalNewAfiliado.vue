@@ -163,14 +163,37 @@ export default {
       },
       codigo: [
         { text: 'Eliga el codigo correspondiente al afiliado', value: null },
-        640,
-        650,
       ],
       show: false,
       value: 0,
       max: 100,
       showDismissibleAlert: false,
     }
+  },
+  mounted() {
+    fetch('http://localhost:3000/config/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        if (datos.body == null) {
+          alert('FALTA CONFIGURAR')
+        }
+        this.codigo.push(
+          {
+            value: datos.body[0]._codigo1._id,
+            text: datos.body[0]._codigo1.codigo1,
+          },
+          {
+            value: datos.body[0]._codigo2._id,
+            text: datos.body[0]._codigo2.codigo2,
+          }
+        )
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+      .finally(() => (this.isBusy = false))
   },
   computed: {
     validationCodigo() {

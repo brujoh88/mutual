@@ -18,9 +18,8 @@ let afiliadoSchema = new Schema({
     unique: true,
   },
   codigo: {
-    type: Number,
+    type: String,
     required: [true, 'Este codigo del afiliado es requerido'],
-    enum: [640, 650],
   },
   saldoAsignado: {
     type: Number,

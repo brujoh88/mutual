@@ -4,6 +4,9 @@
       <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
         Error en la base de datos
       </b-alert>
+      <b-alert v-model="showSucessAlert" variant="success" dismissible>
+        Guardado con exito
+      </b-alert>
       <b-form-group
         id="input-group-1"
         label="Monto de cuota fija:"
@@ -209,7 +212,7 @@ export default {
             this.idConfig = element.body._id
             this.value = 100
             this.showSucessAlert = true
-            setTimeout(this.closeFrom, 1500)
+            setTimeout(this.closeFrom, 2000)
           } else {
             this.showDismissibleAlert = true
           }

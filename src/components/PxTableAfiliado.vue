@@ -90,6 +90,7 @@ export default {
       items: null,
       isBusy: true,
       filter: null,
+      towCodigos: {},
     }
   },
   props: {
@@ -98,19 +99,39 @@ export default {
     },
   },
   mounted() {
-    fetch('http://localhost:3000/afiliado/')
+    fetch('http://localhost:3000/config/')
       .then((response) => {
         return response.json()
       })
       .then((datos) => {
-        this.items = datos.body
+        this.towCodigos[`${datos.body[0]._codigo1._id}`] =
+          datos.body[0]._codigo1.codigo1
+        this.towCodigos[`${datos.body[0]._codigo2._id}`] =
+          datos.body[0]._codigo2.codigo2
+
+        fetch('http://localhost:3000/afiliado/')
+          .then((response) => {
+            return response.json()
+          })
+          .then((datos) => {
+            this.items = datos.body
+            this.cambiarCodigo()
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+          .finally(() => (this.isBusy = false))
       })
       .catch((error) => {
         console.log(error)
       })
-      .finally(() => (this.isBusy = false))
   },
   methods: {
+    cambiarCodigo() {
+      for (let i = 0; i < this.items.length; i++) {
+        this.items[i].codigo = this.towCodigos[this.items[i].codigo]
+      }
+    },
     rowClass() {
       /*rowClass(item, type) {
        if (!item || type !== 'row') return
