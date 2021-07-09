@@ -4,6 +4,9 @@
       <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
         Error en la base de datos
       </b-alert>
+      <b-alert v-model="showSucessAlert" variant="success" dismissible>
+        Guardado con exito
+      </b-alert>
       <b-form-group
         id="input-group-1"
         label="Monto de cuota fija:"
@@ -21,36 +24,6 @@
           Ingrese solo numeros
         </b-form-invalid-feedback>
         <b-form-valid-feedback :state="validationCuota">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
-
-      <b-form-group id="input-group-2" label="Codigo 1:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.codigo1"
-          :state="validationCodigo1"
-          required
-        ></b-form-input>
-        <b-form-invalid-feedback :state="validationCodigo1">
-          Ingrese solo numeros
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationCodigo1">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
-
-      <b-form-group id="input-group-3" label="Codigo 2:" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          v-model="form.codigo2"
-          :state="validationCodigo2"
-          required
-        ></b-form-input>
-        <b-form-invalid-feedback :state="validationCodigo2">
-          Ingrese solo numeros
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationCodigo2">
           Muy bien!
         </b-form-valid-feedback>
       </b-form-group>
@@ -76,78 +49,136 @@
 
 <script>
 export default {
+  name: 'Configuracion',
   data() {
     return {
       form: {
         cuota: '',
-        codigo1: '',
-        codigo2: '',
       },
+      idConfig: '',
+      cantPost: false,
       value: 0,
       max: 100,
       showDismissibleAlert: false,
+      showSucessAlert: false,
     }
+  },
+  mounted() {
+    fetch('http://localhost:3000/config/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        if (datos.body == null) {
+          this.cantPost = true
+        } else {
+          this.idConfig = datos.body[0]._id
+          this.form.cuota = datos.body[0].cuota
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
   computed: {
     validationCuota() {
       return /^[0-9]+$/.test(this.form.cuota)
     },
-    validationCodigo1() {
-      return /^[0-9]+$/.test(this.form.codigo1)
-    },
-    validationCodigo2() {
-      return /^[0-9]+$/.test(this.form.codigo2)
-    },
     habilitarGuardar() {
-      return !(
-        /^[0-9]+$/.test(this.form.cuota) &&
-        /^[0-9]+$/.test(this.form.codigo1) &&
-        /^[0-9]+$/.test(this.form.codigo2)
-      )
+      return !/^[0-9]+$/.test(this.form.cuota)
     },
   },
   methods: {
     estoySeguro() {
-      this.$bvModal
-        .msgBoxConfirm(
-          `Se va a cambiar la configuracion: Valor de la COUTA ${this.form.cuota} - CODIGO 1: ${this.form.codigo1} - CODIGO 2 ${this.form.codigo2}. ¿Esta usted seguro?`,
-          {
-            title: 'Confirmacion de configuracion',
-            size: 'sm',
-            buttonSize: 'sm',
-            okVariant: 'danger',
-            okTitle: 'SI',
-            cancelTitle: 'NO',
-            footerClass: 'p-2',
-            hideHeaderClose: false,
-            centered: true,
-          }
-        )
-        .then((value) => {
-          if (value) {
-            this.onSubmit()
-          } else {
-            this.onReset()
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      if (this.cantPost) {
+        this.cantPost = false
+        this.$bvModal
+          .msgBoxConfirm(
+            `Se va a crear la configuracion: Valor de la COUTA $${this.form.cuota}. ¿Esta usted seguro?`,
+            {
+              title: 'Confirmacion de configuracion',
+              size: 'sm',
+              buttonSize: 'sm',
+              okVariant: 'danger',
+              okTitle: 'SI',
+              cancelTitle: 'NO',
+              footerClass: 'p-2',
+              hideHeaderClose: false,
+              centered: true,
+            }
+          )
+          .then((value) => {
+            if (value) {
+              this.onSubmit()
+            } else {
+              this.onReset()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else {
+        this.$bvModal
+          .msgBoxConfirm(
+            `Se va a cambiar la configuracion: Valor de la COUTA $${this.form.cuota}. ¿Esta usted seguro?`,
+            {
+              title: 'Confirmacion de configuracion',
+              size: 'sm',
+              buttonSize: 'sm',
+              okVariant: 'danger',
+              okTitle: 'SI',
+              cancelTitle: 'NO',
+              footerClass: 'p-2',
+              hideHeaderClose: false,
+              centered: true,
+            }
+          )
+          .then((value) => {
+            if (value) {
+              this.onUpdate()
+            } else {
+              this.onReset()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
     },
+
     onSubmit() {
       fetch('http://localhost:3000/config', {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
         body: JSON.stringify({
           cuota: this.form.cuota,
-          codigo1: this.form.codigo1,
-          codigo2: this.form.codigo2,
+        }),
+      })
+        .then((response) => response.json())
+        .then((element) => {
+          if (element.error == '') {
+            this.idConfig = element.body._id
+            this.value = 100
+            this.showSucessAlert = true
+            setTimeout(this.closeFrom, 1500)
+          } else {
+            this.showDismissibleAlert = true
+          }
+        })
+    },
+    onUpdate() {
+      fetch(`http://localhost:3000/config/${this.idConfig}`, {
+        headers: { 'Content-Type': 'application/json' },
+        method: 'PUT',
+        body: JSON.stringify({
+          cuota: this.form.cuota,
         }),
       })
         .then((response) => response.json())
         .then((element) => {
           if (element.error == '') {
             this.value = 100
+            this.showSucessAlert = true
             setTimeout(this.closeFrom, 1500)
           } else {
             this.showDismissibleAlert = true
@@ -155,9 +186,9 @@ export default {
         })
     },
     closeFrom() {
-      this.show = false
       this.value = 0
-      this.$emit('isPost')
+      this.showDismissibleAlert = false
+      this.showSucessAlert = false
     },
     onReset(event) {
       if (event != undefined) {
@@ -165,8 +196,6 @@ export default {
       }
       // Reset our form values
       this.form.cuota = ''
-      this.form.codigo1 = ''
-      this.form.codigo2 = ''
 
       // Trick to reset/clear native browser form validation state
     },

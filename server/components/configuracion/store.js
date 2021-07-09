@@ -19,8 +19,6 @@ const postConfigDB = (body) => {
   return new Promise((resolve, reject) => {
     let config = new Configuracion({
       cuota: body.cuota,
-      codigo1: body.codigo1,
-      codigo2: body.codigo2,
     })
     config.save((err, newConfigDB) => {
       if (err) {
@@ -33,7 +31,7 @@ const postConfigDB = (body) => {
 
 const putConfigDB = (id, datos) => {
   return new Promise((resolve, reject) => {
-    let body = _.pick(datos, ['cuota', 'codigo1', 'codigo2'])
+    let body = _.pick(datos, ['cuota'])
     Configuracion.findByIdAndUpdate(
       id,
       body,

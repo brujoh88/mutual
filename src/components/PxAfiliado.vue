@@ -1,4 +1,3 @@
-import Afiliado from '@/components/PxAfiliado.vue';
 <template>
   <div class="about">
     <div>
