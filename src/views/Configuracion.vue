@@ -4,9 +4,6 @@
       <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
         Error en la base de datos
       </b-alert>
-      <b-alert v-model="showSucessAlert" variant="success" dismissible>
-        Guardado con exito
-      </b-alert>
       <b-form-group
         id="input-group-1"
         label="Monto de cuota fija:"
@@ -24,6 +21,36 @@
           Ingrese solo numeros
         </b-form-invalid-feedback>
         <b-form-valid-feedback :state="validationCuota">
+          Muy bien!
+        </b-form-valid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Codigo 1:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.codigo1"
+          :state="validationCodigo1"
+          required
+        ></b-form-input>
+        <b-form-invalid-feedback :state="validationCodigo1">
+          Ingrese solo numeros
+        </b-form-invalid-feedback>
+        <b-form-valid-feedback :state="validationCodigo1">
+          Muy bien!
+        </b-form-valid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-3" label="Codigo 2:" label-for="input-3">
+        <b-form-input
+          id="input-3"
+          v-model="form.codigo2"
+          :state="validationCodigo2"
+          required
+        ></b-form-input>
+        <b-form-invalid-feedback :state="validationCodigo2">
+          Ingrese solo numeros
+        </b-form-invalid-feedback>
+        <b-form-valid-feedback :state="validationCodigo2">
           Muy bien!
         </b-form-valid-feedback>
       </b-form-group>
@@ -54,8 +81,12 @@ export default {
     return {
       form: {
         cuota: '',
+        codigo1: '',
+        codigo2: '',
       },
       idConfig: '',
+      idCodido1: '',
+      idCodido2: '',
       cantPost: false,
       value: 0,
       max: 100,
@@ -74,6 +105,10 @@ export default {
         } else {
           this.idConfig = datos.body[0]._id
           this.form.cuota = datos.body[0].cuota
+          this.idCodido1 = datos.body[0]._codigo1._id
+          this.form.codigo1 = datos.body[0]._codigo1.codigo1
+          this.idCodido2 = datos.body[0]._codigo2._id
+          this.form.codigo2 = datos.body[0]._codigo2.codigo2
         }
       })
       .catch((error) => {
@@ -84,8 +119,18 @@ export default {
     validationCuota() {
       return /^[0-9]+$/.test(this.form.cuota)
     },
+    validationCodigo1() {
+      return /^[0-9]+$/.test(this.form.codigo1)
+    },
+    validationCodigo2() {
+      return /^[0-9]+$/.test(this.form.codigo2)
+    },
     habilitarGuardar() {
-      return !/^[0-9]+$/.test(this.form.cuota)
+      return !(
+        /^[0-9]+$/.test(this.form.cuota) &&
+        /^[0-9]+$/.test(this.form.codigo1) &&
+        /^[0-9]+$/.test(this.form.codigo2)
+      )
     },
   },
   methods: {
@@ -94,7 +139,7 @@ export default {
         this.cantPost = false
         this.$bvModal
           .msgBoxConfirm(
-            `Se va a crear la configuracion: Valor de la COUTA $${this.form.cuota}. ¿Esta usted seguro?`,
+            `Se va a crear la configuracion: Valor de la COUTA ${this.form.cuota} - CODIGO 1: ${this.form.codigo1} - CODIGO 2 ${this.form.codigo2}. ¿Esta usted seguro?`,
             {
               title: 'Confirmacion de configuracion',
               size: 'sm',
@@ -120,7 +165,7 @@ export default {
       } else {
         this.$bvModal
           .msgBoxConfirm(
-            `Se va a cambiar la configuracion: Valor de la COUTA $${this.form.cuota}. ¿Esta usted seguro?`,
+            `Se va a cambiar la configuracion: Valor de la COUTA ${this.form.cuota} - CODIGO 1: ${this.form.codigo1} - CODIGO 2 ${this.form.codigo2}. ¿Esta usted seguro?`,
             {
               title: 'Confirmacion de configuracion',
               size: 'sm',
@@ -152,6 +197,10 @@ export default {
         method: 'POST',
         body: JSON.stringify({
           cuota: this.form.cuota,
+          codigo1: this.form.codigo1,
+          codigo2: this.form.codigo2,
+          idCod1: this.idCodido1,
+          idCod2: this.idCodido2,
         }),
       })
         .then((response) => response.json())
@@ -172,6 +221,10 @@ export default {
         method: 'PUT',
         body: JSON.stringify({
           cuota: this.form.cuota,
+          codigo1: this.form.codigo1,
+          codigo2: this.form.codigo2,
+          idCod1: this.idCodido1,
+          idCod2: this.idCodido2,
         }),
       })
         .then((response) => response.json())
@@ -196,7 +249,8 @@ export default {
       }
       // Reset our form values
       this.form.cuota = ''
-
+      this.form.codigo1 = ''
+      this.form.codigo2 = ''
       // Trick to reset/clear native browser form validation state
     },
   },
