@@ -59,7 +59,6 @@ const putAfiliadoDB = (id, datos) => {
       'detalle',
       'estado',
     ])
-    console.log(body)
     Afiliado.findByIdAndUpdate(id, body, { new: true }, (err, doc) => {
       if (err) {
         reject(err)
