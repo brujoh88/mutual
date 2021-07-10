@@ -25,6 +25,10 @@ let afiliadoSchema = new Schema({
     type: Number,
     required: [true, 'Se requiere asignarle un saldo'],
   },
+  autoCuota: {
+    type: Boolean,
+    required: [true, 'Se requiere asignarle el estado de autoCuota'],
+  },
   detalle: {
     type: String,
   },

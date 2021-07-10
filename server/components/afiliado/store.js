@@ -34,6 +34,7 @@ const postAfiliadoDB = (body) => {
       legajo: body.legajo,
       codigo: body.codigo,
       saldoAsignado: body.saldoAsignado,
+      autoCuota: body.autoCuota,
       detalle: body.detalle,
       estado: body.estado,
     })
@@ -54,6 +55,7 @@ const putAfiliadoDB = (id, datos) => {
       'legajo',
       'codigo',
       'saldoAsignado',
+      'autoCuota',
       'detalle',
       'estado',
     ])
