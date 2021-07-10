@@ -74,6 +74,10 @@ export default {
     return {
       fields: [
         {
+          key: 'autoCuota',
+          sortable: true,
+        },
+        {
           key: 'codigo',
           sortable: true,
         },
@@ -115,7 +119,7 @@ export default {
           })
           .then((datos) => {
             this.items = datos.body
-            this.cambiarCodigo()
+            this.formatearTabla()
           })
           .catch((error) => {
             console.log(error)
@@ -127,9 +131,13 @@ export default {
       })
   },
   methods: {
-    cambiarCodigo() {
+    formatearTabla() {
       for (let i = 0; i < this.items.length; i++) {
         this.items[i].codigo = this.towCodigos[this.items[i].codigo]
+        if (this.items[i].autoCuota) {
+          this.items[i].autoCuota = 'SI'
+        }
+        this.items[i].autoCuota = 'NO'
       }
     },
     rowClass() {
