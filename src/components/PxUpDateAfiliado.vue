@@ -104,6 +104,19 @@
             </b-form-valid-feedback>
           </b-form-group>
 
+          <b-form-checkbox
+            id="checkbox-1"
+            v-model="form.autoCuota"
+            name="checkbox-1"
+            :value="true"
+            :unchecked-value="false"
+          >
+            {{
+              form.autoCuota
+                ? 'Confirmando cuota autimatica'
+                : 'NO se hara la cuota automatica'
+            }}
+          </b-form-checkbox>
           <b-form-group
             id="input-group-2p"
             label="Detalle:"
@@ -169,18 +182,41 @@ export default {
         apellido_nombre: '',
         dni: '',
         saldoAsignado: '',
+        autoCuota: true,
         detalle: '',
       },
       codigo: [
         { text: 'Eliga el codigo correspondiente al afiliado', value: null },
-        640,
-        650,
       ],
       show: false,
       value: 0,
       max: 100,
       showDismissibleAlert: false,
     }
+  },
+  mounted() {
+    fetch('http://localhost:3000/config/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        if (datos.body == null) {
+          alert('FALTA CONFIGURAR')
+        }
+        this.codigo.push(
+          {
+            value: datos.body[0]._codigo1._id,
+            text: datos.body[0]._codigo1.codigo1,
+          },
+          {
+            value: datos.body[0]._codigo2._id,
+            text: datos.body[0]._codigo2.codigo2,
+          }
+        )
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
   computed: {
     validationCodigo() {
@@ -214,21 +250,35 @@ export default {
       this.form.apellido_nombre = this.afiliado.apellido_nombre
       this.form.dni = this.afiliado.dni
       this.form.legajo = this.afiliado.legajo
+      this.form.autoCuota = this.afiliado.autoCuota
       this.form.detalle = this.afiliado.detalle
       this.form.saldoAsignado = this.afiliado.saldoAsignado
     },
     estoySeguro() {
+      let mensajeDescuento
+      if (this.form.autoCuota == 'true') {
+        mensajeDescuento =
+          'Tenga en cuenta que este afiliado se le hara el descuento automatica de la cuota'
+      } else {
+        mensajeDescuento =
+          'Tenga en cuenta que este afiliado NO se le hara el descuento automatica de la cuota'
+      }
+      let codigo
+      if (this.form.codigo == this.codigo[1].value) {
+        codigo = this.codigo[1].text
+      } else {
+        codigo = this.codigo[2].text
+      }
       this.$bvModal
         .msgBoxConfirm(
-          `Se va actualizar a los siguientes datos: ${
+          `Se va actualizar al afiliado ${
             this.form.apellido_nombre
           } con numero de legajo ${this.form.legajo} - DNI ${
             this.form.dni
-          }. Asignandole un monto de credito de $${
+          }, codigo: ${codigo}. Asignandole un monto de credito de $${
             this.form.saldoAsignado
-          }. Detalle: ${this.form.detalle || '(sin detalle)'}, Codigo: ${
-            this.form.codigo
-          }. ¿Esta usted seguro?`,
+          }. ${mensajeDescuento}. Detalle: ${this.form.detalle ||
+            '(sin detalle)'}. ¿Esta usted seguro?`,
           {
             title: 'Confirmacion de actualizacion',
             size: 'sm',
@@ -244,8 +294,6 @@ export default {
         .then((value) => {
           if (value) {
             this.onSubmit()
-          } else {
-            this.onReset()
           }
         })
         .catch((err) => {
@@ -260,6 +308,7 @@ export default {
           codigo: this.form.codigo,
           legajo: this.form.legajo,
           apellido_nombre: this.form.apellido_nombre,
+          autoCuota: this.form.autoCuota,
           dni: this.form.dni,
           detalle: this.form.detalle,
           saldoAsignado: this.form.saldoAsignado,

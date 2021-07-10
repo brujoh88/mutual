@@ -101,6 +101,19 @@
               Muy bien!
             </b-form-valid-feedback>
           </b-form-group>
+          <b-form-checkbox
+            id="checkbox-1"
+            v-model="form.autoCuota"
+            name="checkbox-1"
+            :value="true"
+            :unchecked-value="false"
+          >
+            {{
+              form.autoCuota
+                ? 'Confirmando cuota autimatica'
+                : 'NO se hara la cuota automatica'
+            }}
+          </b-form-checkbox>
 
           <b-form-group
             id="input-group-2"
@@ -159,6 +172,7 @@ export default {
         apellido_nombre: '',
         dni: '',
         saldoAsignado: '',
+        autoCuota: true,
         detalle: '',
       },
       codigo: [
@@ -193,7 +207,6 @@ export default {
       .catch((error) => {
         console.log(error)
       })
-      .finally(() => (this.isBusy = false))
   },
   computed: {
     validationCodigo() {
@@ -223,15 +236,29 @@ export default {
   },
   methods: {
     estoySeguro() {
+      let mensajeDescuento
+      if (this.form.autoCuota == 'true') {
+        mensajeDescuento =
+          'Tenga en cuenta que este afiliado se le hara el descuento automatica de la cuota'
+      } else {
+        mensajeDescuento =
+          'Tenga en cuenta que este afiliado NO se le hara el descuento automatica de la cuota'
+      }
+      let codigo
+      if (this.form.codigo == this.codigo[1].value) {
+        codigo = this.codigo[1].text
+      } else {
+        codigo = this.codigo[2].text
+      }
       this.$bvModal
         .msgBoxConfirm(
           `Se va agregar al afiliado ${
             this.form.apellido_nombre
           } con numero de legajo ${this.form.legajo} - DNI ${
             this.form.dni
-          }, codigo: ${this.form.codigo}. Asignandole un monto de credito de $${
+          }, codigo: ${codigo}. Asignandole un monto de credito de $${
             this.form.saldoAsignado
-          }. Detalle: ${this.form.detalle ||
+          }. ${mensajeDescuento}. Detalle: ${this.form.detalle ||
             '(sin detalle)'}. ¿Esta usted seguro?`,
           {
             title: 'Confirmacion de orden',
@@ -248,8 +275,6 @@ export default {
         .then((value) => {
           if (value) {
             this.onSubmit()
-          } else {
-            this.onReset()
           }
         })
         .catch((err) => {
@@ -265,6 +290,7 @@ export default {
           legajo: this.form.legajo,
           apellido_nombre: this.form.apellido_nombre,
           dni: this.form.dni,
+          autoCuota: this.form.autoCuota,
           detalle: this.form.detalle,
           saldoAsignado: this.form.saldoAsignado,
         }),
