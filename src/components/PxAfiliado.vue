@@ -8,14 +8,16 @@
           footer-tag="footer"
           :title="`${afiliado.apellido_nombre}`"
         >
-          <b-card-text>Codigo: {{ afiliado.codigo }}</b-card-text>
+          <b-card-text>Codigo: {{ codigoValue }}</b-card-text>
 
           <b-card-text>DNI: {{ afiliado.dni }}</b-card-text>
           <b-card-text
             >Credito Asignado: ${{ afiliado.saldoAsignado }}</b-card-text
           >
           <b-card-text>Credito Disponible: ${{ saldoAfavor }}</b-card-text>
-          <b-card-text>Detalle: {{ afiliado.detalle }}</b-card-text>
+          <b-card-text
+            >Detalle: {{ afiliado.detalle || 'SIN DETALLE' }}</b-card-text
+          >
 
           <slot></slot>
         </b-card>
@@ -37,6 +39,27 @@ export default {
     saldoAfavor: {
       type: Number,
     },
+  },
+  data() {
+    return {
+      codigoValue: '',
+    }
+  },
+  mounted() {
+    fetch('http://localhost:3000/config/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        if (this.afiliado.codigo == datos.body[0]._codigo1._id) {
+          this.codigoValue = datos.body[0]._codigo1.codigo1
+        } else {
+          this.codigoValue = datos.body[0]._codigo2.codigo2
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
 }
 </script>
