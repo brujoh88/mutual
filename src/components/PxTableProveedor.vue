@@ -111,9 +111,6 @@
           class="mt-2"
         ></b-progress>
       </b-form>
-      <router-link to="/">
-        <b-button class="mt-2" variant="primary">Volver</b-button>
-      </router-link>
     </div>
   </b-container>
 </template>
