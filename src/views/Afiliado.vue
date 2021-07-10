@@ -109,6 +109,7 @@ export default {
         codigo: '',
         dni: '',
         saldoAsignado: '',
+        autoCuota: true,
         detalle: '',
       },
       proveedor: {},
@@ -151,6 +152,7 @@ export default {
           this.afiliado.codigo = datos.body.codigo
           this.afiliado.legajo = datos.body.legajo
           this.afiliado.apellido_nombre = datos.body.apellido_nombre
+          this.afiliado.autoCuota = datos.body.autoCuota
           this.afiliado.detalle = datos.body.detalle
           this.afiliado.dni = datos.body.dni
           this.afiliado.saldoAsignado = datos.body.saldoAsignado
@@ -232,6 +234,7 @@ export default {
             this.afiliado.codigo = datos.body.codigo
             this.afiliado.legajo = datos.body.legajo
             this.afiliado.apellido_nombre = datos.body.apellido_nombre
+            this.afiliado.autoCuota = datos.body.autoCuota
             this.afiliado.detalle = datos.body.detalle
             this.afiliado.dni = datos.body.dni
             this.afiliado.saldoAsignado = datos.body.saldoAsignado
