@@ -136,8 +136,9 @@ export default {
         this.items[i].codigo = this.towCodigos[this.items[i].codigo]
         if (this.items[i].autoCuota) {
           this.items[i].autoCuota = 'SI'
+        } else {
+          this.items[i].autoCuota = 'NO'
         }
-        this.items[i].autoCuota = 'NO'
       }
     },
     rowClass() {
