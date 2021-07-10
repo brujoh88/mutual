@@ -32,23 +32,41 @@ const MOVIMIENTO_SEGUN_DIA_SEMANA = {
   Sabado: -1,
 }
 
+const MOVIMIENTO_SEGUN_DIA_SEMANA_AGUINALDO = {
+  Domingo: 0,
+  Lunes: 0,
+  Martes: 0,
+  Miercoles: 0,
+  Jueves: 0,
+  Viernes: 2,
+  Sabado: 1,
+}
+
 const calcularPeriodo = (fechaActual) => {
   return new Promise((resolve, reject) => {
     let anioActual = fechaActual.getFullYear()
     let mesActual = fechaActual.getMonth()
     let diaActual = fechaActual.getDate()
     let diaSemanaActual = fechaActual.getDay()
-
-    let numeroSemanaDiaDiez = new Date(anioActual, mesActual, 10).getDay()
-
-    let diaSemanaDelDiez = DIA_SEMANA[numeroSemanaDiaDiez]
-
-    let fechaApertura = new Date(
-      anioActual,
-      mesActual,
-      10 + MOVIMIENTO_SEGUN_DIA_SEMANA[diaSemanaDelDiez]
-    )
+    let fechaApertura
     let fechaCierre
+    if (mesActual == 5 || mesActual == 11) {
+      let numeroSemanaDiaCinco = new Date(anioActual, mesActual, 5).getDay()
+      let diaSemanaDelCinco = DIA_SEMANA[numeroSemanaDiaCinco]
+      fechaApertura = new Date(
+        anioActual,
+        mesActual,
+        5 + MOVIMIENTO_SEGUN_DIA_SEMANA_AGUINALDO[diaSemanaDelCinco]
+      )
+    } else {
+      let numeroSemanaDiaDiez = new Date(anioActual, mesActual, 10).getDay()
+      let diaSemanaDelDiez = DIA_SEMANA[numeroSemanaDiaDiez]
+      fechaApertura = new Date(
+        anioActual,
+        mesActual,
+        10 + MOVIMIENTO_SEGUN_DIA_SEMANA[diaSemanaDelDiez]
+      )
+    }
 
     if (diaActual - fechaApertura.getDate() <= 0) {
       mesActual = mesActual - 1
@@ -63,21 +81,31 @@ const calcularPeriodo = (fechaActual) => {
       fechaCierre = fechaApertura
       fechaApertura = intercambio
     } else {
-      mesActual = mesActual + 1
-      let numeroSemanaDiaDiez = new Date(anioActual, mesActual, 10).getDay()
-      let diaSemanaDelDiez = DIA_SEMANA[numeroSemanaDiaDiez]
-      fechaCierre = new Date(
-        anioActual,
-        mesActual,
-        10 + MOVIMIENTO_SEGUN_DIA_SEMANA[diaSemanaDelDiez]
-      )
+      if (mesActual == 4 || mesActual == 10) {
+        mesActual = mesActual + 1
+        let numeroSemanaDiaCinco = new Date(anioActual, mesActual, 5).getDay()
+        let diaSemanaDelCinco = DIA_SEMANA[numeroSemanaDiaCinco]
+        fechaCierre = new Date(
+          anioActual,
+          mesActual,
+          5 + MOVIMIENTO_SEGUN_DIA_SEMANA_AGUINALDO[diaSemanaDelCinco]
+        )
+      } else {
+        mesActual = mesActual + 1
+        let numeroSemanaDiaDiez = new Date(anioActual, mesActual, 10).getDay()
+        let diaSemanaDelDiez = DIA_SEMANA[numeroSemanaDiaDiez]
+        fechaCierre = new Date(
+          anioActual,
+          mesActual,
+          10 + MOVIMIENTO_SEGUN_DIA_SEMANA[diaSemanaDelDiez]
+        )
+      }
     }
     resolve({
       fecha: fechaActual,
       diaActual,
-      mesActual: MESES_DEL_ANIO[mesActual],
+      mesActual: MESES_DEL_ANIO[mesActual + 1],
       diaSemanaActual: DIA_SEMANA[diaSemanaActual],
-      numeroSemanaDiaDiez,
       fechaApertura,
       fechaCierre,
     })
