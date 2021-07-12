@@ -1,6 +1,19 @@
 const Afiliado = require('../../models/afiliado')
 const _ = require('underscore')
 
+const getAfiliadosAutoCuotaDB = () => {
+  return new Promise((resolve, reject) => {
+    Afiliado.find({ autoCuota: true }).exec((err, afiliadosDB) => {
+      if (err) {
+        reject(err)
+      }
+      if (afiliadosDB.length != 0) {
+        resolve(afiliadosDB)
+      }
+      resolve(null)
+    })
+  })
+}
 const getAfiliadosDB = () => {
   return new Promise((resolve, reject) => {
     Afiliado.find({}).exec((err, afiliadosDB) => {
@@ -68,6 +81,7 @@ const putAfiliadoDB = (id, datos) => {
   })
 }
 module.exports = {
+  getAfiliadosAutoCuotaDB,
   getAfiliadosDB,
   getAfiliadoDB,
   postAfiliadoDB,

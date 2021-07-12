@@ -1,5 +1,14 @@
 const store = require('./store')
 
+const getAfiliadosAutoCuota = () => {
+  return new Promise((resolve, reject) => {
+    store
+      .getAfiliadosAutoCuotaDB()
+      .then((users) => resolve(users))
+      .catch((err) => reject(err))
+  })
+}
+
 const getAfiliados = () => {
   return new Promise((resolve, reject) => {
     store
@@ -36,6 +45,7 @@ const putAfiliado = (id, datos) => {
   })
 }
 module.exports = {
+  getAfiliadosAutoCuota,
   getAfiliados,
   getAfiliado,
   postAfiliado,

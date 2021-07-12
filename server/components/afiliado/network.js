@@ -3,6 +3,17 @@ const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
 
+router.get('/autoCuota', function(req, res) {
+  controller
+    .getAfiliadosAutoCuota()
+    .then((afiliados) => {
+      response.success(req, res, afiliados, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 router.get('/', function(req, res) {
   controller
     .getAfiliados()
