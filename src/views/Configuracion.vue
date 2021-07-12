@@ -202,8 +202,6 @@ export default {
           cuota: this.form.cuota,
           codigo1: this.form.codigo1,
           codigo2: this.form.codigo2,
-          idCod1: this.idCodido1,
-          idCod2: this.idCodido2,
         }),
       })
         .then((response) => response.json())
