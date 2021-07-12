@@ -1,5 +1,14 @@
 const store = require('./store')
 
+const getProovedorOculto = () => {
+  return new Promise((resolve, reject) => {
+    store
+      .getProovedorOcultoDB()
+      .then((proovedors) => resolve(proovedors))
+      .catch((err) => reject(err))
+  })
+}
+
 const getProovedors = () => {
   return new Promise((resolve, reject) => {
     store
@@ -37,6 +46,7 @@ const putProovedor = (id, datos) => {
 }
 
 module.exports = {
+  getProovedorOculto,
   getProovedors,
   getProovedor,
   postProovedor,

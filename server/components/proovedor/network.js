@@ -3,6 +3,17 @@ const router = express.Router()
 const response = require('../../network/response')
 const controller = require('./controller')
 
+router.get('/oculto', function(req, res) {
+  controller
+    .getProovedorOculto()
+    .then((proovedor) => {
+      response.success(req, res, proovedor, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 router.get('/', function(req, res) {
   controller
     .getProovedors()
