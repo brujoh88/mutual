@@ -31,6 +31,7 @@ export default {
       fechaCierre: '',
       cierre: '',
       diaActual: '',
+      montoCuota: '',
     }
   },
   methods: {
@@ -39,7 +40,12 @@ export default {
     },
   },
   mounted() {
-    let fecha = new Date()
+    /*
+    ==========================================
+    ================PERIODO===================
+    ==========================================
+    */
+    let fecha = new Date(2021, 8, 14)
     this.diaActual = `${new Date().getDate()}/${new Date().getMonth() +
       1}/${new Date().getFullYear()}`
     fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
@@ -60,7 +66,173 @@ export default {
       .catch((error) => {
         console.log(error)
       })
-    //.finally(() => console.log('genial termino'))
+
+    /*
+    ==========================================
+    ===============GET=CONFIG=================
+    ==========================================
+    */
+    fetch('http://localhost:3000/config/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        this.montoCuota = datos.body[0].cuota
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    /*
+    ==========================================
+    ===========TAER/CREAR PROVEE OULTO========
+    ==========================================
+    */
+    fetch('http://localhost:3000/proovedor/oculto')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        if (datos.body === null) {
+          fetch('http://localhost:3000/proovedor', {
+            headers: { 'Content-Type': 'application/json' },
+            method: 'POST',
+            body: JSON.stringify({
+              nombre: 'CUOTA FIJA',
+              estado: false,
+            }),
+          })
+            .then((response) => response.json())
+            .then((element) => {
+              console.log(element)
+            })
+        } else {
+          let periodo = new Date(this.cierre)
+          let mesPeriodo = periodo.getMonth() + 1
+          let anio = periodo.getFullYear()
+
+          /*
+          ==========================================
+          ===========TAER=AFILIADO=AUTOCUOTA========
+          ==========================================
+          */
+          fetch('http://localhost:3000/afiliado/autoCuota')
+            .then((response) => {
+              return response.json()
+            })
+            .then((afiliados) => {
+              console.log('Afiliados AUTOCUOTA: ', afiliados)
+              /*
+              ==========================================
+              ===========TAER/CREA=CUOTAS=FIJAS==============
+              ==========================================
+              */
+              fetch(
+                `http://localhost:3000/cuota/cuotaFija/${new Date(
+                  anio,
+                  mesPeriodo
+                )}/fija`
+              )
+                .then((response) => response.json())
+                .then((cuotasFijas) => {
+                  console.log('cuotasFijas: ', cuotasFijas)
+                  if (cuotasFijas.body == null) {
+                    for (let i = 0; i < afiliados.body.length; i++) {
+                      fetch('http://localhost:3000/orden', {
+                        headers: { 'Content-Type': 'application/json' },
+                        method: 'POST',
+                        body: JSON.stringify({
+                          _afiliado: afiliados.body[i]._id,
+                          _proovedor: datos.body[0]._id,
+                          montoTotal: this.montoCuota,
+                          cantidadCuota: 1,
+                        }),
+                      })
+                        .then((response) => response.json())
+                        .then((resp) => {
+                          fetch('http://localhost:3000/cuota', {
+                            headers: { 'Content-Type': 'application/json' },
+                            method: 'POST',
+                            body: JSON.stringify({
+                              _afiliado: afiliados.body[i]._id,
+                              _orden: resp.body._id,
+                              monto: this.montoCuota,
+                              periodo: new Date(anio, mesPeriodo),
+                              detalle: 'fija',
+                            }),
+                          })
+                            .then((response) => response.json())
+                            .then((element) => {
+                              if (element.error == '') {
+                                console.log('Se guardo las cuotas')
+                              } else {
+                                console.log('Error')
+                              }
+                            })
+                        })
+                    }
+                    /*
+                    ==========================================
+                    ====CREA=CUOTAS=FIJAS=A=LOS=NUEVOS========
+                    ==========================================
+                    */
+                  } else {
+                    let arrIdAfiliado = []
+                    let arrIdAfiliadoCuota = []
+                    for (let i = 0; i < afiliados.body.length; i++) {
+                      arrIdAfiliado.push(afiliados.body[i]._id)
+                    }
+                    for (let i = 0; i < cuotasFijas.body.length; i++) {
+                      arrIdAfiliadoCuota.push(cuotasFijas.body[i]._afiliado)
+                    }
+                    for (let i = 0; i < arrIdAfiliado.length; i++) {
+                      let id = arrIdAfiliado[i]
+                      if (!arrIdAfiliadoCuota.includes(id)) {
+                        fetch('http://localhost:3000/orden', {
+                          headers: { 'Content-Type': 'application/json' },
+                          method: 'POST',
+                          body: JSON.stringify({
+                            _afiliado: id,
+                            _proovedor: datos.body[0]._id,
+                            montoTotal: this.montoCuota,
+                            cantidadCuota: 1,
+                          }),
+                        })
+                          .then((response) => response.json())
+                          .then((resp) => {
+                            fetch('http://localhost:3000/cuota', {
+                              headers: { 'Content-Type': 'application/json' },
+                              method: 'POST',
+                              body: JSON.stringify({
+                                _afiliado: id,
+                                _orden: resp.body._id,
+                                monto: this.montoCuota,
+                                periodo: new Date(anio, mesPeriodo),
+                                detalle: 'fija',
+                              }),
+                            })
+                              .then((response) => response.json())
+                              .then((element) => {
+                                if (element.error == '') {
+                                  console.log('Se guardo las cuotas')
+                                } else {
+                                  console.log('Error')
+                                }
+                              })
+                          })
+                      }
+                    }
+                  }
+                })
+            })
+            .catch((error) => {
+              console.log(error)
+            })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
 }
 </script>
