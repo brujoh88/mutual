@@ -75,9 +75,31 @@ const postCuotaDB = (body) => {
   })
 }
 
+const getCuotasFijasDB = (periodo, detalle) => {
+  return new Promise((resolve, reject) => {
+    Cuota.find({ periodo: periodo, detalle: detalle })
+      .populate('_orden', {
+        cantidadCouta: 1,
+        _proovedor: 1,
+        date: 1,
+        estado: 1,
+      })
+      .exec((err, cuotasDB) => {
+        if (err) {
+          reject(err)
+        }
+        if (cuotasDB.length != 0) {
+          resolve(cuotasDB)
+        }
+        resolve(null)
+      })
+  })
+}
+
 module.exports = {
   getCuotasDB,
   getCuotaDB,
   getCuotasByUserDB,
   postCuotaDB,
+  getCuotasFijasDB,
 }

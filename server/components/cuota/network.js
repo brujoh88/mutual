@@ -50,4 +50,20 @@ router.post('/', function(req, res) {
     })
 })
 
+router.get('/cuotaFija/:periodo/:detalle', function(req, res) {
+  let periodo = req.params.periodo
+  let detalle = req.params.detalle
+
+  console.log(periodo, detalle)
+
+  controller
+    .getCuotasFijas(periodo, detalle)
+    .then((cuotas) => {
+      response.success(req, res, cuotas, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 module.exports = router

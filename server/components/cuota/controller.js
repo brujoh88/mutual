@@ -36,9 +36,19 @@ const postCuota = (body) => {
   })
 }
 
+const getCuotasFijas = (periodo, detalle) => {
+  return new Promise((resolve, reject) => {
+    store
+      .getCuotasFijasDB(periodo, detalle)
+      .then((cuotas) => resolve(cuotas))
+      .catch((err) => reject(err))
+  })
+}
+
 module.exports = {
   getCuotas,
   getCuota,
   postCuota,
   getCuotasByUser,
+  getCuotasFijas,
 }
