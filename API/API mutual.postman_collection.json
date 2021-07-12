@@ -59,14 +59,45 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "estado",
-									"value": "true",
-									"type": "text",
-									"disabled": true
+									"key": "apellido_nombre",
+									"value": "",
+									"description": "String",
+									"type": "text"
 								},
 								{
-									"key": "nombre",
-									"value": "Hernan",
+									"key": "legajo",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "codigo",
+									"value": "",
+									"description": "ObjectId models config (codigo1 | codigo2)",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "autoCuota",
+									"value": "",
+									"description": "Boolean",
+									"type": "text"
+								},
+								{
+									"key": "detalle",
+									"value": "",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "saldoAsignado",
+									"value": "",
+									"description": "Number",
 									"type": "text"
 								}
 							]
@@ -156,33 +187,38 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "nombre",
-									"value": "Gustavo",
-									"type": "text"
-								},
-								{
-									"key": "apellido",
-									"value": "Tiseira",
-									"type": "text"
-								},
-								{
-									"key": "dni",
-									"value": "33722424",
+									"key": "apellido_nombre",
+									"value": "",
 									"type": "text"
 								},
 								{
 									"key": "legajo",
-									"value": "2697",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "codigo",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "autoCuota",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "detalle",
+									"value": "",
 									"type": "text"
 								},
 								{
 									"key": "saldoAsignado",
-									"value": "50000",
-									"type": "text"
-								},
-								{
-									"key": "estado",
-									"value": "true",
+									"value": "",
 									"type": "text"
 								}
 							]
@@ -378,6 +414,27 @@
 						"description": "Recordar que no puede repetir el NOMBRE"
 					},
 					"response": []
+				},
+				{
+					"name": "GET proovedor/oculto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/proovedor/oculto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor",
+								"oculto"
+							]
+						},
+						"description": "Trae el proveedor con estado= false.\nCreado al iniciar el programa, bajo el nombre \"CUOTA FIJA\""
+					},
+					"response": []
 				}
 			]
 		},
@@ -484,18 +541,23 @@
 							"mode": "urlencoded",
 							"urlencoded": [
 								{
-									"key": "_idOrden",
-									"value": "609301171d5b7e264b9b41e3",
+									"key": "_orden",
+									"value": "609690a7d4b9eb267039562d",
 									"type": "text"
 								},
 								{
 									"key": "monto",
-									"value": "525",
+									"value": "4242",
 									"type": "text"
 								},
 								{
 									"key": "periodo",
 									"value": "2021-06-06T18:12:52.309Z",
+									"type": "text"
+								},
+								{
+									"key": "_afiliado",
+									"value": "609062596454aa48f771c250",
 									"type": "text"
 								}
 							]
@@ -541,7 +603,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/cuota/6094727c3d12d827997c7382",
+							"raw": "http://localhost:3000/cuota/609690a7d4b9eb267039562d",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -549,10 +611,105 @@
 							"port": "3000",
 							"path": [
 								"cuota",
-								"6094727c3d12d827997c7382"
+								"609690a7d4b9eb267039562d"
 							]
 						},
 						"description": "Trae una cuota en porticular segun idOrden"
+					},
+					"response": []
+				},
+				{
+					"name": "GET cuotasAdeudadas (id)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/cuota/deuda/609062596454aa48f771c250",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cuota",
+								"deuda",
+								"609062596454aa48f771c250"
+							]
+						},
+						"description": "Necesario el id de usuario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "configuracion",
+			"item": [
+				{
+					"name": "POST config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Requiere \n* cuota (valor de la cuota fija)\n* codigo1 (id del documento del models codigo1 donde se almacena el valor)\n* codigo2 (id del documento del models codigo2 donde se almacena el valor"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT congig",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cuota",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "codigo1",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "codigo2",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "idCod1",
+									"value": "",
+									"description": "ObjectId del models codigo1",
+									"type": "text"
+								},
+								{
+									"key": "idCod2",
+									"value": "",
+									"description": "ObjectId del models codigo2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/config/IdConfig",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"config",
+								"IdConfig"
+							]
+						},
+						"description": "Modifica el valor de la cuota, y los codigos, ya habiendo capturado previamente sus IDs"
 					},
 					"response": []
 				}
