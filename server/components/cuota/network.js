@@ -53,9 +53,6 @@ router.post('/', function(req, res) {
 router.get('/cuotaFija/:periodo/:detalle', function(req, res) {
   let periodo = req.params.periodo
   let detalle = req.params.detalle
-
-  console.log(periodo, detalle)
-
   controller
     .getCuotasFijas(periodo, detalle)
     .then((cuotas) => {
