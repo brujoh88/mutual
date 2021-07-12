@@ -47,6 +47,7 @@ const postProovedorDB = (body) => {
     let proovedor = new Proovedor({
       nombre: body.nombre,
       descripcion: body.descripcion,
+      estado: body.estado,
     })
     proovedor.save((err, newProovedorDB) => {
       if (err) {
