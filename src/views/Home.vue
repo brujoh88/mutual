@@ -121,7 +121,6 @@ export default {
               return response.json()
             })
             .then((afiliados) => {
-              console.log('Afiliados AUTOCUOTA: ', afiliados)
               /*
               ==========================================
               ===========TAER/CREA=CUOTAS=FIJAS==============
@@ -135,7 +134,6 @@ export default {
               )
                 .then((response) => response.json())
                 .then((cuotasFijas) => {
-                  console.log('cuotasFijas: ', cuotasFijas)
                   if (cuotasFijas.body == null) {
                     for (let i = 0; i < afiliados.body.length; i++) {
                       fetch('http://localhost:3000/orden', {
