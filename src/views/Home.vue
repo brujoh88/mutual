@@ -45,7 +45,7 @@ export default {
     ================PERIODO===================
     ==========================================
     */
-    let fecha = new Date(2021, 8, 14)
+    let fecha = new Date()
     this.diaActual = `${new Date().getDate()}/${new Date().getMonth() +
       1}/${new Date().getFullYear()}`
     fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
