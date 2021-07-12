@@ -237,7 +237,7 @@ export default {
   methods: {
     estoySeguro() {
       let mensajeDescuento
-      if (this.form.autoCuota == 'true') {
+      if (this.form.autoCuota == true) {
         mensajeDescuento =
           'Tenga en cuenta que este afiliado se le hara el descuento automatica de la cuota'
       } else {
