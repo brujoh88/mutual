@@ -76,7 +76,7 @@
               }"
             >
               <b-button size="sm" class="mr-2" variant="success">
-                Detalle
+                Ver Orden
               </b-button>
             </router-link>
           </template>
