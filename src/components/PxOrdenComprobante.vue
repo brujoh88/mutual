@@ -8,6 +8,7 @@
       <b-card title="Mutual 18 DE AGOSTO" sub-title="Orden de compra">
         <b-container class="bv-example-row mt-3 mb-3">
           <b-row> FECHA {{ fecha }} </b-row>
+          <b-row> Monto total: ${{ ordenDatos.montoTotal }} </b-row>
 
           <b-row>
             <b-col>N° de Orden: {{ ordenDatos._id }} </b-col>
@@ -29,7 +30,8 @@
           El/la que subscribe {{ afiliado.apellido_nombre }} DNI N°:
           {{ afiliado.dni }}
           Leg. {{ afiliado.legajo }} AUTORIZO a que se le realice descuento en
-          sus haberes mensuales correspondientes al mes de por valor de PESOS
+          sus haberes mensuales correspondientes al mes de {{ mes }} por valor
+          de PESOS
           ..................................................................
           (${{ (ordenDatos.montoTotal / ordenDatos.cantidadCuota).toFixed(2) }})
           otorgando consentimiento expreso a favor de la Mutual "18 de Agosto"
@@ -75,6 +77,20 @@
 </template>
 
 <script>
+const MESES_DEL_ANIO = {
+  0: 'Enero',
+  1: 'Febrero',
+  2: 'Marzo',
+  3: 'Abril',
+  4: 'Mayo',
+  5: 'Junio',
+  6: 'Julio',
+  7: 'Agosto',
+  8: 'Septiembre',
+  9: 'Octubre',
+  10: 'Noviembre',
+  11: 'Diciembre',
+}
 export default {
   name: 'Comprobante',
   props: {
@@ -88,6 +104,7 @@ export default {
       ordenDatos: {},
       afiliado: {},
       proveedor: {},
+      mes: '',
     }
   },
   mounted() {},
@@ -108,6 +125,18 @@ export default {
             this.fecha = `${dia}/${mes}/${anio}`
             this.afiliado = datos.body[0]._afiliado
             this.proveedor = datos.body[0]._proovedor
+
+            fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
+              .then((response) => {
+                return response.json()
+              })
+              .then((datos) => {
+                let mes = new Date(datos.body.fechaCierre).getMonth() + 1
+                this.mes = MESES_DEL_ANIO[mes]
+              })
+              .catch((error) => {
+                console.log(error)
+              })
           })
           .catch((error) => {
             console.log(error)
