@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Afiliado from '../views/Afiliado.vue'
 import Configuracion from '../views/Configuracion.vue'
-import OrdenById from '../views/orden.vue'
+import OrdenById from '../views/Orden.vue'
 
 Vue.use(VueRouter)
 
@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: '/orden',
-    name: 'orden',
+    name: 'Orden',
     component: OrdenById,
   },
 ]
