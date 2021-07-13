@@ -3,21 +3,37 @@
     <div>
       <b-card-group deck>
         <b-card
-          :header="`Legajo N° ${afiliado.legajo}`"
           header-tag="header"
           footer-tag="footer"
           :title="`${afiliado.apellido_nombre}`"
         >
-          <b-card-text>Codigo: {{ codigoValue }}</b-card-text>
+          <b-row class="mt-5 mb-5">
+            <b-col> </b-col>
+            <b-card bg-variant="light" header="Datos personales">
+              <b-col>
+                <b-card-text> Legajo N° {{ afiliado.legajo }} </b-card-text>
+                <b-card-text>Codigo: {{ codigoValue }}</b-card-text>
 
-          <b-card-text>DNI: {{ afiliado.dni }}</b-card-text>
-          <b-card-text
-            >Credito Asignado: ${{ afiliado.saldoAsignado }}</b-card-text
-          >
-          <b-card-text>Credito Disponible: ${{ saldoAfavor }}</b-card-text>
-          <b-card-text
-            >Detalle: {{ afiliado.detalle || 'SIN DETALLE' }}</b-card-text
-          >
+                <b-card-text>DNI: {{ afiliado.dni }}</b-card-text>
+                <b-card-text
+                  >Observaciones:
+                  {{ afiliado.detalle || 'SIN DETALLE' }}</b-card-text
+                >
+              </b-col>
+            </b-card>
+            <b-card bg-variant="light" header="Resumen de credito">
+              <b-col>
+                <b-card-text
+                  >Credito Asignado: ${{ afiliado.saldoAsignado }}</b-card-text
+                >
+                <b-card-text
+                  >Credito Disponible: ${{ saldoAfavor }}</b-card-text
+                >
+              </b-col>
+            </b-card>
+
+            <b-col> </b-col>
+          </b-row>
 
           <slot></slot>
         </b-card>

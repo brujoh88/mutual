@@ -117,7 +117,7 @@
 
           <b-form-group
             id="input-group-2"
-            label="Detalle:"
+            label="Observaciones:"
             label-for="input-2"
             required
           >
