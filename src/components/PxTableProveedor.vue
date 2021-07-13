@@ -35,6 +35,7 @@
         v-if="show"
         striped
         hover
+        filter-debounce="1000"
         :filter="filter"
         :items="items"
         :fields="fields"

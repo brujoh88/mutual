@@ -56,6 +56,7 @@
           striped
           hover
           :items="items"
+          filter-debounce="1000"
           :fields="fields"
           :busy="isBusy"
           :filter="filter"
