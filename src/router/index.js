@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Afiliado from '../views/Afiliado.vue'
 import Configuracion from '../views/Configuracion.vue'
+import OrdenById from '../views/orden.vue'
 
 Vue.use(VueRouter)
 
@@ -30,6 +31,11 @@ const routes = [
     path: '/config',
     name: 'configuracion',
     component: Configuracion,
+  },
+  {
+    path: '/orden',
+    name: 'orden',
+    component: OrdenById,
   },
 ]
 
