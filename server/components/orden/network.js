@@ -26,6 +26,18 @@ router.get('/:id', function(req, res) {
     })
 })
 
+router.get('/comprobante/:id', function(req, res) {
+  let id = req.params.id
+  controller
+    .getOrdenComprobante(id)
+    .then((user) => {
+      response.success(req, res, user, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 router.post('/', function(req, res) {
   let body = req.body
   controller

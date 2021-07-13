@@ -34,6 +34,20 @@ const getOrdenDB = (id) => {
   })
 }
 
+const getOrdenComprobanteDB = (id) => {
+  return new Promise((resolve, reject) => {
+    Orden.find({ _id: id })
+      .populate('_afiliado')
+      .populate('_proovedor')
+      .exec(function(err, orden) {
+        if (err) {
+          reject(err)
+        }
+        resolve(orden)
+      })
+  })
+}
+
 const postOrdenDB = (body) => {
   return new Promise((resolve, reject) => {
     let orden = new Orden({
@@ -54,5 +68,6 @@ const postOrdenDB = (body) => {
 module.exports = {
   getOrdenesDB,
   getOrdenDB,
+  getOrdenComprobanteDB,
   postOrdenDB,
 }
