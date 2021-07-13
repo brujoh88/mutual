@@ -69,10 +69,9 @@
           <template #cell(button)="row">
             <router-link
               :to="{
-                path: 'afiliado',
+                path: 'orden',
                 query: {
-                  id: row.item._orden,
-                  fecha: cierre,
+                  id: row.item._orden._id,
                 },
               }"
             >
