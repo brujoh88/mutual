@@ -2,7 +2,7 @@
   <div>
     <!-- Using value -->
     <b-button v-b-modal="'my-modal'" variant="success"
-      >Agreguar Proveedor +</b-button
+      >Agregar Proveedor +</b-button
     >
 
     <!-- The modal -->
