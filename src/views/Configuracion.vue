@@ -1,87 +1,89 @@
 <template>
   <div class="d-flex justify-content-center">
-    <b-form @submit="onSubmit" @reset="onReset">
-      <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-        Error en la base de datos
-      </b-alert>
-      <b-alert v-model="showSucessAlert" variant="success" dismissible>
-        Guardado con exito
-      </b-alert>
-      <b-form-group
-        id="input-group-1"
-        label="Monto de cuota fija:"
-        label-for="input-1"
-        description="Tenga en cuenta que este monto se asd!!!."
-      >
-        <b-form-input
-          id="input-1"
-          v-model="form.cuota"
-          placeholder="Ingrese el valor de la cuota"
-          :state="validationCuota"
-          required
-        ></b-form-input>
-        <b-form-invalid-feedback :state="validationCuota">
-          Ingrese solo numeros
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationCuota">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
+    <b-card bg-variant="light" header="Configuraciones">
+      <b-form @submit="onSubmit" @reset="onReset">
+        <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
+          Error en la base de datos
+        </b-alert>
+        <b-alert v-model="showSucessAlert" variant="success" dismissible>
+          Guardado con exito
+        </b-alert>
+        <b-form-group
+          id="input-group-1"
+          label="Monto de cuota fija:"
+          label-for="input-1"
+          description="Tenga en cuenta que este monto se asd!!!."
+        >
+          <b-form-input
+            id="input-1"
+            v-model="form.cuota"
+            placeholder="Ingrese el valor de la cuota"
+            :state="validationCuota"
+            required
+          ></b-form-input>
+          <b-form-invalid-feedback :state="validationCuota">
+            Ingrese solo numeros
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationCuota">
+            Muy bien!
+          </b-form-valid-feedback>
+        </b-form-group>
 
-      <b-form-group
-        id="input-group-2"
-        label="Código - Mutual"
-        label-for="input-2"
-      >
-        <b-form-input
-          id="input-2"
-          v-model="form.codigo1"
-          :state="validationCodigo1"
-          required
-        ></b-form-input>
-        <b-form-invalid-feedback :state="validationCodigo1">
-          Ingrese solo numeros
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationCodigo1">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
+        <b-form-group
+          id="input-group-2"
+          label="Código - Mutual"
+          label-for="input-2"
+        >
+          <b-form-input
+            id="input-2"
+            v-model="form.codigo1"
+            :state="validationCodigo1"
+            required
+          ></b-form-input>
+          <b-form-invalid-feedback :state="validationCodigo1">
+            Ingrese solo numeros
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationCodigo1">
+            Muy bien!
+          </b-form-valid-feedback>
+        </b-form-group>
 
-      <b-form-group
-        id="input-group-3"
-        label="Código - Coseguro S.A.:"
-        label-for="input-3"
-      >
-        <b-form-input
-          id="input-3"
-          v-model="form.codigo2"
-          :state="validationCodigo2"
-          required
-        ></b-form-input>
-        <b-form-invalid-feedback :state="validationCodigo2">
-          Ingrese solo numeros
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationCodigo2">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
+        <b-form-group
+          id="input-group-3"
+          label="Código - Coseguro S.A.:"
+          label-for="input-3"
+        >
+          <b-form-input
+            id="input-3"
+            v-model="form.codigo2"
+            :state="validationCodigo2"
+            required
+          ></b-form-input>
+          <b-form-invalid-feedback :state="validationCodigo2">
+            Ingrese solo numeros
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationCodigo2">
+            Muy bien!
+          </b-form-valid-feedback>
+        </b-form-group>
 
-      <b-button
-        @click="estoySeguro"
-        variant="success"
-        :disabled="habilitarGuardar"
-        class="mr-2"
-        >Guardar</b-button
-      >
-      <b-button type="reset" variant="danger">Resetear</b-button>
-      <b-progress
-        :value="value"
-        :max="max"
-        show-progress
-        animated
-        class="mt-2"
-      ></b-progress>
-    </b-form>
+        <b-button
+          @click="estoySeguro"
+          variant="success"
+          :disabled="habilitarGuardar"
+          class="mr-2"
+          >Guardar</b-button
+        >
+        <b-button type="reset" variant="danger">Resetear</b-button>
+        <b-progress
+          :value="value"
+          :max="max"
+          show-progress
+          animated
+          class="mt-2"
+        ></b-progress>
+      </b-form>
+    </b-card>
   </div>
 </template>
 
