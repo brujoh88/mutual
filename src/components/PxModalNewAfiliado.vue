@@ -9,7 +9,7 @@
     <b-modal id="my-modal" centered title="Nuevo Afiliado" v-model="show"
       ><div>
         <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-          Recuerde que debe ser legajo y dni unico para cada afiliado.
+          Recuerde que debe ser legajo y DNI único para cada afiliado.
         </b-alert>
         <b-form @submit="onSubmit" @reset="onReset">
           <b-form-group
@@ -25,7 +25,7 @@
               required
             ></b-form-select>
             <b-form-invalid-feedback :state="validationCodigo">
-              Eliga una opcion
+              Elija una opción
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationCodigo">
               Muy bien!
@@ -35,12 +35,12 @@
             <b-form-input
               id="input-0"
               v-model="form.legajo"
-              placeholder="Ingrese el legajo aqui"
+              placeholder="Ingrese el legajo aquí"
               :state="validationLegajo"
               required
             ></b-form-input>
             <b-form-invalid-feedback :state="validationLegajo">
-              Ingrese solo numeros (debe ser unico)
+              Ingrese solo números (debe ser único)
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationLegajo">
               Muy bien!
@@ -54,7 +54,7 @@
             <b-form-input
               id="input-1"
               v-model="form.apellido_nombre"
-              placeholder="Ingrese el apellido y nombre aqui"
+              placeholder="Ingrese el apellido y nombre aquí"
               :state="validationApellidoNombre"
               required
             ></b-form-input>
@@ -70,12 +70,12 @@
             <b-form-input
               id="input-3"
               v-model="form.dni"
-              placeholder="Ingrese el DNI aqui"
+              placeholder="Ingrese el DNI aquí"
               :state="validationDni"
               required
             ></b-form-input>
             <b-form-invalid-feedback :state="validationDni">
-              Ingrese solo numeros (debe ser unico)
+              Ingrese solo números (debe ser único)
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationDni">
               Muy bien!
@@ -90,12 +90,12 @@
             <b-form-input
               id="input-4"
               v-model="form.saldoAsignado"
-              placeholder="Ingrese el salgo a asignar"
+              placeholder="Ingrese el saldo a asignar"
               :state="validationSaldo"
               required
             ></b-form-input>
             <b-form-invalid-feedback :state="validationSaldo">
-              Ingrese solo numeros
+              Ingrese solo números
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationSaldo">
               Muy bien!
@@ -110,8 +110,8 @@
           >
             {{
               form.autoCuota
-                ? 'Confirmando cuota autimatica'
-                : 'NO se hara la cuota automatica'
+                ? 'Confirmando cuota automática'
+                : 'NO se hara la cuota automática'
             }}
           </b-form-checkbox>
 
@@ -124,7 +124,7 @@
             <b-form-input
               id="input-2"
               v-model="form.detalle"
-              placeholder="Dato de interes (no requerido)"
+              placeholder="Dato de interés (no requerido)"
             ></b-form-input>
           </b-form-group>
 
@@ -239,10 +239,10 @@ export default {
       let mensajeDescuento
       if (this.form.autoCuota == true) {
         mensajeDescuento =
-          'Tenga en cuenta que este afiliado se le hara el descuento automatica de la cuota'
+          'Tenga en cuenta que este afiliado se le hara el descuento automática de la cuota'
       } else {
         mensajeDescuento =
-          'Tenga en cuenta que este afiliado NO se le hara el descuento automatica de la cuota'
+          'Tenga en cuenta que este afiliado NO se le hara el descuento automática de la cuota'
       }
       let codigo
       if (this.form.codigo == this.codigo[1].value) {
