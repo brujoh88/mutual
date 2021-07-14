@@ -10,6 +10,7 @@ const getCuotasDB = () => {
         date: 1,
         estado: 1,
       })
+      .populate('_afiliado')
       .exec((err, cuotasDB) => {
         if (err) {
           reject(err)
