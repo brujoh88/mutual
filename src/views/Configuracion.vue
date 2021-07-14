@@ -12,7 +12,6 @@
           id="input-group-1"
           label="Monto de cuota fija:"
           label-for="input-1"
-          description="Tenga en cuenta que este monto se asd!!!."
         >
           <b-form-input
             id="input-1"
