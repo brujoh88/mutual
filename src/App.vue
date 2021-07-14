@@ -4,7 +4,7 @@
       <router-link to="/">Lista Afiliados</router-link> |
       <router-link to="/proveedor">Lista Proveedores</router-link> |
       <router-link to="/resumen">Resumen Mensual</router-link> |
-      <router-link to="/config">Configuracion</router-link>
+      <router-link to="/config">Configuración</router-link>
     </div>
     <router-view />
   </div>
