@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Afiliado from '../views/Afiliado.vue'
 import Configuracion from '../views/Configuracion.vue'
 import OrdenById from '../views/Orden.vue'
+import ResumenMensual from '../views/ResumenMensual.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/orden',
     name: 'Orden',
     component: OrdenById,
+  },
+  {
+    path: '/resumen',
+    name: 'Resumen',
+    component: ResumenMensual,
   },
 ]
 
