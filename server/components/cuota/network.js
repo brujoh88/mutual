@@ -38,6 +38,19 @@ router.get('/deuda/:id', function(req, res) {
     })
 })
 
+router.get('/resumen/:anio/:mes', function(req, res) {
+  let anio = req.params.anio
+  let mes = req.params.mes
+  controller
+    .getCuotasByMes(anio, mes)
+    .then((cuota) => {
+      response.success(req, res, cuota, 200)
+    })
+    .catch((err) => {
+      response.error(req, res, 'Unexpected error', 500, err)
+    })
+})
+
 router.post('/', function(req, res) {
   let body = req.body
   controller

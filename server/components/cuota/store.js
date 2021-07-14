@@ -58,6 +58,23 @@ const getCuotasByUserDB = (id) => {
   })
 }
 
+const getCuotasByMesDB = (anio, mes) => {
+  console.log(anio, mes)
+  return new Promise((resolve, reject) => {
+    Cuota.find({
+      periodo: { $eq: new Date(anio, mes) },
+    })
+      .populate('_afiliado')
+      .sort({ periodo: 1 })
+      .exec(function(err, cuota) {
+        if (err) {
+          reject(err)
+        }
+        resolve(cuota)
+      })
+  })
+}
+
 const postCuotaDB = (body) => {
   return new Promise((resolve, reject) => {
     let cuota = new Cuota({
@@ -101,6 +118,7 @@ module.exports = {
   getCuotasDB,
   getCuotaDB,
   getCuotasByUserDB,
+  getCuotasByMesDB,
   postCuotaDB,
   getCuotasFijasDB,
 }

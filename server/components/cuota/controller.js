@@ -27,6 +27,15 @@ const getCuota = (id) => {
   })
 }
 
+const getCuotasByMes = (anio, mes) => {
+  return new Promise((resolve, reject) => {
+    store
+      .getCuotasByMesDB(anio, mes)
+      .then((cuotas) => resolve(cuotas))
+      .catch((err) => reject(err))
+  })
+}
+
 const postCuota = (body) => {
   return new Promise((resolve, reject) => {
     store
@@ -48,6 +57,7 @@ const getCuotasFijas = (periodo, detalle) => {
 module.exports = {
   getCuotas,
   getCuota,
+  getCuotasByMes,
   postCuota,
   getCuotasByUser,
   getCuotasFijas,
