@@ -1,9 +1,30 @@
 <template>
   <div class="home">
-    <h5>
-      {{ diaActual }}
-    </h5>
-    <h5>Periodo [Apertura: {{ fechaApertura }} - Cierre: {{ fechaCierre }}]</h5>
+    <b-row class="mt-5 mb-5">
+      <b-col> </b-col>
+      <b-card bg-variant="light" header="Fecha">
+        <b-col>
+          <b-card-text>
+            <h5>{{ nombreDiaActual }}</h5>
+          </b-card-text>
+          <b-card-text>
+            <h5>{{ diaActual }}</h5>
+          </b-card-text>
+        </b-col>
+      </b-card>
+      <b-card bg-variant="light" header="Periodo">
+        <b-col>
+          <b-card-text>
+            <h5>Aperterura: {{ fechaApertura }}</h5>
+          </b-card-text>
+          <b-card-text>
+            <h5>Cierre: {{ fechaCierre }}</h5>
+          </b-card-text>
+        </b-col>
+      </b-card>
+
+      <b-col> </b-col>
+    </b-row>
 
     <h3>Lista Afiliados</h3>
 
@@ -18,6 +39,16 @@
 import TableAfiliado from '@/components/PxTableAfiliado.vue'
 import ModalNewAfiliado from '@/components/PxModalNewAfiliado.vue'
 
+const DIA_SEMANA = {
+  0: 'Domingo',
+  1: 'Lunes',
+  2: 'Martes',
+  3: 'Miercoles',
+  4: 'Jueves',
+  5: 'Viernes',
+  6: 'Sabado',
+}
+
 export default {
   name: 'Home',
   components: {
@@ -31,6 +62,7 @@ export default {
       fechaCierre: '',
       cierre: '',
       diaActual: '',
+      nombreDiaActual: '',
       montoCuota: '',
     }
   },
@@ -46,6 +78,8 @@ export default {
     ==========================================
     */
     let fecha = new Date()
+    let nameDia = fecha.getDay()
+    this.nombreDiaActual = DIA_SEMANA[nameDia]
     this.diaActual = `${new Date().getDate()}/${new Date().getMonth() +
       1}/${new Date().getFullYear()}`
     fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
