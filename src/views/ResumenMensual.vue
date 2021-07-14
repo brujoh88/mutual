@@ -1,10 +1,17 @@
 <template>
-  <h1>Hola soy el resumen mensual</h1>
+  <div class="container d-flex justify-content-center">
+    <px-formulario-consulta />
+  </div>
 </template>
 
 <script>
+import PxFormularioConsulta from '../components/PxFormularioConsulta.vue'
 export default {
+  components: { PxFormularioConsulta },
   name: 'ViewResumen',
+  data() {
+    return {}
+  },
 }
 </script>
 
