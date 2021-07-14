@@ -28,7 +28,11 @@
         </b-form-valid-feedback>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Codigo 1:" label-for="input-2">
+      <b-form-group
+        id="input-group-2"
+        label="Código - Mutual"
+        label-for="input-2"
+      >
         <b-form-input
           id="input-2"
           v-model="form.codigo1"
@@ -43,7 +47,11 @@
         </b-form-valid-feedback>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Codigo 2:" label-for="input-3">
+      <b-form-group
+        id="input-group-3"
+        label="Código - Coseguro S.A.:"
+        label-for="input-3"
+      >
         <b-form-input
           id="input-3"
           v-model="form.codigo2"
