@@ -13,7 +13,7 @@
             <b-form-input
               id="input-0"
               v-model="form.nombre"
-              placeholder="Ingrese el nombre aqui"
+              placeholder="Ingrese el nombre aquí"
               :state="validationNombre"
               required
             ></b-form-input>
@@ -26,13 +26,13 @@
           </b-form-group>
           <b-form-group
             id="input-group-1"
-            label="Descripcion:"
+            label="Descripción:"
             label-for="input-1"
           >
             <b-form-input
               id="input-1"
               v-model="form.descripcion"
-              placeholder="Descripcion de local"
+              placeholder="Descripción de local"
             ></b-form-input>
           </b-form-group>
           <b-button
@@ -51,7 +51,7 @@
             class="mt-2"
           ></b-progress>
           <b-alert v-model="showDismissibleAlert" variant="danger" dismissible>
-            Recuerde que el nombre asignado para el proveedor debe ser unico.
+            Error en la base de datos.
           </b-alert>
         </b-form>
       </div>
