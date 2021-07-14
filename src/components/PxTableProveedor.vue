@@ -82,7 +82,7 @@
             required
           ></b-form-input>
           <b-form-invalid-feedback :state="validationNombre">
-            Es el mismo nombre
+            Son los mismos datos!
           </b-form-invalid-feedback>
           <b-form-valid-feedback :state="validationNombre">
             Muy bien, ahora solo actualice!
@@ -94,8 +94,19 @@
           label-for="input-2"
           description="Puede colocar alguna descripcion si lo desea"
         >
-          <b-form-input id="input-2" v-model="form.descripcion"></b-form-input>
+          <b-form-input
+            id="input-2"
+            :state="validationNombre"
+            v-model="form.descripcion"
+          ></b-form-input>
+          <b-form-invalid-feedback :state="validationNombre">
+            Son los mismos datos!
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationNombre">
+            Muy bien, ahora solo actualice!
+          </b-form-valid-feedback>
         </b-form-group>
+
         <b-button
           @click="estoySeguro"
           variant="success"
@@ -167,6 +178,7 @@ export default {
       this.form.nombre = proveedorName
       this.form.descripcion = detalleProveedor
       this.nombreRam = proveedorName
+      this.descripcionRam = detalleProveedor
     },
     estoySeguro() {
       this.$bvModal
@@ -247,14 +259,16 @@ export default {
   computed: {
     validationNombre() {
       return (
-        /^[0-9A-Za-z\s]+$/.test(this.form.nombre) &&
-        this.nombreRam != this.form.nombre
+        (/^[0-9A-Za-z\s]+$/.test(this.form.nombre) &&
+          this.nombreRam != this.form.nombre) ||
+        this.form.descripcion != this.descripcionRam
       )
     },
     habilitarGuardar() {
       return !(
-        /^[0-9A-Za-z\s]+$/.test(this.form.nombre) &&
-        this.nombreRam != this.form.nombre
+        (/^[0-9A-Za-z\s]+$/.test(this.form.nombre) &&
+          this.nombreRam != this.form.nombre) ||
+        this.form.descripcion != this.descripcionRam
       )
     },
   },
