@@ -1,54 +1,78 @@
 <template>
-  <b-card bg-variant="light" header="Consulta - Resumen">
-    <b-form @submit="onSubmit">
-      <b-form-group id="input-group-1" label="Mes" label-for="input-1">
-        <b-form-select
-          id="input-1"
-          v-model="form.mes"
-          :state="validationMes"
-          :options="options"
-          required
-        ></b-form-select>
-        <b-form-invalid-feedback :state="validationMes">
-          Ingresar el mes
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationMes">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
-      <b-form-group id="input-group-2" label="Año" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          placeholder="Eliga el año"
-          v-model="form.anio"
-          :state="validationAnio"
-          required
-        ></b-form-input>
-        <b-form-invalid-feedback :state="validationAnio">
-          Ingresar el año (2021 en adelante)
-        </b-form-invalid-feedback>
-        <b-form-valid-feedback :state="validationAnio">
-          Muy bien!
-        </b-form-valid-feedback>
-      </b-form-group>
-      <b-form-group>
-        <b-form-input
-          readonly
-          placeholder="Haz Click en consultar"
-          v-show="!habilitarGuardar"
-        ></b-form-input>
-      </b-form-group>
+  <div>
+    <b-card bg-variant="light" header="Consulta - Resumen">
+      <b-form @submit="onSubmit">
+        <b-form-group id="input-group-1" label="Mes" label-for="input-1">
+          <b-form-select
+            id="input-1"
+            v-model="form.mes"
+            :state="validationMes"
+            :options="options"
+            required
+          ></b-form-select>
+          <b-form-invalid-feedback :state="validationMes">
+            Ingresar el mes
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationMes">
+            Muy bien!
+          </b-form-valid-feedback>
+        </b-form-group>
+        <b-form-group id="input-group-2" label="Año" label-for="input-2">
+          <b-form-input
+            id="input-2"
+            placeholder="Eliga el año"
+            v-model="form.anio"
+            :state="validationAnio"
+            required
+          ></b-form-input>
+          <b-form-invalid-feedback :state="validationAnio">
+            Ingresar el año (2021 en adelante)
+          </b-form-invalid-feedback>
+          <b-form-valid-feedback :state="validationAnio">
+            Muy bien!
+          </b-form-valid-feedback>
+        </b-form-group>
+        <b-form-group>
+          <b-form-input
+            readonly
+            placeholder="Haz Click en consultar"
+            v-show="!habilitarGuardar"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-button
-        variant="success"
-        class="mr-3"
-        :disabled="habilitarGuardar"
-        @click="onSubmit"
-        >Consultar</b-button
-      >
-    </b-form>
-    <slot></slot>
-  </b-card>
+        <b-button
+          variant="success"
+          class="mr-3"
+          :disabled="habilitarGuardar"
+          @click="onSubmit"
+          >Consultar</b-button
+        >
+      </b-form>
+    </b-card>
+    <b-alert
+      class="mt-3"
+      v-model="showDismissibleAlert"
+      variant="danger"
+      dismissible
+    >
+      No hay consumos para este mes.
+    </b-alert>
+    <b-table
+      striped
+      hover
+      :items="items"
+      :fields="fields"
+      :busy="isBusy"
+      class="mt-4"
+    >
+      <template #table-busy>
+        <div class="text-center text-danger my-2">
+          <b-spinner class="align-middle"></b-spinner>
+          <strong> Esperando Consulta...</strong>
+        </div>
+      </template>
+    </b-table>
+  </div>
 </template>
 
 <script>
@@ -75,11 +99,84 @@ export default {
         { value: 10, text: 'Noviembre' },
         { value: 11, text: 'Diciembre' },
       ],
+      fields: [
+        {
+          key: 'legajo',
+          sortable: true,
+        },
+        {
+          key: 'codigo',
+          sortable: true,
+        },
+        {
+          key: 'monto',
+          sortable: true,
+        },
+        {
+          key: 'apellido_nombre',
+          label: 'Apellido y Nombre',
+          sortable: true,
+        },
+        { key: 'dni', sortable: true },
+      ],
+      items: null,
+      isBusy: true,
+      showDismissibleAlert: false,
     }
   },
   methods: {
     onSubmit() {
-      console.log('Mes: ', this.form.mes, 'Año: ', this.form.anio)
+      let datosParaTabla = []
+      let arrLegAfiliados = []
+      fetch(
+        `http://localhost:3000/cuota/resumen/${this.form.anio}/${this.form.mes}`
+      )
+        .then((response) => {
+          return response.json()
+        })
+        .then((datos) => {
+          if (datos.body.length == 0) {
+            this.showDismissibleAlert = true
+          } else {
+            this.showDismissibleAlert = false
+            arrLegAfiliados = this.unirLegajosAfiliados(datos.body)
+            for (let i = 0; i < arrLegAfiliados.length; i++) {
+              datosParaTabla.push({
+                legajo: arrLegAfiliados[i],
+                codigo: '',
+                monto: 0,
+                apellido_nombre: '',
+                dni: '',
+              })
+            }
+            for (let i = 0; i < datos.body.length; i++) {
+              let legajo = datos.body[i]._afiliado.legajo
+              let codigo = datos.body[i]._afiliado.codigo
+              let montoParcial = datos.body[i].monto
+              let apellido_nombre = datos.body[i]._afiliado.apellido_nombre
+              let dni = datos.body[i]._afiliado.dni
+              let index = arrLegAfiliados.indexOf(legajo)
+              datosParaTabla[index].codigo = codigo
+              datosParaTabla[index].monto += montoParcial
+              datosParaTabla[index].apellido_nombre = apellido_nombre
+              datosParaTabla[index].dni = dni
+            }
+            this.items = datosParaTabla
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+        .finally(() => (this.isBusy = false))
+    },
+    unirLegajosAfiliados(arr) {
+      let legArr = []
+      for (let i = 0; i < arr.length; i++) {
+        if (!legArr.includes(arr[i]._afiliado.legajo)) {
+          legArr.push(arr[i]._afiliado.legajo)
+        }
+      }
+      return legArr
     },
   },
   computed: {
@@ -90,8 +187,8 @@ export default {
       return /^[0-9]+$/.test(this.form.anio) && this.form.anio >= 2021
     },
     habilitarGuardar() {
-      return (
-        !(this.form.mes != null) &&
+      return !(
+        this.form.mes != null &&
         /^[0-9]+$/.test(this.form.anio) &&
         this.form.anio >= 2021
       )
@@ -101,3 +198,7 @@ export default {
 </script>
 
 <style></style>
+
+monto: 235 _afiliado: apellido_nombre: "qsdasdasda" codigo:
+"60ee261c885b64334e23e087" dni: 123123123 legajo: 23123 _id:
+"60ee262e885b64334e23e089" _orden: 1
