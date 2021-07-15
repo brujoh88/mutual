@@ -122,10 +122,43 @@ export default {
       items: null,
       isBusy: true,
       showDismissibleAlert: false,
+      towCodigos: {},
     }
+  },
+  mounted() {
+    fetch('http://localhost:3000/config/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((datos) => {
+        console.log(datos)
+        this.towCodigos[`${datos.body[0]._codigo1._id}`] =
+          datos.body[0]._codigo1.codigo1
+        this.towCodigos[`${datos.body[0]._codigo2._id}`] =
+          datos.body[0]._codigo2.codigo2
+        console.log(this.towCodigos)
+
+        /*fetch('http://localhost:3000/afiliado/')
+          .then((response) => {
+            return response.json()
+          })
+          .then((datos) => {
+            this.items = datos.body
+            this.formatearTabla()
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+          .finally(() => (this.isBusy = false)) */
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   },
   methods: {
     onSubmit() {
+      let idCodigo = Object.keys(this.towCodigos)
+      let valorCodigo = Object.values(this.towCodigos)
       let datosParaTabla = []
       let arrLegAfiliados = []
       fetch(
@@ -162,6 +195,10 @@ export default {
               datosParaTabla[index].dni = dni
             }
             this.items = datosParaTabla
+            for (let i = 0; i < this.items.length; i++) {
+              let index = idCodigo.indexOf(this.items[i].codigo)
+              this.items[i].codigo = valorCodigo[index]
+            }
           }
         })
         .catch((error) => {
