@@ -59,7 +59,6 @@ const getCuotasByUserDB = (id) => {
 }
 
 const getCuotasByMesDB = (anio, mes) => {
-  console.log(anio, mes)
   return new Promise((resolve, reject) => {
     Cuota.find({
       periodo: { $eq: new Date(anio, mes) },
