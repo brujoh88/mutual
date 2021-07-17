@@ -12,7 +12,7 @@
             <b-card bg-variant="light" header="Datos personales">
               <b-col>
                 <b-card-text> Legajo N° {{ afiliado.legajo }} </b-card-text>
-                <b-card-text>Codigo: {{ codigoValue }}</b-card-text>
+                <b-card-text>Código: {{ codigoValue }}</b-card-text>
 
                 <b-card-text>DNI: {{ afiliado.dni }}</b-card-text>
                 <b-card-text
@@ -21,13 +21,13 @@
                 >
               </b-col>
             </b-card>
-            <b-card bg-variant="light" header="Resumen de credito">
+            <b-card bg-variant="light" header="Resúmen de crédito">
               <b-col>
                 <b-card-text
-                  >Credito Asignado: ${{ afiliado.saldoAsignado }}</b-card-text
+                  >Crédito Asignado: ${{ afiliado.saldoAsignado }}</b-card-text
                 >
                 <b-card-text
-                  >Credito Disponible: ${{ saldoAfavor }}</b-card-text
+                  >Crédito Disponible: ${{ saldoAfavor }}</b-card-text
                 >
               </b-col>
             </b-card>

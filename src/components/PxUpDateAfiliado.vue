@@ -50,7 +50,7 @@
           </b-form-group>
           <b-form-group
             id="input-group-1p"
-            label="Nombre y Apellido:"
+            label="Apellido y Nombres:"
             label-for="input-1p"
           >
             <b-form-input
@@ -113,8 +113,8 @@
           >
             {{
               form.autoCuota
-                ? 'Confirmando cuota autimatica'
-                : 'NO se hara la cuota automatica'
+                ? 'Confirmando cuota automática'
+                : 'NO se hara la cuota automática'
             }}
           </b-form-checkbox>
           <b-form-group
@@ -258,10 +258,10 @@ export default {
       let mensajeDescuento
       if (this.form.autoCuota == 'true') {
         mensajeDescuento =
-          'Tenga en cuenta que este afiliado se le hara el descuento automatica de la cuota'
+          'Tenga en cuenta que este afiliado se le hará el descuento automática de la cuota'
       } else {
         mensajeDescuento =
-          'Tenga en cuenta que este afiliado NO se le hara el descuento automatica de la cuota'
+          'Tenga en cuenta que este afiliado NO se le hará el descuento automática de la cuota'
       }
       let codigo
       if (this.form.codigo == this.codigo[1].value) {
@@ -273,14 +273,14 @@ export default {
         .msgBoxConfirm(
           `Se va actualizar al afiliado ${
             this.form.apellido_nombre
-          } con numero de legajo ${this.form.legajo} - DNI ${
+          } con número de legajo ${this.form.legajo} - DNI ${
             this.form.dni
-          }, codigo: ${codigo}. Asignandole un monto de credito de $${
+          }, código: ${codigo}. Asignandole un monto de crédito de $${
             this.form.saldoAsignado
           }. ${mensajeDescuento}. Detalle: ${this.form.detalle ||
-            '(sin detalle)'}. ¿Esta usted seguro?`,
+            '(sin detalle)'}. ¿Está usted seguro?`,
           {
-            title: 'Confirmacion de actualizacion',
+            title: 'Confirmación de actualización',
             size: 'sm',
             buttonSize: 'sm',
             okVariant: 'danger',

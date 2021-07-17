@@ -12,10 +12,10 @@
           </b-card-text>
         </b-col>
       </b-card>
-      <b-card bg-variant="light" header="Periodo">
+      <b-card bg-variant="light" header="Período">
         <b-col>
           <b-card-text>
-            <h5>Aperterura: {{ fechaApertura }}</h5>
+            <h5>Apertura: {{ fechaApertura }}</h5>
           </b-card-text>
           <b-card-text>
             <h5>Cierre: {{ fechaCierre }}</h5>

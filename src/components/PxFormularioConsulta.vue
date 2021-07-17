@@ -122,7 +122,7 @@ export default {
       items: null,
       isBusy: true,
       showDismissibleAlert: false,
-      towCodigos: {},
+      twoCodigos: {},
     }
   },
   mounted() {
@@ -132,11 +132,11 @@ export default {
       })
       .then((datos) => {
         console.log(datos)
-        this.towCodigos[`${datos.body[0]._codigo1._id}`] =
+        this.twoCodigos[`${datos.body[0]._codigo1._id}`] =
           datos.body[0]._codigo1.codigo1
-        this.towCodigos[`${datos.body[0]._codigo2._id}`] =
+        this.twoCodigos[`${datos.body[0]._codigo2._id}`] =
           datos.body[0]._codigo2.codigo2
-        console.log(this.towCodigos)
+        console.log(this.twoCodigos)
 
         /*fetch('http://localhost:3000/afiliado/')
           .then((response) => {
@@ -157,8 +157,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      let idCodigo = Object.keys(this.towCodigos)
-      let valorCodigo = Object.values(this.towCodigos)
+      let idCodigo = Object.keys(this.twoCodigos)
+      let valorCodigo = Object.values(this.twoCodigos)
       let datosParaTabla = []
       let arrLegAfiliados = []
       fetch(

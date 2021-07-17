@@ -2,11 +2,11 @@
   <div>
     <!-- Using value -->
     <b-button v-b-modal="'my-modal'" variant="success"
-      >Agreguar Orden +</b-button
+      >Agregar Orden +</b-button
     >
 
     <!-- The modal -->
-    <b-modal id="my-modal" centered title="Nuevo Orden" v-model="show"
+    <b-modal id="my-modal" centered title="Nueva Orden" v-model="show"
       ><div>
         <b-form @submit="onSubmit" @reset="onReset">
           <b-form-group id="input-group-0" label="Fecha:" label-for="input-0">

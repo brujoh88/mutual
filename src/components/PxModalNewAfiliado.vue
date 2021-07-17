@@ -48,7 +48,7 @@
           </b-form-group>
           <b-form-group
             id="input-group-1"
-            label="Nombre y Apellido:"
+            label="Apellido y Nombres:"
             label-for="input-1"
           >
             <b-form-input
@@ -254,12 +254,12 @@ export default {
         .msgBoxConfirm(
           `Se va agregar al afiliado ${
             this.form.apellido_nombre
-          } con numero de legajo ${this.form.legajo} - DNI ${
+          } con número de legajo ${this.form.legajo} - DNI ${
             this.form.dni
-          }, codigo: ${codigo}. Asignandole un monto de credito de $${
+          }, código: ${codigo}. Asignandole un monto de crédito de $${
             this.form.saldoAsignado
           }. ${mensajeDescuento}. Detalle: ${this.form.detalle ||
-            '(sin detalle)'}. ¿Esta usted seguro?`,
+            '(sin detalle)'}. ¿Está usted seguro?`,
           {
             title: 'Confirmacion de orden',
             size: 'sm',

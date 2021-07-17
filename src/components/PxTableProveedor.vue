@@ -90,9 +90,9 @@
         </b-form-group>
         <b-form-group
           id="input-group-2"
-          label="Descripcion:"
+          label="Descripción:"
           label-for="input-2"
-          description="Puede colocar alguna descripcion si lo desea"
+          description="Puede colocar alguna descripción si lo desea"
         >
           <b-form-input
             id="input-2"
@@ -139,6 +139,7 @@ export default {
         },
         {
           key: 'descripcion',
+          label: 'Descripción',
           sortable: true,
         },
         { key: 'button', label: 'Editar', sortable: false },

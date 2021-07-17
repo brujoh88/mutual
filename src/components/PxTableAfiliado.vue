@@ -76,18 +76,20 @@ export default {
       fields: [
         {
           key: 'autoCuota',
+          label: 'Cuota',
           sortable: true,
         },
         {
           key: 'codigo',
+          label: 'Código',
           sortable: true,
         },
         {
           key: 'legajo',
           sortable: true,
         },
-        { key: 'apellido_nombre', label: 'Apellido y Nombre', sortable: true },
-        { key: 'dni', sortable: true },
+        { key: 'apellido_nombre', label: 'Apellido y Nombres', sortable: true },
+        { key: 'dni', label: 'DNI', sortable: true },
         { key: 'saldoAsignado', sortable: true },
         { key: 'detalle' },
         { key: 'button', label: 'Ir', sortable: false },
