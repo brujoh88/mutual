@@ -176,7 +176,7 @@ export default {
         detalle: '',
       },
       codigo: [
-        { text: 'Eliga el codigo correspondiente al afiliado', value: null },
+        { text: 'Eliga el código correspondiente al afiliado', value: null },
       ],
       show: false,
       value: 0,
