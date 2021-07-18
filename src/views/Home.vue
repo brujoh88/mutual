@@ -142,7 +142,7 @@ export default {
             })
         } else {
           let periodo = new Date(this.cierre)
-          let mesPeriodo = periodo.getMonth() + 1
+          let mesPeriodo = periodo.getMonth()
           let anio = periodo.getFullYear()
 
           /*

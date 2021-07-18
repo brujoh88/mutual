@@ -249,7 +249,7 @@ export default {
             let periodo = new Date(this.fechaCierre)
             let mesPeriodo = periodo.getMonth()
             let anio = periodo.getFullYear()
-            for (let i = 1; i <= element.body.cantidadCuota; i++) {
+            for (let i = 0; i < element.body.cantidadCuota; i++) {
               fetch('http://localhost:3000/cuota', {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST',
@@ -260,7 +260,7 @@ export default {
                     element.body.montoTotal / element.body.cantidadCuota
                   ).toFixed(2),
                   periodo: new Date(anio, mesPeriodo + i),
-                  detalle: `${i} de ${element.body.cantidadCuota}`,
+                  detalle: `${i + 1} de ${element.body.cantidadCuota}`,
                 }),
               })
                 .then((response) => response.json())
