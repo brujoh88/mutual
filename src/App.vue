@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" class="oculto-impresion">
       <router-link to="/">Lista Afiliados</router-link> |
       <router-link to="/proveedor">Lista Proveedores</router-link> |
       <router-link to="/resumen">Resúmen Mensual</router-link> |
@@ -30,5 +30,11 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+@media print {
+  .oculto-impresion,
+  .oculto-impresion * {
+    display: none !important;
+  }
 }
 </style>

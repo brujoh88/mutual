@@ -1,9 +1,14 @@
 <template>
   <div class="mr-5 ml-5">
-    <b-button class="mt-2 mr-2" variant="info" @click="imprimir"
+    <b-button
+      class="mt-2 mr-2 oculto-impresion"
+      variant="info"
+      @click="imprimir"
       >Imprimir</b-button
     >
-    <b-button class="mt-2" variant="primary" @click="volver">Volver</b-button>
+    <b-button class="mt-2 oculto-impresion" variant="primary" @click="volver"
+      >Volver</b-button
+    >
     <px-orden-comprobante />
     <px-orden-comprobante :Duplicado="textDuplicado" />
   </div>
@@ -30,4 +35,11 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+@media print {
+  .oculto-impresion,
+  .oculto-impresion * {
+    display: none !important;
+  }
+}
+</style>
