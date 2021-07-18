@@ -219,18 +219,18 @@ export default {
       return /^[0-9]+$/.test(this.form.dni)
     },
     validationApellidoNombre() {
-      return /^[A-Za-z\s]+$/.test(this.form.apellido_nombre)
+      return /^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+$/.test(this.form.apellido_nombre)
     },
     validationSaldo() {
-      return /^[0-9]+$/.test(this.form.saldoAsignado)
+      return /^[0-9]+[.]?[0-9]{1,2}$/.test(this.form.saldoAsignado)
     },
     habilitarGuardar() {
       return !(
         this.form.codigo != null &&
         /^[0-9]+$/.test(this.form.legajo) &&
         /^[0-9]+$/.test(this.form.dni) &&
-        /^[A-Za-z\s]+$/.test(this.form.apellido_nombre) &&
-        /^[0-9]+$/.test(this.form.saldoAsignado)
+        /^[A-Za-zÁÉÍÓÚÑáéíóúñ\s]+$/.test(this.form.apellido_nombre) &&
+        /^[0-9]+[.]?[0-9]{1,2}$/.test(this.form.saldoAsignado)
       )
     },
   },
