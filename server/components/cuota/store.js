@@ -45,7 +45,7 @@ const getCuotasByUserDB = (id) => {
 
     Cuota.find({
       _afiliado: id,
-      periodo: { $gt: new Date(anioActual, mesActual) },
+      periodo: { $gte: new Date(anioActual, mesActual) },
     })
       .populate('_orden')
       .sort({ periodo: 1 })
