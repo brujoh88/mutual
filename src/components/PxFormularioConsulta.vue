@@ -57,6 +57,17 @@
     >
       No hay consumos para este mes.
     </b-alert>
+    <b-alert class="mt-3" v-model="showOpenAlert" variant="danger" dismissible>
+      Periodo en curso
+    </b-alert>
+    <b-alert
+      class="mt-3"
+      v-model="showCloseSuccessAlert"
+      variant="success"
+      dismissible
+    >
+      Periodo Cerrado
+    </b-alert>
     <b-table
       striped
       hover
@@ -123,6 +134,8 @@ export default {
       isBusy: true,
       showDismissibleAlert: false,
       twoCodigos: {},
+      showOpenAlert: false,
+      showCloseSuccessAlert: false,
     }
   },
   mounted() {
@@ -131,25 +144,10 @@ export default {
         return response.json()
       })
       .then((datos) => {
-        console.log(datos)
         this.twoCodigos[`${datos.body[0]._codigo1._id}`] =
           datos.body[0]._codigo1.codigo1
         this.twoCodigos[`${datos.body[0]._codigo2._id}`] =
           datos.body[0]._codigo2.codigo2
-        console.log(this.twoCodigos)
-
-        /*fetch('http://localhost:3000/afiliado/')
-          .then((response) => {
-            return response.json()
-          })
-          .then((datos) => {
-            this.items = datos.body
-            this.formatearTabla()
-          })
-          .catch((error) => {
-            console.log(error)
-          })
-          .finally(() => (this.isBusy = false)) */
       })
       .catch((error) => {
         console.log(error)
@@ -157,6 +155,9 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.items = null
+      this.showCloseSuccessAlert = false
+      this.EstaCerradoPeriodoConsulta()
       let idCodigo = Object.keys(this.twoCodigos)
       let valorCodigo = Object.values(this.twoCodigos)
       let datosParaTabla = []
@@ -215,6 +216,27 @@ export default {
       }
       return legArr
     },
+    EstaCerradoPeriodoConsulta() {
+      let fecha = new Date(this.form.anio, this.form.mes)
+      fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((datos) => {
+          let fechaCierre = new Date(datos.body.fechaCierre)
+          let fechaAhora = new Date()
+          console.log('ahora ', fechaAhora, 'cierre ', fechaCierre)
+          if (fechaAhora - fechaCierre <= 0) {
+            this.showOpenAlert = true
+          } else {
+            this.showOpenAlert = false
+            this.showCloseSuccessAlert = true
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
   },
   computed: {
     validationMes() {
@@ -235,7 +257,3 @@ export default {
 </script>
 
 <style></style>
-
-monto: 235 _afiliado: apellido_nombre: "qsdasdasda" codigo:
-"60ee261c885b64334e23e087" dni: 123123123 legajo: 23123 _id:
-"60ee262e885b64334e23e089" _orden: 1
