@@ -35,11 +35,4 @@ export default {
 }
 </script>
 
-<style>
-@media print {
-  .oculto-impresion,
-  .oculto-impresion * {
-    display: none !important;
-  }
-}
-</style>
+<style></style>
