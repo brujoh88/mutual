@@ -47,13 +47,11 @@
           @click="onSubmit"
           >Consultar</b-button
         >
-        <b-button
-          variant="warning"
-          class="mr-3"
-          :disabled="valor"
-          @click="exportar"
-          >Exportar</b-button
-        >
+        <vue-json-to-csv :json-data="this.items" :csv-title="My_CSV">
+          <b-button variant="warning" class="mr-3" :disabled="valor"
+            >Exportar</b-button
+          >
+        </vue-json-to-csv>
       </b-form>
     </b-card>
     <b-alert
@@ -100,8 +98,13 @@
 </template>
 
 <script>
+import VueJsonToCsv from 'vue-json-to-csv'
+
 export default {
   name: 'FomrularioConsulta',
+  components: {
+    VueJsonToCsv,
+  },
   data() {
     return {
       form: {
@@ -154,6 +157,7 @@ export default {
       twoCodigos: {},
       showOpenAlert: false,
       showCloseSuccessAlert: false,
+      My_CSV: 'Copado',
     }
   },
   mounted() {
@@ -173,6 +177,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.My_CSV = `${this.form.anio}-${this.form.mes + 1}`
       this.items = null
       this.showDismissibleEmtyAlert = false
       this.showCloseSuccessAlert = false
@@ -263,9 +268,6 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-    },
-    exportar() {
-      console.log(this.items)
     },
   },
   computed: {
