@@ -73,6 +73,7 @@
                 path: 'orden',
                 query: {
                   id: row.item._orden._id,
+                  detalle: row.item.detalle,
                 },
               }"
             >

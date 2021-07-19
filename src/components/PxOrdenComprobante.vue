@@ -17,7 +17,7 @@
               >PLAN {{ ordenDatos.cantidadCuota }} CUOTAS - ${{
                 (ordenDatos.montoTotal / ordenDatos.cantidadCuota).toFixed(2)
               }}
-              p/Cuota</b-col
+              p/Cuota ({{ detalle }})</b-col
             >
           </b-row>
           <b-row>
@@ -91,6 +91,14 @@ const MESES_DEL_ANIO = {
   10: 'Noviembre',
   11: 'Diciembre',
 }
+const SUMA_MES_AL_PERIODO = {
+  '1': 0,
+  '2': 1,
+  '3': 2,
+  '4': 3,
+  '5': 4,
+  '6': 5,
+}
 export default {
   name: 'Comprobante',
   props: {
@@ -108,6 +116,7 @@ export default {
       afiliado: {},
       proveedor: {},
       mes: '',
+      detalle: '',
     }
   },
   mounted() {},
@@ -128,23 +137,35 @@ export default {
             this.fecha = `${dia}/${mes + 1}/${anio}`
             this.afiliado = datos.body[0]._afiliado
             this.proveedor = datos.body[0]._proovedor
-
-            fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
-              .then((response) => {
-                return response.json()
-              })
-              .then((datos) => {
-                let mes = new Date(datos.body.fechaCierre).getMonth()
-                this.mes = MESES_DEL_ANIO[mes]
-              })
-              .catch((error) => {
-                console.log(error)
-              })
+            this.calcularPeriodoDescuento(fecha)
           })
           .catch((error) => {
             console.log(error)
           })
       },
+    },
+    '$route.query.detalle': {
+      immediate: true,
+      handler(detalle) {
+        this.detalle = detalle
+      },
+    },
+  },
+  methods: {
+    calcularPeriodoDescuento(fecha) {
+      let movimiento = SUMA_MES_AL_PERIODO[this.detalle[0]]
+      fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((datos) => {
+          let mes =
+            new Date(datos.body.fechaCierre).getMonth() + (movimiento || 0)
+          this.mes = MESES_DEL_ANIO[mes]
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
   },
 }
