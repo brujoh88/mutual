@@ -65,7 +65,9 @@
       No hay consumos para este mes.
     </b-alert>
     <b-alert class="mt-3" v-model="showOpenAlert" variant="danger" dismissible>
-      Periodo en curso
+      Periodo en curso ( Cierra el {{ fecha.dia }}/{{ fecha.mes }}/{{
+        fecha.anio
+      }})
     </b-alert>
     <b-alert
       class="mt-3"
@@ -73,7 +75,9 @@
       variant="success"
       dismissible
     >
-      Periodo Cerrado
+      Periodo Cerrado ( Cerró el {{ fecha.dia }}/{{ fecha.mes }}/{{
+        fecha.anio
+      }})
     </b-alert>
     <b-table
       striped
@@ -137,6 +141,11 @@ export default {
         },
         { key: 'dni', sortable: true },
       ],
+      fecha: {
+        anio: '',
+        mes: '',
+        dia: '',
+      },
       items: null,
       isBusy: true,
       showDismissibleEmtyAlert: false,
@@ -233,6 +242,9 @@ export default {
         })
         .then((datos) => {
           let fechaCierre = new Date(datos.body.fechaCierre)
+          this.fecha.dia = fechaCierre.getDate()
+          this.fecha.mes = fechaCierre.getMonth() + 1
+          this.fecha.anio = fechaCierre.getFullYear()
           fechaCierre = new Date(
             fechaCierre.getFullYear(),
             fechaCierre.getMonth(),
