@@ -163,7 +163,9 @@ export default {
   methods: {
     onSubmit() {
       this.items = null
+      this.showDismissibleEmtyAlert = false
       this.showCloseSuccessAlert = false
+      this.showOpenAlert = false
       this.EstaCerradoPeriodoConsulta()
       let idCodigo = Object.keys(this.twoCodigos)
       let valorCodigo = Object.values(this.twoCodigos)
@@ -231,9 +233,13 @@ export default {
         })
         .then((datos) => {
           let fechaCierre = new Date(datos.body.fechaCierre)
+          fechaCierre = new Date(
+            fechaCierre.getFullYear(),
+            fechaCierre.getMonth(),
+            fechaCierre.getDate() + 1
+          )
           let fechaAhora = new Date()
-          console.log('ahora ', fechaAhora, 'cierre ', fechaCierre)
-          if (fechaAhora - fechaCierre <= 0) {
+          if (fechaAhora - fechaCierre < 0) {
             this.showOpenAlert = true
           } else {
             this.showOpenAlert = false
