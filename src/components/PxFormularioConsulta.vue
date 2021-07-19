@@ -47,11 +47,18 @@
           @click="onSubmit"
           >Consultar</b-button
         >
+        <b-button
+          variant="warning"
+          class="mr-3"
+          :disabled="valor"
+          @click="exportar"
+          >Exportar</b-button
+        >
       </b-form>
     </b-card>
     <b-alert
       class="mt-3"
-      v-model="showDismissibleAlert"
+      v-model="showDismissibleEmtyAlert"
       variant="danger"
       dismissible
     >
@@ -132,7 +139,7 @@ export default {
       ],
       items: null,
       isBusy: true,
-      showDismissibleAlert: false,
+      showDismissibleEmtyAlert: false,
       twoCodigos: {},
       showOpenAlert: false,
       showCloseSuccessAlert: false,
@@ -170,9 +177,9 @@ export default {
         })
         .then((datos) => {
           if (datos.body.length == 0) {
-            this.showDismissibleAlert = true
+            this.showDismissibleEmtyAlert = true
           } else {
-            this.showDismissibleAlert = false
+            this.showDismissibleEmtyAlert = false
             arrLegAfiliados = this.unirLegajosAfiliados(datos.body)
             for (let i = 0; i < arrLegAfiliados.length; i++) {
               datosParaTabla.push({
@@ -237,6 +244,9 @@ export default {
           console.log(error)
         })
     },
+    exportar() {
+      console.log(this.items)
+    },
   },
   computed: {
     validationMes() {
@@ -251,6 +261,9 @@ export default {
         /^[0-9]+$/.test(this.form.anio) &&
         this.form.anio >= 2021
       )
+    },
+    valor() {
+      return !this.items
     },
   },
 }
