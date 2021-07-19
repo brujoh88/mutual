@@ -6,6 +6,12 @@
       <router-link to="/resumen">Resúmen Mensual</router-link> |
       <router-link to="/config">Configuración</router-link>
     </div>
+    <img
+      alt="Mutual logo"
+      src="./assets/logo.png"
+      width="25%"
+      class="mb-4 oculto-impresion"
+    />
     <router-view />
   </div>
 </template>
