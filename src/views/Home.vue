@@ -164,7 +164,7 @@ export default {
                 `http://localhost:3000/cuota/cuotaFija/${new Date(
                   anio,
                   mesPeriodo
-                )}/fija`
+                )}/CUOTA FIJA`
               )
                 .then((response) => response.json())
                 .then((cuotasFijas) => {
@@ -190,7 +190,7 @@ export default {
                               _orden: resp.body._id,
                               monto: this.montoCuota,
                               periodo: new Date(anio, mesPeriodo),
-                              detalle: 'fija',
+                              detalle: 'CUOTA FIJA',
                             }),
                           })
                             .then((response) => response.json())
