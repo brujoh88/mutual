@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h6 class="mb-3 mt-3">
+    <h6 class="mb-3 mt-3" v-if="lineaPuntos">
       - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      - - - - - - - - - - - - - - - - - - - -
+      - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     </h6>
     <div class="d-flex justify-content-center">
       <b-card title="Mutual 18 DE AGOSTO" sub-title="Orden de compra">
@@ -29,7 +29,7 @@
         <b-card-text>
           El/la que subscribe {{ afiliado.apellido_nombre }} DNI N°:
           {{ afiliado.dni }}
-          Leg. {{ afiliado.legajo }} AUTORIZO a que se le realice descuento en
+          Leg. {{ afiliado.legajo }} AUTORIZA a que se le realice descuento en
           sus haberes mensuales correspondientes al mes de {{ mes }} por valor
           de PESOS
           ..................................................................
@@ -96,6 +96,9 @@ export default {
   props: {
     Duplicado: {
       type: String,
+    },
+    lineaPuntos: {
+      type: Boolean,
     },
   },
   data() {

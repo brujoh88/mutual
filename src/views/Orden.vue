@@ -9,8 +9,9 @@
     <b-button class="mt-2 oculto-impresion" variant="primary" @click="volver"
       >Volver</b-button
     >
-    <px-orden-comprobante />
-    <px-orden-comprobante :Duplicado="textDuplicado" />
+    <br /><br /><br /><br /><br /><br /><br />
+    <px-orden-comprobante :lineaPuntos="false" />
+    <px-orden-comprobante :Duplicado="textDuplicado" :lineaPuntos="true" />
   </div>
 </template>
 
