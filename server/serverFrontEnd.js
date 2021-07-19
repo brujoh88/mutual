@@ -20,7 +20,3 @@ app.get('/', function(req, res) {
 app.listen(port, () =>
   console.log(`La app esta escuando en la URL http://localhost:${port}`)
 )
-
-app.listen(5000, function() {
-  console.log('Express serving on 5000!')
-})
