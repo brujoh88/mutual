@@ -67,7 +67,8 @@
     <b-alert class="mt-3" v-model="showOpenAlert" variant="danger" dismissible>
       Periodo en curso ( Cierra el {{ fecha.dia }}/{{ fecha.mes }}/{{
         fecha.anio
-      }})
+      }}
+      a las 00:00hs)
     </b-alert>
     <b-alert
       class="mt-3"
@@ -77,7 +78,8 @@
     >
       Periodo Cerrado ( Cerró el {{ fecha.dia }}/{{ fecha.mes }}/{{
         fecha.anio
-      }})
+      }}
+      a las 00:00hs)
     </b-alert>
     <b-table
       striped
