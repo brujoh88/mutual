@@ -125,7 +125,7 @@ export default {
             let dia = fecha.getDate()
             let mes = fecha.getMonth()
             let anio = fecha.getFullYear()
-            this.fecha = `${dia}/${mes}/${anio}`
+            this.fecha = `${dia}/${mes + 1}/${anio}`
             this.afiliado = datos.body[0]._afiliado
             this.proveedor = datos.body[0]._proovedor
 
@@ -134,7 +134,7 @@ export default {
                 return response.json()
               })
               .then((datos) => {
-                let mes = new Date(datos.body.fechaCierre).getMonth() + 1
+                let mes = new Date(datos.body.fechaCierre).getMonth()
                 this.mes = MESES_DEL_ANIO[mes]
               })
               .catch((error) => {
