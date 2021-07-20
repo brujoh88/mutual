@@ -1,0 +1,719 @@
+{
+	"info": {
+		"_postman_id": "bba92d73-1fe2-4f30-b010-636cd223cf3a",
+		"name": "API mutual",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "afiliado",
+			"item": [
+				{
+					"name": "GET afiliados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/afiliado/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"afiliado",
+								""
+							]
+						},
+						"description": "Peticion de todos los afiliados"
+					},
+					"response": []
+				},
+				{
+					"name": "GET afiliado por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/afiliado/609062596454aa48f771c250",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"afiliado",
+								"609062596454aa48f771c250"
+							]
+						},
+						"description": "En este ejemplo se usa el id 609062596454aa48f771c250"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT afiliado (id)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "apellido_nombre",
+									"value": "",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "legajo",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "codigo",
+									"value": "",
+									"description": "ObjectId models config (codigo1 | codigo2)",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "autoCuota",
+									"value": "",
+									"description": "Boolean",
+									"type": "text"
+								},
+								{
+									"key": "detalle",
+									"value": "",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "saldoAsignado",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/afiliado/609062596454aa48f771c250",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"afiliado",
+								"609062596454aa48f771c250"
+							]
+						},
+						"description": "Modificacion de los datos del afiliado por medio de su id 609062596454aa48f771c250 y pasando por x-xxx-form-urlencode"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE afiliado (falta id)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Gaston",
+									"type": "text"
+								},
+								{
+									"key": "apellido",
+									"value": "Hernandez",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "2323232323",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "legajo",
+									"value": "2700",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "saldoAsignado",
+									"value": "45000",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "estado",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/afiliado/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"afiliado",
+								""
+							]
+						},
+						"description": "Busca al afiliado por su id y actualiza el valor estado en false"
+					},
+					"response": []
+				},
+				{
+					"name": "POST afiliado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "apellido_nombre",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "legajo",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "codigo",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "autoCuota",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "detalle",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "saldoAsignado",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/afiliado",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"afiliado"
+							]
+						},
+						"description": "Tener en cuenta que NO puede repetir LEGAJO ni DNI"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "proovedor",
+			"item": [
+				{
+					"name": "GET proovedores",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Gaston",
+									"type": "text"
+								},
+								{
+									"key": "apellido",
+									"value": "Hernandez",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "2323232323",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "legajo",
+									"value": "2700",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "saldoAsignado",
+									"value": "45000",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "estado",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/proovedor/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor",
+								""
+							],
+							"query": [
+								{
+									"key": "l",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Peticion de todos los proovedores"
+					},
+					"response": []
+				},
+				{
+					"name": "GET proovedor por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/proovedor/609081ca74a30a725dbccaf0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor",
+								"609081ca74a30a725dbccaf0"
+							]
+						},
+						"description": "En este caso se usa el id 609081ca74a30a725dbccaf0"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT proovedor (id)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Edificio",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/proovedor/609081ca74a30a725dbccaf0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor",
+								"609081ca74a30a725dbccaf0"
+							]
+						},
+						"description": "Se modifica al proovedor por medio de su id 609081ca74a30a725dbccaf0 y enviando los cambios de acuerdo al modelo de DB en el x-xxx-form-urlencode"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE proovedor (Falta colocar el id)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/proovedor/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor",
+								""
+							]
+						},
+						"description": "Por medio del id accedo al proovedor y cambio el estado a FALSE"
+					},
+					"response": []
+				},
+				{
+					"name": "POST proovedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Pardo",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/proovedor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor"
+							]
+						},
+						"description": "Recordar que no puede repetir el NOMBRE"
+					},
+					"response": []
+				},
+				{
+					"name": "GET proovedor/oculto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/proovedor/oculto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"proovedor",
+								"oculto"
+							]
+						},
+						"description": "Trae el proveedor con estado= false.\nCreado al iniciar el programa, bajo el nombre \"CUOTA FIJA\""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orden",
+			"item": [
+				{
+					"name": "GET ordenes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/orden",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orden"
+							]
+						},
+						"description": "Trae todas las ordenes de todo el tiempo"
+					},
+					"response": []
+				},
+				{
+					"name": "GET orden (id)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/orden/6090628a6454aa48f771c252",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orden",
+								"6090628a6454aa48f771c252"
+							]
+						},
+						"description": "Trae una orden por el id del afiliado"
+					},
+					"response": []
+				},
+				{
+					"name": "POST orden",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_afiliado",
+									"value": "6090628a6454aa48f771c252",
+									"type": "text"
+								},
+								{
+									"key": "_proovedor",
+									"value": "609081f774a30a725dbccaf2",
+									"type": "text"
+								},
+								{
+									"key": "montoTotal",
+									"value": "333",
+									"type": "text"
+								},
+								{
+									"key": "cantidadCuota",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/orden",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orden"
+							]
+						},
+						"description": "Orden relacionando _idAfiliado _idProovedor con el montoTotal y las cantidadCuota en que las saca"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cuota",
+			"item": [
+				{
+					"name": "POST cuota",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "_orden",
+									"value": "609690a7d4b9eb267039562d",
+									"type": "text"
+								},
+								{
+									"key": "monto",
+									"value": "4242",
+									"type": "text"
+								},
+								{
+									"key": "periodo",
+									"value": "2021-06-06T18:12:52.309Z",
+									"type": "text"
+								},
+								{
+									"key": "_afiliado",
+									"value": "609062596454aa48f771c250",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/cuota",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cuota"
+							]
+						},
+						"description": "Se debe dar un _idOrden a la que corresponde y el monto a calcular segun las cuota a la que realizo la orden"
+					},
+					"response": []
+				},
+				{
+					"name": "GET cuotas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/cuota",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cuota"
+							]
+						},
+						"description": "Trae todas las cuotas de todo el tiempo"
+					},
+					"response": []
+				},
+				{
+					"name": "GET cuota (id)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/cuota/609690a7d4b9eb267039562d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cuota",
+								"609690a7d4b9eb267039562d"
+							]
+						},
+						"description": "Trae una cuota en porticular segun idOrden"
+					},
+					"response": []
+				},
+				{
+					"name": "GET cuotasAdeudadas (id)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/cuota/deuda/609062596454aa48f771c250",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"cuota",
+								"deuda",
+								"609062596454aa48f771c250"
+							]
+						},
+						"description": "Necesario el id de usuario"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "configuracion",
+			"item": [
+				{
+					"name": "POST config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Requiere \n* cuota (valor de la cuota fija)\n* codigo1 (id del documento del models codigo1 donde se almacena el valor)\n* codigo2 (id del documento del models codigo2 donde se almacena el valor"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT congig",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "cuota",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "codigo1",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "codigo2",
+									"value": "",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "idCod1",
+									"value": "",
+									"description": "ObjectId del models codigo1",
+									"type": "text"
+								},
+								{
+									"key": "idCod2",
+									"value": "",
+									"description": "ObjectId del models codigo2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/config/IdConfig",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"config",
+								"IdConfig"
+							]
+						},
+						"description": "Modifica el valor de la cuota, y los codigos, ya habiendo capturado previamente sus IDs"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

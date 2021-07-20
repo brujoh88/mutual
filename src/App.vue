@@ -1,10 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" class="oculto-impresion">
+      <router-link to="/">Lista Afiliados</router-link> |
+      <router-link to="/proveedor">Lista Proveedores</router-link> |
+      <router-link to="/resumen">Resúmen Mensual</router-link> |
+      <router-link to="/config">Configuración</router-link>
     </div>
-    <router-view/>
+    <img
+      alt="Mutual logo"
+      src="./assets/logo.png"
+      width="25%"
+      class="mb-4 oculto-impresion"
+    />
+    <router-view />
   </div>
 </template>
 
@@ -28,5 +36,11 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+@media print {
+  .oculto-impresion,
+  .oculto-impresion * {
+    display: none !important;
+  }
 }
 </style>
