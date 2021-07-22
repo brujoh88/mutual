@@ -9,7 +9,6 @@
         <b-container class="bv-example-row mt-3 mb-3">
           <b-row> FECHA {{ fecha }} </b-row>
           <b-row> Monto total: ${{ ordenDatos.montoTotal }} </b-row>
-          <b-row> Interes: {{ porcentaje }}% </b-row>
 
           <b-row>
             <b-col>N° de Orden: {{ ordenDatos._id }} </b-col>
