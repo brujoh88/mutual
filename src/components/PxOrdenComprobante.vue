@@ -9,13 +9,14 @@
         <b-container class="bv-example-row mt-3 mb-3">
           <b-row> FECHA {{ fecha }} </b-row>
           <b-row> Monto total: ${{ ordenDatos.montoTotal }} </b-row>
+          <b-row> Interes: {{ porcentaje }}% </b-row>
 
           <b-row>
             <b-col>N° de Orden: {{ ordenDatos._id }} </b-col>
 
             <b-col
               >PLAN {{ ordenDatos.cantidadCuota }} CUOTAS - ${{
-                (ordenDatos.montoTotal / ordenDatos.cantidadCuota).toFixed(2)
+                valorCuota
               }}
               p/Cuota ({{ detalle }})</b-col
             >
@@ -32,14 +33,13 @@
           Leg. {{ afiliado.legajo }} AUTORIZA a que se le realice descuento en
           sus haberes mensuales correspondientes al mes de {{ mes }} por valor
           de PESOS "{{ parteEntera.toUpperCase()
-          }}<em v-if="show"> CON {{ parteDecimal.toUpperCase() }} Cent.</em>"
-          (${{ (ordenDatos.montoTotal / ordenDatos.cantidadCuota).toFixed(2) }})
-          otorgando consentimiento expreso a favor de la Mutual "18 de Agosto"
-          por el monto de la presente Orden de Compra, en caso de despido o
-          renuncia de la M.V.C., Autorizo a la mencionada Mutual a descontar de
-          mis haberes el importe de todas las ordenes o cuotas adeudadas. De no
-          ser posible el descuento me comprometo a saldar mi deuda en la sede de
-          la misma en forma inmediata.
+          }}<em v-if="show"> CON {{ parteDecimal.toUpperCase() }}</em
+          >" (${{ valorCuota }}) otorgando consentimiento expreso a favor de la
+          Mutual "18 de Agosto" por el monto de la presente Orden de Compra, en
+          caso de despido o renuncia de la M.V.C., Autorizo a la mencionada
+          Mutual a descontar de mis haberes el importe de todas las ordenes o
+          cuotas adeudadas. De no ser posible el descuento me comprometo a
+          saldar mi deuda en la sede de la misma en forma inmediata.
         </b-card-text>
 
         <b-card-text>{{ Duplicado || '' }}</b-card-text>
@@ -125,6 +125,8 @@ export default {
       parteEntera: '',
       parteDecimal: '',
       show: false,
+      porcentaje: '',
+      valorCuota: '',
     }
   },
   mounted() {},
@@ -138,9 +140,20 @@ export default {
           })
           .then((datos) => {
             this.ordenDatos = datos.body[0]
-            let montoString = (
-              this.ordenDatos.montoTotal / this.ordenDatos.cantidadCuota
-            ).toFixed(2)
+            this.porcentaje = this.ordenDatos.porcentaje
+            if (!this.porcentaje == 0) {
+              let interes = (this.porcentaje * this.ordenDatos.montoTotal) / 100
+              this.valorCuota = (
+                (this.ordenDatos.montoTotal + interes) /
+                this.ordenDatos.cantidadCuota
+              ).toFixed(2)
+            } else {
+              this.valorCuota = (
+                this.ordenDatos.montoTotal / this.ordenDatos.cantidadCuota
+              ).toFixed(2)
+            }
+
+            let montoString = this.valorCuota
             let indexPuntoDecimal = montoString.indexOf('.')
             for (let i = 0; i < indexPuntoDecimal; i++) {
               this.parteEntera = this.parteEntera.concat(`${montoString[i]}`)
