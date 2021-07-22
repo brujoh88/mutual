@@ -50,7 +50,7 @@
               required
             ></b-form-input>
             <b-form-invalid-feedback :state="validationPorcentaje">
-              No puede ser un monto superior a 25%
+              No puede ser un monto superior a 50%
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationPorcentaje">
               Muy bien!
@@ -183,7 +183,7 @@ export default {
       return true
     },
     validationPorcentaje() {
-      return this.form.porcentaje < 25
+      return this.form.porcentaje <= 50
     },
     validationProovedor() {
       return this.form.proovedor != null
