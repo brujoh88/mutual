@@ -32,7 +32,7 @@
           Leg. {{ afiliado.legajo }} AUTORIZA a que se le realice descuento en
           sus haberes mensuales correspondientes al mes de {{ mes }} por valor
           de PESOS "{{ parteEntera.toUpperCase()
-          }}<em v-if="show"> CON {{ parteDecimal.toUpperCase() }} Cent.</em>
+          }}<em v-if="show"> CON {{ parteDecimal.toUpperCase() }} Cent.</em>"
           (${{ (ordenDatos.montoTotal / ordenDatos.cantidadCuota).toFixed(2) }})
           otorgando consentimiento expreso a favor de la Mutual "18 de Agosto"
           por el monto de la presente Orden de Compra, en caso de despido o
