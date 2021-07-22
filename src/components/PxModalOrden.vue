@@ -37,6 +37,27 @@
           </b-form-group>
 
           <b-form-group
+            id="input-porcentaje"
+            label="Interes %:"
+            label-for="porcentaje"
+          >
+            <b-form-input
+              id="porcentaje"
+              v-model="form.porcentaje"
+              placeholder="(interes sobre el total)"
+              :state="validationPorcentaje"
+              type="number"
+              required
+            ></b-form-input>
+            <b-form-invalid-feedback :state="validationPorcentaje">
+              No puede ser un monto superior a 25%
+            </b-form-invalid-feedback>
+            <b-form-valid-feedback :state="validationPorcentaje">
+              Muy bien!
+            </b-form-valid-feedback>
+          </b-form-group>
+
+          <b-form-group
             id="input-group-list"
             label="Cuota/s:"
             label-for="input-list"
@@ -138,6 +159,7 @@ export default {
         monto: '',
         cuota: null,
         proovedor: null,
+        porcentaje: 0,
       },
       cuotas: [
         { text: 'Eliga la cantidad de cuotas', value: null },
@@ -159,6 +181,9 @@ export default {
   computed: {
     validationFecha() {
       return true
+    },
+    validationPorcentaje() {
+      return this.form.porcentaje < 25
     },
     validationProovedor() {
       return this.form.proovedor != null
@@ -202,9 +227,16 @@ export default {
   },
   methods: {
     estoySeguro() {
+      let montoFinal = Number(this.form.monto)
+      let mensajeInteres = ''
+      if (this.form.porcentaje > 0) {
+        let interes = (this.form.porcentaje * montoFinal) / 100
+        montoFinal = montoFinal + interes
+        mensajeInteres = `(Interes del ${this.form.porcentaje}% - Total:${montoFinal})`
+      }
       this.$bvModal
         .msgBoxConfirm(
-          `Orden de compra por $${this.form.monto} pesos en ${this.form.cuota} cuota/s para ${this.form.proovedor}. ¿Esta seguro?`,
+          `Orden de compra por $${this.form.monto} pesos ${mensajeInteres}. En ${this.form.cuota} cuota/s para ${this.form.proovedor}. ¿Esta seguro?`,
           {
             title: 'Confirmacion de orden',
             size: 'sm',
@@ -239,11 +271,25 @@ export default {
           _proovedor: this.idProovedores[index],
           montoTotal: this.form.monto,
           cantidadCuota: this.form.cuota,
+          porcentaje: this.form.porcentaje,
         }),
       })
         .then((response) => response.json())
         .then((element) => {
           if (element.error == '') {
+            let valorCuota
+            if (element.body.porcentaje > 0) {
+              let interes =
+                (element.body.porcentaje * element.body.montoTotal) / 100
+              valorCuota = (
+                (element.body.montoTotal + interes) /
+                element.body.cantidadCuota
+              ).toFixed(2)
+            } else {
+              valorCuota = (
+                element.body.montoTotal / element.body.cantidadCuota
+              ).toFixed(2)
+            }
             this.value = 100
             this.onReset()
             let periodo = new Date(this.fechaCierre)
@@ -256,9 +302,7 @@ export default {
                 body: JSON.stringify({
                   _afiliado: this.idAfiliado,
                   _orden: element.body._id,
-                  monto: (
-                    element.body.montoTotal / element.body.cantidadCuota
-                  ).toFixed(2),
+                  monto: valorCuota,
                   periodo: new Date(anio, mesPeriodo + i),
                   detalle: `${i + 1} de ${element.body.cantidadCuota}`,
                 }),

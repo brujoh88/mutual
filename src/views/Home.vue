@@ -177,6 +177,7 @@ export default {
                           _afiliado: afiliados.body[i]._id,
                           _proovedor: datos.body[0]._id,
                           montoTotal: this.montoCuota,
+                          porcentaje: 0,
                           cantidadCuota: 1,
                         }),
                       })
