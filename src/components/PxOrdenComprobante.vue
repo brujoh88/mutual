@@ -31,8 +31,8 @@
           {{ afiliado.dni }}
           Leg. {{ afiliado.legajo }} AUTORIZA a que se le realice descuento en
           sus haberes mensuales correspondientes al mes de {{ mes }} por valor
-          de PESOS
-          ..............................................................................................................
+          de PESOS "{{ parteEntera.toUpperCase()
+          }}<em v-if="show"> CON {{ parteDecimal.toUpperCase() }} Cent.</em>
           (${{ (ordenDatos.montoTotal / ordenDatos.cantidadCuota).toFixed(2) }})
           otorgando consentimiento expreso a favor de la Mutual "18 de Agosto"
           por el monto de la presente Orden de Compra, en caso de despido o
@@ -77,6 +77,11 @@
 </template>
 
 <script>
+const conversor = require('conversor-numero-a-letras-es-ar')
+
+let ClaseConversor = conversor.conversorNumerosALetras
+let miConversor = new ClaseConversor()
+
 const MESES_DEL_ANIO = {
   0: 'Enero',
   1: 'Febrero',
@@ -117,6 +122,9 @@ export default {
       proveedor: {},
       mes: '',
       detalle: '',
+      parteEntera: '',
+      parteDecimal: '',
+      show: false,
     }
   },
   mounted() {},
@@ -130,6 +138,33 @@ export default {
           })
           .then((datos) => {
             this.ordenDatos = datos.body[0]
+            let montoString = (
+              this.ordenDatos.montoTotal / this.ordenDatos.cantidadCuota
+            ).toFixed(2)
+            let indexPuntoDecimal = montoString.indexOf('.')
+            for (let i = 0; i < indexPuntoDecimal; i++) {
+              this.parteEntera = this.parteEntera.concat(`${montoString[i]}`)
+            }
+            if (!(montoString[montoString.length - 2] === '0')) {
+              if (!(montoString[montoString.length - 1] === '0')) {
+                for (
+                  let i = indexPuntoDecimal + 1;
+                  i < montoString.length;
+                  i++
+                ) {
+                  this.parteDecimal = this.parteDecimal.concat(
+                    `${montoString[i]}`
+                  )
+                }
+                this.show = true
+              }
+            } else if (!(montoString[montoString.length - 1] === '0')) {
+              this.parteDecimal = montoString[montoString.length - 1]
+              this.show = true
+            }
+            this.parteEntera = miConversor.convertToText(this.parteEntera)
+            this.parteDecimal = miConversor.convertToText(this.parteDecimal)
+
             let fecha = new Date(this.ordenDatos.date)
             let dia = fecha.getDate()
             let mes = fecha.getMonth()
