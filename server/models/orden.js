@@ -12,6 +12,10 @@ let ordenSchema = new Schema({
     type: Number,
     required: [true, 'El monto de la orden es requerido'],
   },
+  porcentaje: {
+    type: Number,
+    required: [true, 'El porcentaje de la orden es requerido'],
+  },
   cantidadCuota: {
     type: Number,
     default: 1,

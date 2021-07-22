@@ -54,6 +54,7 @@ const postOrdenDB = (body) => {
       _afiliado: body._afiliado,
       _proovedor: body._proovedor,
       montoTotal: body.montoTotal,
+      porcentaje: body.porcentaje,
       cantidadCuota: body.cantidadCuota,
     })
     orden.save((err, newOrdenDB) => {
