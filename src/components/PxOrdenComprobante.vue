@@ -149,6 +149,7 @@ export default {
                 this.ordenDatos.cantidadCuota
               ).toFixed(2)
             } else {
+              this.montoTotalAndInteres = this.ordenDatos.montoTotal
               this.valorCuota = (
                 this.ordenDatos.montoTotal / this.ordenDatos.cantidadCuota
               ).toFixed(2)
