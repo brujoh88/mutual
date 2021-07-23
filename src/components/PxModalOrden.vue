@@ -169,6 +169,8 @@ export default {
         4,
         5,
         6,
+        8,
+        9,
       ],
       proovedores: [{ text: 'Seleccione uno', value: null }],
       idProovedores: [],
