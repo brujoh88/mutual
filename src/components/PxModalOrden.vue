@@ -28,6 +28,7 @@
               :state="validationMonto"
               required
             ></b-form-input>
+            + interes
             <b-form-invalid-feedback :state="validationMonto">
               Solo numeros y un monto no superior a {{ saldoDisponible }}
             </b-form-invalid-feedback>
@@ -171,6 +172,9 @@ export default {
         6,
         8,
         9,
+        10,
+        11,
+        12,
       ],
       proovedores: [{ text: 'Seleccione uno', value: null }],
       idProovedores: [],
