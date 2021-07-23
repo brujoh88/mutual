@@ -60,6 +60,7 @@
           :fields="fields"
           :busy="isBusy"
           :filter="filter"
+          :tbody-tr-class="rowClass"
         >
           <template #table-busy>
             <div class="text-center text-danger my-2">
@@ -143,6 +144,12 @@ export default {
     }
   },
   methods: {
+    rowClass(item, type) {
+      if (!item || type !== 'row') return
+      if (item.periodo[0] == 8) {
+        return 'table-warning'
+      }
+    },
     forceRenderUpDate() {
       fetch(`http://localhost:3000/afiliado/${this.afiliado.id}`)
         .then((response) => {
@@ -188,8 +195,12 @@ export default {
             this.items[i].id = this.items[i]._orden._id
           }
           if (datos.body.length != 0) {
+            let mesAdescontar = new Date(this.cierre)
+            mesAdescontar = mesAdescontar.getMonth() + 1
             for (let i = 0; i < datos.body.length; i++) {
-              this.acumulador = this.acumulador + datos.body[i].monto
+              if (datos.body[i].periodo[0] == mesAdescontar) {
+                this.acumulador = this.acumulador + datos.body[i].monto
+              }
             }
             this.acumulador = this.acumulador.toFixed(2)
             let saldoAfavor = (
