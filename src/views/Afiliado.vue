@@ -79,7 +79,7 @@
               }"
             >
               <b-button size="sm" class="mr-2" variant="success">
-                Ver Orden
+                Ver Cuota
               </b-button>
             </router-link>
           </template>
