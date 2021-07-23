@@ -8,7 +8,7 @@
       <b-card title="Mutual 18 DE AGOSTO" sub-title="Orden de compra">
         <b-container class="bv-example-row mt-3 mb-3">
           <b-row> FECHA {{ fecha }} </b-row>
-          <b-row> Monto total: ${{ ordenDatos.montoTotal }} </b-row>
+          <b-row> Monto total: ${{ montoTotalAndInteres }} </b-row>
 
           <b-row>
             <b-col>N° de Orden: {{ ordenDatos._id }} </b-col>
@@ -126,6 +126,7 @@ export default {
       show: false,
       porcentaje: '',
       valorCuota: '',
+      montoTotalAndInteres: '',
     }
   },
   mounted() {},
@@ -142,6 +143,7 @@ export default {
             this.porcentaje = this.ordenDatos.porcentaje
             if (!this.porcentaje == 0) {
               let interes = (this.porcentaje * this.ordenDatos.montoTotal) / 100
+              this.montoTotalAndInteres = this.ordenDatos.montoTotal + interes
               this.valorCuota = (
                 (this.ordenDatos.montoTotal + interes) /
                 this.ordenDatos.cantidadCuota
