@@ -71,7 +71,7 @@
               required
             ></b-form-select>
             <b-form-invalid-feedback :state="validationCuota">
-              Eliga una opcion
+              Elija una opcion
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationCuota">
               Muy bien!
@@ -91,7 +91,7 @@
               required
             ></b-form-select>
             <b-form-invalid-feedback :state="validationProovedor">
-              Eliga el proovedor
+              Elija el proovedor
             </b-form-invalid-feedback>
             <b-form-valid-feedback :state="validationProovedor">
               Muy bien!
