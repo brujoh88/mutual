@@ -147,9 +147,16 @@ export default {
     rowClass(item, type) {
       let mes = new Date(this.cierre)
       mes = mes.getMonth() + 1
+      mes = String(mes)
       if (!item || type !== 'row') return
-      if (item.periodo[0] == mes) {
-        return 'table-warning'
+      if (mes < 10) {
+        if (item.periodo[0] == mes) {
+          return 'table-warning'
+        }
+      } else {
+        if (item.periodo[0] == mes[0] && item.periodo[1] == mes[1]) {
+          return 'table-warning'
+        }
       }
     },
     forceRenderUpDate() {
@@ -199,9 +206,19 @@ export default {
           if (datos.body.length != 0) {
             let mesAdescontar = new Date(this.cierre)
             mesAdescontar = mesAdescontar.getMonth() + 1
+            mesAdescontar = String(mesAdescontar)
             for (let i = 0; i < datos.body.length; i++) {
-              if (datos.body[i].periodo[0] == mesAdescontar) {
-                this.acumulador = this.acumulador + datos.body[i].monto
+              if (mesAdescontar < 10) {
+                if (datos.body[i].periodo[0] == mesAdescontar) {
+                  this.acumulador = this.acumulador + datos.body[i].monto
+                }
+              } else {
+                if (
+                  datos.body[i].periodo[0] == mesAdescontar[0] &&
+                  datos.body[i].periodo[1] == mesAdescontar[1]
+                ) {
+                  this.acumulador = this.acumulador + datos.body[i].monto
+                }
               }
             }
             this.acumulador = this.acumulador.toFixed(2)
