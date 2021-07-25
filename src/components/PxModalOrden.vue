@@ -28,7 +28,6 @@
               :state="validationMonto"
               required
             ></b-form-input>
-            + interes
             <b-form-invalid-feedback :state="validationMonto">
               Solo numeros y un monto no superior a {{ saldoDisponible }}
             </b-form-invalid-feedback>
@@ -163,7 +162,7 @@ export default {
         porcentaje: 0,
       },
       cuotas: [
-        { text: 'Eliga la cantidad de cuotas', value: null },
+        { text: 'Elija la cantidad de cuotas', value: null },
         1,
         2,
         3,
