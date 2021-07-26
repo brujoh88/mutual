@@ -35,6 +35,7 @@
       <b-table
         striped
         hover
+        sticky-header
         filter-debounce="1000"
         :filter="filter"
         :items="items"
