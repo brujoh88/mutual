@@ -23,6 +23,7 @@ const getOrdenDB = (id) => {
   }
   return new Promise((resolve, reject) => {
     Orden.find({ _afiliado: id })
+      .sort({ date: -1 })
       .populate(populateAfiliado)
       .populate(populateProovedor)
       .exec(function(err, orden) {
