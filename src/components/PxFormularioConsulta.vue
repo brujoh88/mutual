@@ -82,6 +82,7 @@
     <b-table
       striped
       hover
+      sticky-header
       :items="items"
       :fields="fields"
       :busy="isBusy"
