@@ -16,76 +16,142 @@
         />
       </b-row>
     </b-container>
-
-    <h3>Cuotas pendientes</h3>
-
     <b-container>
-      <div>
-        <div class="d-flex justify-content-center">
-          <b-col lg="6" class="my-2">
-            <b-form-group
-              label="Buscar"
-              label-for="filter-input"
-              label-cols-sm="3"
-              label-align-sm="right"
-              class="mb-0"
-            >
-              <b-input-group>
-                <b-form-input
-                  id="filter-input"
-                  v-model="filter"
-                  placeholder="Ingrese el dato que desea encontrar"
-                  type="search"
-                ></b-form-input>
+      <b-tabs fill card pills content-class="mt-3">
+        <b-tab title="Cuotas Pendientes" active
+          ><h3>Cuotas Pendientes</h3>
+          <div>
+            <div class="d-flex justify-content-center">
+              <b-col lg="6" class="my-2">
+                <b-form-group
+                  label="Buscar"
+                  label-for="filter-input"
+                  label-cols-sm="3"
+                  label-align-sm="right"
+                  class="mb-0"
+                >
+                  <b-input-group>
+                    <b-form-input
+                      id="filter-input"
+                      v-model="filter"
+                      placeholder="Ingrese el dato que desea encontrar"
+                      type="search"
+                    ></b-form-input>
 
-                <b-input-group-append>
-                  <b-button
-                    :disabled="!filter"
-                    @click="filter = ''"
-                    variant="primary"
-                    >Limpiar</b-button
-                  >
-                </b-input-group-append>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col lg="6" class="my-2"><slot></slot></b-col>
-        </div>
-
-        <b-table
-          striped
-          hover
-          :items="items"
-          filter-debounce="1000"
-          :fields="fields"
-          :busy="isBusy"
-          :filter="filter"
-          :tbody-tr-class="rowClass"
-        >
-          <template #table-busy>
-            <div class="text-center text-danger my-2">
-              <b-spinner class="align-middle"></b-spinner>
-              <strong>Loading...</strong>
+                    <b-input-group-append>
+                      <b-button
+                        :disabled="!filter"
+                        @click="filter = ''"
+                        variant="primary"
+                        >Limpiar</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+              <b-col lg="6" class="my-2"><slot></slot></b-col>
             </div>
-          </template>
-          <template #cell(button)="row">
-            <router-link
-              :to="{
-                path: 'orden',
-                query: {
-                  id: row.item._orden._id,
-                  detalle: row.item.detalle,
-                },
-              }"
+
+            <b-table
+              striped
+              hover
+              :items="items"
+              filter-debounce="1000"
+              :fields="fields"
+              :busy="isBusy"
+              :filter="filter"
+              :tbody-tr-class="rowClass"
             >
-              <b-button size="sm" class="mr-2" variant="success">
-                Ver Cuota
-              </b-button>
-            </router-link>
-          </template>
-        </b-table>
-        <h5>Subtotal ${{ acumulador }}</h5>
-      </div>
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>
+              <template #cell(button)="row">
+                <router-link
+                  :to="{
+                    path: 'orden',
+                    query: {
+                      id: row.item._orden._id,
+                      detalle: row.item.detalle,
+                    },
+                  }"
+                >
+                  <b-button size="sm" class="mr-2" variant="success">
+                    Ver Cuota
+                  </b-button>
+                </router-link>
+              </template>
+            </b-table>
+            <h5>Subtotal ${{ acumulador }}</h5>
+          </div>
+        </b-tab>
+        <b-tab title="Historial de ordenes"
+          ><h3>Historial de ordenes</h3>
+          <div>
+            <div class="d-flex justify-content-center">
+              <b-col lg="6" class="my-2">
+                <b-form-group
+                  label="Buscar"
+                  label-for="entrada-filtro"
+                  label-cols-sm="3"
+                  label-align-sm="right"
+                  class="mb-0"
+                >
+                  <b-input-group>
+                    <b-form-input
+                      id="entrada-filtro"
+                      v-model="filtro"
+                      placeholder="Ingrese el dato que desea encontrar"
+                      type="search"
+                    ></b-form-input>
+
+                    <b-input-group-append>
+                      <b-button
+                        :disabled="!filtro"
+                        @click="filtro = ''"
+                        variant="primary"
+                        >Limpiar</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+              <b-col lg="6" class="my-2"><slot></slot></b-col>
+            </div>
+
+            <b-table
+              striped
+              hover
+              :items="datos"
+              filter-debounce="1000"
+              :fields="campos"
+              :busy="isBusy"
+              :filter="filtro"
+            >
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>
+              <template #cell(button)="row">
+                <router-link
+                  :to="{
+                    path: 'AllOrden',
+                    query: { id: row.item._id, cant: row.item.cantidadCuota },
+                  }"
+                >
+                  <b-button size="sm" class="mr-2" variant="success">
+                    Ver Orden
+                  </b-button>
+                </router-link>
+              </template>
+            </b-table>
+          </div>
+        </b-tab>
+      </b-tabs>
     </b-container>
   </Afiliado>
 </template>
@@ -138,9 +204,50 @@ export default {
         { key: 'monto', sortable: true },
         { key: 'button', label: 'Detalle', sortable: false },
       ],
+      campos: [
+        {
+          key: '_id',
+          label: 'Orden N°',
+          sortable: true,
+        },
+        {
+          key: 'date',
+          label: 'Fecha',
+          sortable: true,
+        },
+        {
+          key: '_proovedor.nombre',
+          label: 'Proveedor',
+          sortable: true,
+        },
+        {
+          key: 'montoTotal',
+          label: 'Monto',
+          sortable: true,
+        },
+        {
+          key: 'cantidadCuota',
+          label: 'Cuota',
+          sortable: true,
+        },
+
+        {
+          key: 'porcentaje',
+          label: 'Interes %',
+          sortable: true,
+        },
+        {
+          key: 'suma',
+          label: 'TOTAL',
+          sortable: true,
+        },
+        { key: 'button', label: 'Detalle', sortable: false },
+      ],
+      datos: null,
       items: null,
       isBusy: true,
       filter: null,
+      filtro: null,
     }
   },
   methods: {
@@ -188,6 +295,27 @@ export default {
       if (id === undefined) {
         id = this.afiliado.id
       }
+      fetch(`http://localhost:3000/orden/${id}`)
+        .then((response) => {
+          return response.json()
+        })
+        .then((datos) => {
+          this.datos = datos.body
+          for (let i = 0; i < this.datos.length; i++) {
+            let fecha = new Date(this.datos[i].date)
+            let dia = fecha.getDate()
+            let mes = fecha.getMonth() + 1
+            let anio = fecha.getFullYear()
+            let hs = fecha.getHours()
+            let min = fecha.getMinutes()
+            this.datos[i].date = `${dia}/${mes}/${anio} a las ${hs}:${
+              min < 10 ? '0' : ''
+            }${min}`
+            let porcentual = this.datos[i].porcentaje / 100
+            let interes = this.datos[i].montoTotal * porcentual
+            this.datos[i].suma = this.datos[i].montoTotal + interes
+          }
+        })
       fetch(`http://localhost:3000/cuota/deuda/${id}`)
         .then((response) => {
           return response.json()
@@ -254,8 +382,6 @@ export default {
           .catch((error) => {
             console.log(error)
           })
-
-        /* this.acumulador = 0 */
         fetch(`http://localhost:3000/afiliado/${id}`)
           .then((response) => {
             return response.json()

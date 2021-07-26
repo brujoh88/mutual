@@ -102,7 +102,16 @@ const SUMA_MES_AL_PERIODO = {
   '4': 3,
   '5': 4,
   '6': 5,
+  '7': 6,
+  '8': 7,
+  '9': 8,
 }
+const SUMA_MES_AL_PERIODO_2_DIGITOS = {
+  '0': 9,
+  '1': 10,
+  '2': 11,
+}
+
 export default {
   name: 'Comprobante',
   props: {
@@ -111,6 +120,9 @@ export default {
     },
     lineaPuntos: {
       type: Boolean,
+    },
+    detalleAllCuota: {
+      type: String,
     },
   },
   data() {
@@ -203,7 +215,18 @@ export default {
   },
   methods: {
     calcularPeriodoDescuento(fecha) {
-      let movimiento = SUMA_MES_AL_PERIODO[this.detalle[0]]
+      let movimiento = ''
+      if (this.detalle === undefined) {
+        this.detalle = this.detalleAllCuota
+      }
+      if (
+        this.detalle[0] == 1 &&
+        (this.detalle[1] == 0 || this.detalle[1] == 1 || this.detalle[1] == 2)
+      ) {
+        movimiento = SUMA_MES_AL_PERIODO_2_DIGITOS[this.detalle[1]]
+      } else {
+        movimiento = SUMA_MES_AL_PERIODO[this.detalle[0]]
+      }
       fetch(`http://localhost:3000/calculoPeriodo/${fecha}`)
         .then((response) => {
           return response.json()
