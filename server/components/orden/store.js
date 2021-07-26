@@ -16,7 +16,7 @@ const getOrdenesDB = () => {
 }
 
 const getOrdenDB = (id) => {
-  let populateAfiliado = { path: '_afiliado', select: 'nombre apellido legajo' }
+  let populateAfiliado = { path: '_afiliado', select: 'apellido_nombre legajo' }
   let populateProovedor = {
     path: '_proovedor',
     select: 'nombre',
