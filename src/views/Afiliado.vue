@@ -55,6 +55,7 @@
             <b-table
               striped
               hover
+              sticky-header
               :items="items"
               filter-debounce="1000"
               :fields="fields"
@@ -124,6 +125,7 @@
             <b-table
               striped
               hover
+              sticky-header
               :items="datos"
               filter-debounce="1000"
               :fields="campos"
