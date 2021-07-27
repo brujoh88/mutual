@@ -212,9 +212,11 @@ export default {
         (this.form.proovedor != null &&
           this.form.cuota != null &&
           this.saldoDisponible >= this.form.monto &&
-            this.form.monto != 0 &&
-            this.form.monto > 0) ||
-        (this.form.monto / this.form.cuota <= this.saldoDisponible &&
+          this.form.monto != 0 &&
+          this.form.monto > 0) ||
+        (this.form.proovedor != null &&
+          this.form.cuota != null &&
+          this.form.monto / this.form.cuota <= this.saldoDisponible &&
           this.form.monto != 0 &&
           this.form.monto > 0)
       )
