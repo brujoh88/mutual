@@ -18,7 +18,72 @@
     </b-container>
     <b-container>
       <b-tabs fill card pills content-class="mt-3">
-        <b-tab title="Cuotas Pendientes" active
+        <b-tab title="Historial de ordenes" active
+          ><h3>Historial de ordenes</h3>
+          <div>
+            <div class="d-flex justify-content-center">
+              <b-col lg="6" class="my-2">
+                <b-form-group
+                  label="Buscar"
+                  label-for="entrada-filtro"
+                  label-cols-sm="3"
+                  label-align-sm="right"
+                  class="mb-0"
+                >
+                  <b-input-group>
+                    <b-form-input
+                      id="entrada-filtro"
+                      v-model="filtro"
+                      placeholder="Ingrese el dato que desea encontrar"
+                      type="search"
+                    ></b-form-input>
+
+                    <b-input-group-append>
+                      <b-button
+                        :disabled="!filtro"
+                        @click="filtro = ''"
+                        variant="primary"
+                        >Limpiar</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+              <b-col lg="6" class="my-2"><slot></slot></b-col>
+            </div>
+
+            <b-table
+              striped
+              hover
+              sticky-header
+              :items="datos"
+              filter-debounce="1000"
+              :fields="campos"
+              :busy="isBusy"
+              :filter="filtro"
+            >
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>
+              <template #cell(button)="row">
+                <router-link
+                  :to="{
+                    path: 'AllOrden',
+                    query: { id: row.item._id, cant: row.item.cantidadCuota },
+                  }"
+                >
+                  <b-button size="sm" class="mr-2" variant="success">
+                    Ver Orden
+                  </b-button>
+                </router-link>
+              </template>
+            </b-table>
+          </div>
+        </b-tab>
+        <b-tab title="Cuotas Pendientes"
           ><h3>Cuotas Pendientes</h3>
           <div>
             <div class="d-flex justify-content-center">
@@ -86,71 +151,6 @@
               </template>
             </b-table>
             <h5>Subtotal ${{ acumulador }}</h5>
-          </div>
-        </b-tab>
-        <b-tab title="Historial de ordenes"
-          ><h3>Historial de ordenes</h3>
-          <div>
-            <div class="d-flex justify-content-center">
-              <b-col lg="6" class="my-2">
-                <b-form-group
-                  label="Buscar"
-                  label-for="entrada-filtro"
-                  label-cols-sm="3"
-                  label-align-sm="right"
-                  class="mb-0"
-                >
-                  <b-input-group>
-                    <b-form-input
-                      id="entrada-filtro"
-                      v-model="filtro"
-                      placeholder="Ingrese el dato que desea encontrar"
-                      type="search"
-                    ></b-form-input>
-
-                    <b-input-group-append>
-                      <b-button
-                        :disabled="!filtro"
-                        @click="filtro = ''"
-                        variant="primary"
-                        >Limpiar</b-button
-                      >
-                    </b-input-group-append>
-                  </b-input-group>
-                </b-form-group>
-              </b-col>
-              <b-col lg="6" class="my-2"><slot></slot></b-col>
-            </div>
-
-            <b-table
-              striped
-              hover
-              sticky-header
-              :items="datos"
-              filter-debounce="1000"
-              :fields="campos"
-              :busy="isBusy"
-              :filter="filtro"
-            >
-              <template #table-busy>
-                <div class="text-center text-danger my-2">
-                  <b-spinner class="align-middle"></b-spinner>
-                  <strong>Loading...</strong>
-                </div>
-              </template>
-              <template #cell(button)="row">
-                <router-link
-                  :to="{
-                    path: 'AllOrden',
-                    query: { id: row.item._id, cant: row.item.cantidadCuota },
-                  }"
-                >
-                  <b-button size="sm" class="mr-2" variant="success">
-                    Ver Orden
-                  </b-button>
-                </router-link>
-              </template>
-            </b-table>
           </div>
         </b-tab>
       </b-tabs>
