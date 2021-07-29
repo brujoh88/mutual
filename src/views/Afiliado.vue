@@ -76,7 +76,7 @@
                   }"
                 >
                   <b-button size="sm" class="mr-2" variant="success">
-                    Ver Orden
+                    Cuotas
                   </b-button>
                 </router-link>
               </template>
@@ -145,7 +145,7 @@
                   }"
                 >
                   <b-button size="sm" class="mr-2" variant="success">
-                    Ver Cuota
+                    Cuota
                   </b-button>
                 </router-link>
               </template>
@@ -204,7 +204,7 @@ export default {
         },
         { key: 'proveedor', sortable: true },
         { key: 'monto', sortable: true },
-        { key: 'button', label: 'Detalle', sortable: false },
+        { key: 'button', label: 'Imprimir', sortable: false },
       ],
       campos: [
         {
@@ -243,7 +243,7 @@ export default {
           label: 'TOTAL',
           sortable: true,
         },
-        { key: 'button', label: 'Detalle', sortable: false },
+        { key: 'button', label: 'Imprimir', sortable: false },
       ],
       datos: null,
       items: null,
