@@ -6,6 +6,7 @@ import Configuracion from '../views/Configuracion.vue'
 import OrdenById from '../views/Orden.vue'
 import AllOrdenById from '../views/AllOrden.vue'
 import ResumenMensual from '../views/ResumenMensual.vue'
+import MiniConsulta from '../views/MiniCounsulta.vue'
 
 Vue.use(VueRouter)
 
@@ -14,6 +15,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/miniConsulta',
+    name: 'miniConsulta',
+    component: MiniConsulta,
   },
   {
     path: '/proveedor',

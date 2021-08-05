@@ -114,7 +114,22 @@
                   </b-input-group>
                 </b-form-group>
               </b-col>
-              <b-col lg="6" class="my-2"><slot></slot></b-col>
+              <b-col lg="6" class="my-2">
+                <router-link
+                  :to="{
+                    path: 'miniConsulta',
+                    query: {
+                      items: `${JSON.stringify(this.items)}`,
+                      subTotal: `${this.acumulador}`,
+                    },
+                  }"
+                >
+                  <b-button size="sm" class="mr-2" variant="success">
+                    Resumen
+                  </b-button>
+                </router-link>
+                <slot></slot
+              ></b-col>
             </div>
 
             <b-table
@@ -366,6 +381,7 @@ export default {
         .finally(() => (this.isBusy = false))
     },
   },
+
   watch: {
     '$route.query.id': {
       immediate: true,
