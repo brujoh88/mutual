@@ -96,172 +96,179 @@ export default {
           1}/${fechaAperturaPeriodo.getFullYear()}`
         this.fechaCierre = `${fechaCierrePeriodo.getDate()}/${fechaCierrePeriodo.getMonth() +
           1}/${fechaCierrePeriodo.getFullYear()}`
-      })
-      .catch((error) => {
-        console.log(error)
-      })
 
-    /*
+        /*
     ==========================================
     ===============GET=CONFIG=================
     ==========================================
     */
-    fetch('http://localhost:3000/config/')
-      .then((response) => {
-        return response.json()
-      })
-      .then((datos) => {
-        this.montoCuota = datos.body[0].cuota
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-
-    /*
+        fetch('http://localhost:3000/config/')
+          .then((response) => {
+            return response.json()
+          })
+          .then((datos) => {
+            this.montoCuota = datos.body[0].cuota
+            /*
     ==========================================
     ===========TAER/CREAR PROVEE OULTO========
     ==========================================
     */
-    fetch('http://localhost:3000/proovedor/oculto')
-      .then((response) => {
-        return response.json()
-      })
-      .then((datos) => {
-        if (datos.body === null) {
-          fetch('http://localhost:3000/proovedor', {
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST',
-            body: JSON.stringify({
-              nombre: 'CUOTA FIJA',
-              estado: false,
-            }),
-          })
-            .then((response) => response.json())
-            .then((element) => {
-              console.log(element)
-            })
-        } else {
-          let periodo = new Date(this.cierre)
-          let mesPeriodo = periodo.getMonth()
-          let anio = periodo.getFullYear()
+            fetch('http://localhost:3000/proovedor/oculto')
+              .then((response) => {
+                return response.json()
+              })
+              .then((datos) => {
+                if (datos.body === null) {
+                  fetch('http://localhost:3000/proovedor', {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: 'POST',
+                    body: JSON.stringify({
+                      nombre: 'CUOTA FIJA',
+                      estado: false,
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((element) => {
+                      console.log(element)
+                    })
+                } else {
+                  let periodo = new Date(this.cierre)
+                  let mesPeriodo = periodo.getMonth()
+                  let anio = periodo.getFullYear()
 
-          /*
+                  /*
           ==========================================
           ===========TAER=AFILIADO=AUTOCUOTA========
           ==========================================
           */
-          fetch('http://localhost:3000/afiliado/autoCuota')
-            .then((response) => {
-              return response.json()
-            })
-            .then((afiliados) => {
-              /*
+                  fetch('http://localhost:3000/afiliado/autoCuota')
+                    .then((response) => {
+                      return response.json()
+                    })
+                    .then((afiliados) => {
+                      /*
               ==========================================
               ===========TAER/CREA=CUOTAS=FIJAS==============
               ==========================================
               */
-              fetch(
-                `http://localhost:3000/cuota/cuotaFija/${new Date(
-                  anio,
-                  mesPeriodo
-                )}/CUOTA FIJA`
-              )
-                .then((response) => response.json())
-                .then((cuotasFijas) => {
-                  if (cuotasFijas.body == null) {
-                    for (let i = 0; i < afiliados.body.length; i++) {
-                      fetch('http://localhost:3000/orden', {
-                        headers: { 'Content-Type': 'application/json' },
-                        method: 'POST',
-                        body: JSON.stringify({
-                          _afiliado: afiliados.body[i]._id,
-                          _proovedor: datos.body[0]._id,
-                          montoTotal: this.montoCuota,
-                          porcentaje: 0,
-                          cantidadCuota: 1,
-                        }),
-                      })
+                      fetch(
+                        `http://localhost:3000/cuota/cuotaFija/${new Date(
+                          anio,
+                          mesPeriodo
+                        )}/CUOTA FIJA`
+                      )
                         .then((response) => response.json())
-                        .then((resp) => {
-                          fetch('http://localhost:3000/cuota', {
-                            headers: { 'Content-Type': 'application/json' },
-                            method: 'POST',
-                            body: JSON.stringify({
-                              _afiliado: afiliados.body[i]._id,
-                              _orden: resp.body._id,
-                              monto: this.montoCuota,
-                              periodo: new Date(anio, mesPeriodo),
-                              detalle: 'CUOTA FIJA',
-                            }),
-                          })
-                            .then((response) => response.json())
-                            .then((element) => {
-                              if (element.error == '') {
-                                console.log('Se guardo las cuotas')
-                              } else {
-                                console.log('Error')
-                              }
-                            })
-                        })
-                    }
-                    /*
+                        .then((cuotasFijas) => {
+                          if (cuotasFijas.body == null) {
+                            for (let i = 0; i < afiliados.body.length; i++) {
+                              fetch('http://localhost:3000/orden', {
+                                headers: { 'Content-Type': 'application/json' },
+                                method: 'POST',
+                                body: JSON.stringify({
+                                  _afiliado: afiliados.body[i]._id,
+                                  _proovedor: datos.body[0]._id,
+                                  montoTotal: this.montoCuota,
+                                  porcentaje: 0,
+                                  cantidadCuota: 1,
+                                }),
+                              })
+                                .then((response) => response.json())
+                                .then((resp) => {
+                                  fetch('http://localhost:3000/cuota', {
+                                    headers: {
+                                      'Content-Type': 'application/json',
+                                    },
+                                    method: 'POST',
+                                    body: JSON.stringify({
+                                      _afiliado: afiliados.body[i]._id,
+                                      _orden: resp.body._id,
+                                      monto: this.montoCuota,
+                                      periodo: new Date(anio, mesPeriodo),
+                                      detalle: 'CUOTA FIJA',
+                                    }),
+                                  })
+                                    .then((response) => response.json())
+                                    .then((element) => {
+                                      if (element.error == '') {
+                                        console.log('Se guardo las cuotas')
+                                      } else {
+                                        console.log('Error')
+                                      }
+                                    })
+                                })
+                            }
+                            /*
                     ==========================================
                     ====CREA=CUOTAS=FIJAS=A=LOS=NUEVOS========
                     ==========================================
                     */
-                  } else {
-                    let arrIdAfiliado = []
-                    let arrIdAfiliadoCuota = []
-                    for (let i = 0; i < afiliados.body.length; i++) {
-                      arrIdAfiliado.push(afiliados.body[i]._id)
-                    }
-                    for (let i = 0; i < cuotasFijas.body.length; i++) {
-                      arrIdAfiliadoCuota.push(cuotasFijas.body[i]._afiliado)
-                    }
-                    for (let i = 0; i < arrIdAfiliado.length; i++) {
-                      let id = arrIdAfiliado[i]
-                      if (!arrIdAfiliadoCuota.includes(id)) {
-                        fetch('http://localhost:3000/orden', {
-                          headers: { 'Content-Type': 'application/json' },
-                          method: 'POST',
-                          body: JSON.stringify({
-                            _afiliado: id,
-                            _proovedor: datos.body[0]._id,
-                            montoTotal: this.montoCuota,
-                            cantidadCuota: 1,
-                          }),
+                          } else {
+                            let arrIdAfiliado = []
+                            let arrIdAfiliadoCuota = []
+                            for (let i = 0; i < afiliados.body.length; i++) {
+                              arrIdAfiliado.push(afiliados.body[i]._id)
+                            }
+                            for (let i = 0; i < cuotasFijas.body.length; i++) {
+                              arrIdAfiliadoCuota.push(
+                                cuotasFijas.body[i]._afiliado
+                              )
+                            }
+                            for (let i = 0; i < arrIdAfiliado.length; i++) {
+                              let id = arrIdAfiliado[i]
+                              if (!arrIdAfiliadoCuota.includes(id)) {
+                                fetch('http://localhost:3000/orden', {
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
+                                  method: 'POST',
+                                  body: JSON.stringify({
+                                    _afiliado: id,
+                                    _proovedor: datos.body[0]._id,
+                                    montoTotal: this.montoCuota,
+                                    cantidadCuota: 1,
+                                  }),
+                                })
+                                  .then((response) => response.json())
+                                  .then((resp) => {
+                                    fetch('http://localhost:3000/cuota', {
+                                      headers: {
+                                        'Content-Type': 'application/json',
+                                      },
+                                      method: 'POST',
+                                      body: JSON.stringify({
+                                        _afiliado: id,
+                                        _orden: resp.body._id,
+                                        monto: this.montoCuota,
+                                        periodo: new Date(anio, mesPeriodo),
+                                        detalle: 'fija',
+                                      }),
+                                    })
+                                      .then((response) => response.json())
+                                      .then((element) => {
+                                        if (element.error == '') {
+                                          console.log('Se guardo las cuotas')
+                                        } else {
+                                          console.log('Error')
+                                        }
+                                      })
+                                  })
+                              }
+                            }
+                          }
                         })
-                          .then((response) => response.json())
-                          .then((resp) => {
-                            fetch('http://localhost:3000/cuota', {
-                              headers: { 'Content-Type': 'application/json' },
-                              method: 'POST',
-                              body: JSON.stringify({
-                                _afiliado: id,
-                                _orden: resp.body._id,
-                                monto: this.montoCuota,
-                                periodo: new Date(anio, mesPeriodo),
-                                detalle: 'fija',
-                              }),
-                            })
-                              .then((response) => response.json())
-                              .then((element) => {
-                                if (element.error == '') {
-                                  console.log('Se guardo las cuotas')
-                                } else {
-                                  console.log('Error')
-                                }
-                              })
-                          })
-                      }
-                    }
-                  }
-                })
-            })
-            .catch((error) => {
-              console.log(error)
-            })
-        }
+                    })
+                    .catch((error) => {
+                      console.log(error)
+                    })
+                }
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+          })
+          .catch((error) => {
+            console.log(error)
+          })
       })
       .catch((error) => {
         console.log(error)
