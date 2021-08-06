@@ -1,7 +1,13 @@
 <template>
   <div class="home">
     <b-row class="mt-5 mb-5">
-      <b-col> </b-col>
+      <b-col>
+        <img
+          alt="Mutual logo"
+          src="../assets/logo.png"
+          width="25%"
+          class="mb-4 oculto-impresion"
+      /></b-col>
       <b-card bg-variant="light" header="Fecha">
         <b-col>
           <b-card-text>
