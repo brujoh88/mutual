@@ -98,7 +98,8 @@ export default {
         let fechaAperturaPeriodo = new Date(datos.body.fechaApertura)
         let fechaCierrePeriodo = new Date(datos.body.fechaCierre)
 
-        this.fechaApertura = `${fechaAperturaPeriodo.getDate()}/${fechaAperturaPeriodo.getMonth() +
+        this.fechaApertura = `${fechaAperturaPeriodo.getDate() +
+          1}/${fechaAperturaPeriodo.getMonth() +
           1}/${fechaAperturaPeriodo.getFullYear()}`
         this.fechaCierre = `${fechaCierrePeriodo.getDate()}/${fechaCierrePeriodo.getMonth() +
           1}/${fechaCierrePeriodo.getFullYear()}`
