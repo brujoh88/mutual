@@ -35,7 +35,7 @@
         v-if="show"
         striped
         hover
-        sticky-header
+        sticky-header="400px"
         filter-debounce="1000"
         :filter="filter"
         :items="items"
