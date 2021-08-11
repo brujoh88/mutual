@@ -23,13 +23,13 @@ const MESES_DEL_ANIO = {
 }
 
 const MOVIMIENTO_SEGUN_DIA_SEMANA = {
-  Domingo: -2,
-  Lunes: 4,
-  Martes: 3,
-  Miercoles: 2,
-  Jueves: 1,
-  Viernes: 0,
-  Sabado: -1,
+  Domingo: 6,
+  Lunes: 5,
+  Martes: 4,
+  Miercoles: 3,
+  Jueves: 2,
+  Viernes: 1,
+  Sabado: 0,
 }
 
 const MOVIMIENTO_SEGUN_DIA_SEMANA_AGUINALDO = {
