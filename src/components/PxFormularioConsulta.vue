@@ -47,7 +47,11 @@
           @click="onSubmit"
           >Consultar</b-button
         >
-        <vue-json-to-csv :json-data="this.items" :csv-title="My_CSV">
+        <vue-json-to-csv
+          :json-data="this.items"
+          :csv-title="My_CSV"
+          separator=";"
+        >
           <b-button variant="warning" class="mr-3" :disabled="valor"
             >Exportar</b-button
           >
@@ -223,6 +227,7 @@ export default {
             }
             datosParaTabla.forEach((element) => {
               element.monto = element.monto.toFixed(2)
+              element.monto = element.monto.replace('.', ',')
             })
             this.items = datosParaTabla
             for (let i = 0; i < this.items.length; i++) {
