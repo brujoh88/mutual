@@ -152,7 +152,7 @@ export default {
         mes: '',
         dia: '',
       },
-      items: null,
+      items: [],
       isBusy: true,
       showDismissibleEmtyAlert: false,
       twoCodigos: {},
@@ -179,7 +179,7 @@ export default {
   methods: {
     onSubmit() {
       this.My_CSV = `${this.form.anio}-${this.form.mes + 1}`
-      this.items = null
+      this.items = []
       this.showDismissibleEmtyAlert = false
       this.showCloseSuccessAlert = false
       this.showOpenAlert = false
@@ -221,6 +221,9 @@ export default {
               datosParaTabla[index].apellido_nombre = apellido_nombre
               datosParaTabla[index].dni = dni
             }
+            datosParaTabla.forEach((element) => {
+              element.monto = element.monto.toFixed(2)
+            })
             this.items = datosParaTabla
             for (let i = 0; i < this.items.length; i++) {
               let index = idCodigo.indexOf(this.items[i].codigo)
