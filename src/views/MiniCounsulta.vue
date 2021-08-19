@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       items: {},
-      subTotal: '',
+      subTotal: 0,
       mes: 0,
       fields: [
         {
@@ -112,13 +112,11 @@ export default {
           }
         }
 
+        arr.forEach((element) => {
+          this.subTotal += element.monto
+        })
+
         this.items = arr
-      },
-    },
-    '$route.query.subTotal': {
-      immediate: true,
-      handler(subTotal) {
-        this.subTotal = subTotal
       },
     },
   },

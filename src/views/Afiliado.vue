@@ -120,7 +120,6 @@
                     path: 'miniConsulta',
                     query: {
                       items: `${JSON.stringify(this.items)}`,
-                      subTotal: `${this.acumulador}`,
                     },
                   }"
                 >
