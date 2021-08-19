@@ -120,6 +120,7 @@
                     path: 'miniConsulta',
                     query: {
                       items: `${JSON.stringify(this.items)}`,
+                      afiliado: `${JSON.stringify(this.afiliado)}`,
                     },
                   }"
                 >

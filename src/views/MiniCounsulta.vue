@@ -1,6 +1,7 @@
 <template>
   <b-container>
     <h1 class="mt-2 mr-2">Resumen del periodo {{ items[0].periodo }}</h1>
+    <h2>{{ afiliado.apellido_nombre }} - {{ afiliado.legajo }}</h2>
     <b-button
       class="mt-2 mb-4 mr-2 oculto-impresion"
       variant="info"
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       items: {},
+      afiliado: {},
       subTotal: 0,
       mes: 0,
       fields: [
@@ -117,6 +119,12 @@ export default {
         })
 
         this.items = arr
+      },
+    },
+    '$route.query.afiliado': {
+      immediate: true,
+      handler(dato) {
+        this.afiliado = JSON.parse(dato)
       },
     },
   },
