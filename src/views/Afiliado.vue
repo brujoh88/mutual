@@ -330,7 +330,7 @@ export default {
             }${min}`
             let porcentual = this.datos[i].porcentaje / 100
             let interes = this.datos[i].montoTotal * porcentual
-            this.datos[i].suma = this.datos[i].montoTotal + interes
+            this.datos[i].suma = (this.datos[i].montoTotal + interes).toFixed(2)
           }
         })
       fetch(`http://localhost:3000/cuota/deuda/${id}`)
