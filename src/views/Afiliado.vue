@@ -145,8 +145,10 @@ export default {
   },
   methods: {
     rowClass(item, type) {
+      let mes = new Date(this.cierre)
+      mes = mes.getMonth() + 1
       if (!item || type !== 'row') return
-      if (item.periodo[0] == 8) {
+      if (item.periodo[0] == mes) {
         return 'table-warning'
       }
     },
