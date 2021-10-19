@@ -159,8 +159,10 @@ export default {
           return response.json()
         })
         .then((datos) => {
-          let mes =
-            new Date(datos.body.fechaCierre).getMonth() + (movimiento || 0)
+          let fechaCierreSegunOrden = new Date(datos.body.fechaCierre)
+          let anio = fechaCierreSegunOrden.getFullYear()
+          let mes = fechaCierreSegunOrden.getMonth() + (movimiento || 0)
+          mes = new Date(anio, mes).getMonth()
           this.mes = MESES_DEL_ANIO[mes]
         })
         .catch((error) => {
