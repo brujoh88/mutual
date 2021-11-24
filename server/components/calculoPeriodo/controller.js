@@ -43,7 +43,7 @@ const MOVIMIENTO_SEGUN_DIA_SEMANA_AGUINALDO = {
 }
 
 const calcularPeriodo = (fechaActual) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let anioActual = fechaActual.getFullYear()
     let mesActual = fechaActual.getMonth()
     let diaActual = fechaActual.getDate()
@@ -101,6 +101,29 @@ const calcularPeriodo = (fechaActual) => {
         )
       }
     }
+
+    //! Caso particular pedido por EL SINDICATO=========================
+    if (
+      fechaActual.getMonth() === 10 &&
+      diaActual > 13 &&
+      anioActual === 2021
+    ) {
+      fechaCierre = new Date(anioActual, fechaActual.getMonth() + 1, 12)
+    } else if (
+      fechaActual.getMonth() === 11 &&
+      anioActual === 2021 &&
+      diaActual <= 12
+    ) {
+      fechaCierre = new Date(anioActual, fechaActual.getMonth(), 12)
+      fechaApertura = new Date(2021, 10, 13)
+    } else if (
+      fechaActual.getMonth() === 11 &&
+      anioActual === 2021 &&
+      diaActual > 12
+    ) {
+      fechaApertura = new Date(anioActual, fechaActual.getMonth(), 12)
+    }
+    //!FIN=============================================================
     resolve({
       fecha: fechaActual,
       diaActual,
