@@ -1,3 +1,7 @@
+const CONFIG = require('./helpers')
+let fechaApertura
+let fechaCierre
+
 const DIA_SEMANA = {
   0: 'Domingo',
   1: 'Lunes',
@@ -42,14 +46,45 @@ const MOVIMIENTO_SEGUN_DIA_SEMANA_AGUINALDO = {
   Sabado: 1,
 }
 
+const formatearFecha = (fecha) => {
+  return {
+    anioActual: fecha.getFullYear(),
+    mesActual: fecha.getMonth(),
+    diaActual: fecha.getDate(),
+    diaSemanaActual: fecha.getDay(),
+  }
+}
+
+const isCustomDay = (fecha) => {
+  const fechaHoraCero = new Date(
+    fecha.getFullYear(),
+    fecha.getMonth(),
+    fecha.getDate()
+  )
+  const { ...days } = CONFIG
+  const cantIterar = Object.keys(days).length
+
+  for (let i = 0; i < cantIterar; i++) {
+    if (
+      fechaHoraCero -
+        new Date(days[i][0].anio, days[i][0].mes, days[i][0].dia) >
+        0 &&
+      fechaHoraCero -
+        new Date(days[i][1].anio, days[i][1].mes, days[i][1].dia) <=
+        0
+    ) {
+      fechaApertura = new Date(days[i][0].anio, days[i][0].mes, days[i][0].dia)
+      fechaCierre = new Date(days[i][1].anio, days[i][1].mes, days[i][1].dia)
+    }
+  }
+}
+
 const calcularPeriodo = (fechaActual) => {
   return new Promise((resolve) => {
-    let anioActual = fechaActual.getFullYear()
-    let mesActual = fechaActual.getMonth()
-    let diaActual = fechaActual.getDate()
-    let diaSemanaActual = fechaActual.getDay()
-    let fechaApertura
-    let fechaCierre
+    let { anioActual, mesActual, diaActual, diaSemanaActual } = formatearFecha(
+      fechaActual
+    )
+
     if (mesActual == 5 || mesActual == 11) {
       let numeroSemanaDiaCinco = new Date(anioActual, mesActual, 5).getDay()
       let diaSemanaDelCinco = DIA_SEMANA[numeroSemanaDiaCinco]
@@ -101,29 +136,7 @@ const calcularPeriodo = (fechaActual) => {
         )
       }
     }
-
-    //! Caso particular pedido por EL SINDICATO=========================
-    if (
-      fechaActual.getMonth() === 10 &&
-      diaActual > 13 &&
-      anioActual === 2021
-    ) {
-      fechaCierre = new Date(anioActual, fechaActual.getMonth() + 1, 12)
-    } else if (
-      fechaActual.getMonth() === 11 &&
-      anioActual === 2021 &&
-      diaActual <= 12
-    ) {
-      fechaCierre = new Date(anioActual, fechaActual.getMonth(), 12)
-      fechaApertura = new Date(2021, 10, 13)
-    } else if (
-      fechaActual.getMonth() === 11 &&
-      anioActual === 2021 &&
-      diaActual > 12
-    ) {
-      fechaApertura = new Date(anioActual, fechaActual.getMonth(), 12)
-    }
-    //!FIN=============================================================
+    isCustomDay(fechaActual)
     resolve({
       fecha: fechaActual,
       diaActual,
