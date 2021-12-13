@@ -1,5 +1,4 @@
 const Cuota = require('../../models/cuota')
-const _ = require('underscore')
 
 const getCuotasDB = () => {
   return new Promise((resolve, reject) => {
@@ -40,8 +39,8 @@ const getCuotaDB = (id) => {
 const getCuotasByUserDB = (id) => {
   return new Promise((resolve, reject) => {
     let dia = new Date()
-    anioActual = dia.getFullYear()
-    mesActual = dia.getMonth()
+    let anioActual = dia.getFullYear()
+    let mesActual = dia.getMonth()
 
     Cuota.find({
       _afiliado: id,

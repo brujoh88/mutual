@@ -274,7 +274,7 @@ export default {
       mes = String(mes)
       if (!item || type !== 'row') return
       if (mes < 10) {
-        if (item.periodo[0] == mes) {
+        if (item.periodo[0] == mes && item.periodo[1] === '/') {
           return 'table-warning'
         }
       } else {
@@ -354,7 +354,10 @@ export default {
             mesAdescontar = String(mesAdescontar)
             for (let i = 0; i < datos.body.length; i++) {
               if (mesAdescontar < 10) {
-                if (datos.body[i].periodo[0] == mesAdescontar) {
+                if (
+                  datos.body[i].periodo[0] == mesAdescontar &&
+                  datos.body[i].periodo[1] === '/'
+                ) {
                   this.acumulador = this.acumulador + datos.body[i].monto
                 }
               } else {
