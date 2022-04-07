@@ -12,7 +12,7 @@ module.exports = {
     { dia: 12, mes: 1, anio: 2022 },
   ],
   3: [
-    { dia: 13, mes: 2, anio: 2022 },
+    { dia: 12, mes: 2, anio: 2022 },
     { dia: 10, mes: 3, anio: 2022 },
   ],
   4: [
