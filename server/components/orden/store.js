@@ -1,5 +1,4 @@
 const Orden = require('../../models/orden')
-const _ = require('underscore')
 
 const getOrdenesDB = () => {
   return new Promise((resolve, reject) => {

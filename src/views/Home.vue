@@ -233,6 +233,7 @@ export default {
                                     _proovedor: datos.body[0]._id,
                                     montoTotal: this.montoCuota,
                                     cantidadCuota: 1,
+                                    porcentaje: 0,
                                   }),
                                 })
                                   .then((response) => response.json())
@@ -247,7 +248,7 @@ export default {
                                         _orden: resp.body._id,
                                         monto: this.montoCuota,
                                         periodo: new Date(anio, mesPeriodo),
-                                        detalle: 'fija',
+                                        detalle: 'CUOTA FIJA',
                                       }),
                                     })
                                       .then((response) => response.json())
