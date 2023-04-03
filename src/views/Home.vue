@@ -153,7 +153,7 @@ export default {
                       return response.json()
                     })
                     .then((afiliados) => {
-                      console.log('Afiliados con autocuota ', afiliados.body)
+                      console.log('Afiliados con autocuota ', afiliados.body.length)
                       /*
               ==========================================
               ===========TAER/CREA=CUOTAS=FIJAS==============
@@ -167,7 +167,7 @@ export default {
                       )
                         .then((response) => response.json())
                         .then((cuotasFijas) => {
-                          console.log('CUOTAS FIJAS ', cuotasFijas.body)
+                          console.log('CUOTAS FIJAS ', cuotasFijas.body.length)
                           if (cuotasFijas.body == null) {
                             for (let i = 0; i < afiliados.body.length; i++) {
                               fetch('http://localhost:3000/orden', {
