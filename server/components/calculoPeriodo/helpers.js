@@ -19,4 +19,12 @@ module.exports = {
     { dia: 8, mes: 8, anio: 2022 },
     { dia: 15, mes: 9, anio: 2022 },
   ],
+  5: [
+    { dia: 11, mes: 2, anio: 2023 },
+    { dia: 12, mes: 3, anio: 2023 },
+  ],
+  6: [
+    { dia: 12, mes: 3, anio: 2023 },
+    { dia: 13, mes: 4, anio: 2023 },
+  ],
 }
