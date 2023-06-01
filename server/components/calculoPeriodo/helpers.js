@@ -27,4 +27,34 @@ module.exports = {
     { dia: 12, mes: 3, anio: 2023 },
     { dia: 13, mes: 4, anio: 2023 },
   ],
-}
+  7: [
+    { dia: 14, mes: 4, anio: 2023 },
+    { dia: 3, mes: 5, anio: 2023 },
+  ],
+  8: [
+    { dia: 3, mes: 5, anio: 2023 },
+    { dia: 15, mes: 6, anio: 2023 },
+  ],
+};
+/* 
+!Periodo anterior
+Apertura: 14/5/2023
+
+Cierre: 5/6/2023 
+
+!Período Periodo Siguiente
+Apertura: 6/6/2023
+
+Cierre: 15/7/2023
+
+Si quiero que cierre el primer periodo el dia 3/6/2023 modifico asi
+
+7: [
+    { dia: 14, mes: 4, anio: 2023 },
+    { dia: 3, mes: 5, anio: 2023 },
+  ],
+  8: [
+    { dia: 3, mes: 5, anio: 2023 },
+    { dia: 15, mes: 6, anio: 2023 },
+  ],
+*/
