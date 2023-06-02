@@ -28,7 +28,7 @@ module.exports = {
     { dia: 13, mes: 4, anio: 2023 },
   ],
   7: [
-    { dia: 14, mes: 4, anio: 2023 },
+    { dia: 13, mes: 4, anio: 2023 },
     { dia: 3, mes: 5, anio: 2023 },
   ],
   8: [
@@ -37,20 +37,43 @@ module.exports = {
   ],
 };
 /* 
-!Periodo anterior
+Ejemplo de uso
+
+-------ESTO ESTA EN LA PANTALLA---------
+
+!Periodo actual
+
 Apertura: 14/5/2023
 
 Cierre: 5/6/2023 
 
-!Período Periodo Siguiente
+!Período siguiente
+
 Apertura: 6/6/2023
 
 Cierre: 15/7/2023
 
-Si quiero que cierre el primer periodo el dia 3/6/2023 modifico asi
+-------FIN ESTA EN LA PANTALLA---------
+
+Periodo real:
+
+14/5/2023         5/6/2023         15/7/2023 
+  |___________________|_________________|
+
+Periodo requerido:
+
+14/5/2023       3/6/2023           15/7/2023 
+  |________________|___________________|
+
+Si quiero que cierre el primer periodo el dia 3/6/2023 y el siguiente abra el 4/6/2023:
+1- Tengo en cuenta que los meses deben ser del 0 al 11
+2 -Los días que observo en pantalla, para la fecha de inicio tiene un dia sumado, osea si veo como apertura
+14/5/2023, significa que el sistema pasa por dato dia:13 mes:4 anio:2023
+
+Teniendo en cuenta estas consideracions
 
 7: [
-    { dia: 14, mes: 4, anio: 2023 },
+    { dia: 13, mes: 4, anio: 2023 },
     { dia: 3, mes: 5, anio: 2023 },
   ],
   8: [
