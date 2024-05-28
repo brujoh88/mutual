@@ -43,6 +43,14 @@ module.exports = {
     { dia: 7, mes: 11, anio: 2023 },
     { dia: 13, mes: 0, anio: 2024 },
   ],
+  11: [
+    { dia: 11, mes: 4, anio: 2024 },
+    { dia: 1, mes: 5, anio: 2024 },
+  ],
+  12: [
+    { dia: 1, mes: 5, anio: 2024 },
+    { dia: 13, mes: 6, anio: 2024 },
+  ],
 };
 /* 
 Ejemplo de uso
