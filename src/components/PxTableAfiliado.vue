@@ -13,7 +13,7 @@
             <b-input-group>
               <b-form-input
                 id="filter-input"
-                placeholder="Ingrese el dato que desea encontrar"
+                placeholder="Buscar por nombre o legajo"
                 v-model="filter"
                 type="search"
               ></b-form-input>
@@ -38,6 +38,7 @@
         sticky-header
         filter-debounce="1000"
         :filter="filter"
+        :filter-function="filterLegajoYNombre"
         :items="items"
         :fields="fields"
         :tbody-tr-class="rowClass"
@@ -144,6 +145,19 @@ export default {
           this.items[i].autoCuota = 'NO'
         }
       }
+    },
+    /* ######## Filtro de búsqueda ############*/
+    filterLegajoYNombre(item, filter) {
+      if (!filter) return true; // Sin filtro, mostrar todos los elementos
+      
+      filter = filter.toLowerCase();
+      
+      // Buscar solo en los campos legajo y apellido_nombre
+      const legajoMatch = item.legajo && String(item.legajo).toLowerCase().includes(filter);
+      const nombreMatch = item.apellido_nombre && String(item.apellido_nombre).toLowerCase().includes(filter);
+      
+      // Si coincide con cualquiera de los dos campos, mostrar el elemento
+      return legajoMatch || nombreMatch;
     },
     rowClass() {
       /*rowClass(item, type) {
