@@ -67,6 +67,14 @@ module.exports = {
     { dia: 10, mes: 4, anio: 2025 },
     { dia: 10, mes: 5, anio: 2025 },
   ],
+  17: [
+    { dia: 11, mes: 9, anio: 2025 },
+    { dia: 8, mes: 10, anio: 2025 },
+  ],
+  18: [
+    { dia: 8, mes: 10, anio: 2025 },
+    { dia: 7, mes: 11, anio: 2025 },
+  ],
 };
 /* 
 Ejemplo de uso
