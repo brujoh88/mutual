@@ -37,7 +37,7 @@
         </router-link>
       </template>
     </b-table>
-    <h5>Subtotal ${{ subTotal }}</h5>
+    <h5>Subtotal ${{ subTotal.toFixed(2) }}</h5>
   </b-container>
 </template>
 
